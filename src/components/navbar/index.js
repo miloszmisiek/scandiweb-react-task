@@ -15,6 +15,7 @@ import {
 import logo from "../../assets/logo/logo.svg";
 import cart from "../../assets/logo/cart-logo.svg";
 import vector from "../../assets/logo/vector.svg";
+import { NavLink } from "react-router-dom";
 
 export class Navbar extends Component {
   //   constructor() {
@@ -26,12 +27,14 @@ export class Navbar extends Component {
       <NavbarContainer>
         <NavbarInnerContainer>
           <NavbarLeftContainer>
-            <Category>Clothes</Category>
-            <Category>Tech</Category>
-            <Category>All</Category>
+            <Category to={"/clothes"}>Clothes</Category>
+            <Category to={"/tech"}>Tech</Category>
+            <Category to={"/all"}>All</Category>
           </NavbarLeftContainer>
           <Logo>
-            <img src={logo} alt="Logo"/>
+            <NavLink to="/">
+              <img src={logo} alt="Logo" />
+            </NavLink>
           </Logo>
           <NavbarRightContainer>
             <Currency>
@@ -39,7 +42,9 @@ export class Navbar extends Component {
               <img src={vector} alt="Chevron down icon" />
             </Currency>
             <Basket>
-              <img src={cart}alt="Cart icon"/>
+              <NavLink to="/cart">
+                <img src={cart} alt="Cart icon" />
+              </NavLink>
             </Basket>
           </NavbarRightContainer>
         </NavbarInnerContainer>

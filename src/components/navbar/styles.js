@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const NavbarContainer = styled.nav`
@@ -6,6 +7,10 @@ export const NavbarContainer = styled.nav`
   /* background-color: black; */
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1102px) {
+    
+  }
 `;
 
 export const NavbarLeftContainer = styled.div`
@@ -13,6 +18,10 @@ export const NavbarLeftContainer = styled.div`
   align-items: center;
   width: 100%;
   /* background-color: red; */
+  gap: 1rem;
+  flex: 1;
+  /* max-width: 25%; */
+  height: 100%;
 `;
 
 export const NavbarRightContainer = styled.div`
@@ -20,17 +29,19 @@ export const NavbarRightContainer = styled.div`
   align-items: center;
   width: 100%;
   justify-content: flex-end;
+  flex: 1;
+  /* max-width: 25%; */
   /* background-color: salmon; */
 `;
 
 export const NavbarInnerContainer = styled.div`
   display: flex;
-  padding: 0 3rem;
+  padding: 0 101px;
   align-items: center;
   height: 80px;
 `;
 
-export const Category = styled.h2`
+export const Category = styled(NavLink)`
   display: flex;
   align-items: center;
   text-align: center;
@@ -38,15 +49,24 @@ export const Category = styled.h2`
   text-transform: uppercase;
   font-family: "Raleway", sans-serif;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 120%;
-  color: #5ece7b;
+  color: black;
+  height: 100%;
+
+  &.active {
+    color: #5ece7b;
+    font-weight: 600;
+    border-bottom: 2px solid #5ece7b;
+  }
 `;
 
 export const Logo = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  flex: 2;
+  /* max-width: 50%; */
   /* background-color: beige; */
 `;
 
