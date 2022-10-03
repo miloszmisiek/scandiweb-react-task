@@ -1,16 +1,37 @@
 import React, { Component } from "react";
 import Dropdown from "./dropdownMenu";
-import { Currency } from "./style";
+import { Currency, CurrencyChoice } from "./style";
 import chevronDown from "../../assets/logo/vector.svg";
 import chevronUp from "../../assets/logo/chevron-up.svg";
+import { getCurrencies } from "../../queries/queries";
+import { withRouter } from "react-router";
 
 export class CurrencyConverter extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isExpanded: false,
+      currencyDisplay: "",
+      currencies: {},
     };
     this.stateHandler = this.stateHandler.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.accessClient
+      .query({
+        query: getCurrencies,
+      })
+      .then((result) =>
+        this.setState(
+          (prev) => ({
+            ...prev,
+            currencies: result.data.currencies,
+            currencyDisplay: result.data.currencies[0].symbol,
+          }),
+          () => this.props.setCurrency(this.state.currencyDisplay)
+        )
+      );
   }
 
   stateHandler() {
@@ -25,21 +46,37 @@ export class CurrencyConverter extends Component {
     }));
   }
 
+  handleCurrencyClick = (e) => {
+    this.setState(
+      (prev) => ({
+        ...prev,
+        currencyDisplay: e.target.dataset.symbol,
+      }),
+      () => this.props.setCurrency(this.state.currencyDisplay)
+    );
+  };
+
   render() {
     return (
       <>
         <Currency id="toggle" onClick={() => this.handleClick()}>
           {this.props.children}
-          $
+          {this.state.currencyDisplay}
           <img
             src={this.state.isExpanded ? chevronUp : chevronDown}
             alt="Chevron down icon"
           />
           {this.state.isExpanded && (
             <Dropdown stateHandler={this.stateHandler}>
-              <div>$ USD</div>
-              <div>&#x20AC; EUR</div>
-              <div>&#165; JPY</div>
+              {this.state.currencies.map((curr) => (
+                <CurrencyChoice
+                  key={curr.label}
+                  onClick={this.handleCurrencyClick}
+                  data-symbol={curr.symbol}
+                >
+                  {curr.symbol} {curr.label}
+                </CurrencyChoice>
+              ))}
             </Dropdown>
           )}
         </Currency>
@@ -48,4 +85,4 @@ export class CurrencyConverter extends Component {
   }
 }
 
-export default CurrencyConverter;
+export const CurrencyConverterWithRouter = withRouter(CurrencyConverter);

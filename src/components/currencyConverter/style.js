@@ -13,11 +13,15 @@ export const Currency = styled.div`
   position: relative;
 `;
 
-export const DropdownMenu = styled.div`
-  position: absolute;
-  top: 3rem;
-  right: 0;
-  border: 1px solid black;
-  /* height: 169px; */
-  width: 114px;
+export const CurrencyChoice = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(238, 238, 238, 1);
+  }
 `;

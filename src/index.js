@@ -7,7 +7,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
 } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
 
@@ -20,7 +19,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+        <App />
     </BrowserRouter>
   </ApolloProvider>
 );

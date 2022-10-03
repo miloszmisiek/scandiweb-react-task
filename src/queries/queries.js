@@ -1,4 +1,4 @@
-import { useQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 const getProducts = gql`
   query {
@@ -13,4 +13,13 @@ const getProducts = gql`
   }
 `;
 
-export { getProducts };
+const getCurrencies = gql`
+  query {
+    currencies {
+      label
+      symbol
+    }
+  }
+`;
+
+export { getProducts, getCurrencies };

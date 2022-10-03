@@ -11,12 +11,11 @@ import {
 import logo from "../../assets/logo/logo.svg";
 import cart from "../../assets/logo/cart-logo.svg";
 import { NavLink } from "react-router-dom";
-import CurrencyConverter from "../currencyConverter";
+import { CurrencyConverterWithRouter } from "../currencyConverter";
+import { ApolloConsumer } from "@apollo/client";
+import { GlobalStatesContext } from "../../contexts/GlobalStates";
 
 export class Navbar extends Component {
-  //   constructor() {
-  //     this.state;
-  //   }
 
   render() {
     return (
@@ -33,11 +32,18 @@ export class Navbar extends Component {
             </NavLink>
           </Logo>
           <NavbarRightContainer>
-            {/* <Currency>
-              $
-              <img src={vector} alt="Chevron down icon" />
-            </Currency> */}
-            <CurrencyConverter/>
+            <ApolloConsumer>
+              {(client) => (
+                <GlobalStatesContext.Consumer>
+                  {({ currency, setCurrency }) => (
+                    <CurrencyConverterWithRouter
+                      setCurrency={setCurrency}
+                      accessClient={client}
+                    />
+                  )}
+                </GlobalStatesContext.Consumer>
+              )}
+            </ApolloConsumer>
             <Basket>
               <img src={cart} alt="Cart icon" />
             </Basket>

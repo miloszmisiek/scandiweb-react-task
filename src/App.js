@@ -1,44 +1,42 @@
 import "./App.css";
-// import { useQuery, gql } from "@apollo/client";
-import { Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { Main } from "./StyledApp";
-
-// function DisplayProducts() {
-//   const { loading, error, data } = useQuery(GET_PRODUCTS);
-//   data ? console.log(data.category.products) : console.log("nothing");
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>Error :</p>;
-
-//   return data.category.products.map(({ id, name, inStock, category }) => (
-//     <div key={id}>
-//       <h3>{name}</h3>
-//       <br />
-//       <b>In stock:</b>
-//       <p>{inStock ? "Yes" : "No"}</p>
-//       <br />
-//       <b>Category:</b>
-//       <p>{category}</p>
-//     </div>
-//   ));
-// }
+import GlobalStates, { GlobalStatesContext } from "./contexts/GlobalStates";
 
 function App() {
   return (
     <div className="App">
       {/* <DisplayProducts /> */}
       <div>
-        <Navbar />
-        <Main>
-          <Routes>
-            <Route path="/" element={<h1>Home page</h1>} />
-            <Route path="/clothes" element={<h1>Clothes</h1>} />
-            <Route path="/tech" element={<h1>Tech</h1>} />
-            <Route path="/all" element={<h1>All</h1>} />
-            <Route path="/cart" element={<h1>Cart</h1>} />
-          </Routes>
-        </Main>
+        <GlobalStates>
+          <Navbar />
+          <Main>
+            <Switch>
+              <Route exact path="/" render={() => <h1>Home page</h1>} />
+              <Route
+                exact
+                path="/clothes/"
+                render={() => (
+                  <GlobalStatesContext.Consumer>
+                    {({ currency }) => <h1>{currency}</h1>}
+                  </GlobalStatesContext.Consumer>
+                )}
+              />
+              <Route
+                exact
+                path="/tech/"
+                render={() => <h1>Tech</h1>}
+              />
+              <Route exact path="/all/" render={() => <h1>All</h1>} />
+              <Route
+                exact
+                path="/cart/"
+                render={() => <h1>Cart</h1>}
+              />
+            </Switch>
+          </Main>
+        </GlobalStates>
       </div>
     </div>
   );

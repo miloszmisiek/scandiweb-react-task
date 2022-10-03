@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import { DropdownMenu } from "../style";
+import { DropdownMenu } from "./style";
 
 export class Dropdown extends Component {
   constructor(props) {
