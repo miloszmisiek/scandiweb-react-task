@@ -3,6 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { Main } from "./StyledApp";
 import GlobalStates, { GlobalStatesContext } from "./contexts/GlobalStates";
+import { getCategories } from "./queries/queries";
+import { Query } from "@apollo/client/react/components";
+// import QueryCategories from "./components/QueryCategories";
 
 function App() {
   return (
@@ -14,26 +17,46 @@ function App() {
           <Main>
             <Switch>
               <Route exact path="/" render={() => <h1>Home page</h1>} />
-              <Route
-                exact
-                path="/clothes/"
-                render={() => (
-                  <GlobalStatesContext.Consumer>
-                    {({ currency }) => <h1>{currency}</h1>}
-                  </GlobalStatesContext.Consumer>
-                )}
-              />
-              <Route
-                exact
-                path="/tech/"
-                render={() => <h1>Tech</h1>}
-              />
-              <Route exact path="/all/" render={() => <h1>All</h1>} />
-              <Route
-                exact
-                path="/cart/"
-                render={() => <h1>Cart</h1>}
-              />
+              <Query query={getCategories}>
+                {({ data, loading, error }) => {
+                  if (loading) return <p>Loading…</p>;
+                  if (error) return <p>Something went wrong</p>;
+                  return data.categories?.map((category) => (
+                    <Route
+                      key={category.name}
+                      exact
+                      path={`/${category.name}/`}
+                      render={() => (
+                        <GlobalStatesContext.Consumer>
+                          {({ currency }) => (
+                            <h1>
+                              {currency}
+                              {category.name}
+                            </h1>
+                          )}
+                        </GlobalStatesContext.Consumer>
+                      )}
+                    />
+                  ));
+                }}
+              </Query>
+              {/* <QueryCategories>
+                <Route
+                  key={this.props?.category.name}
+                  exact
+                  path={`/${this.props?.category.name}/`}
+                  render={() => (
+                    <GlobalStatesContext.Consumer>
+                      {({ currency }) => (
+                        <h1>
+                          {currency}
+                          {this.props?.category.name}
+                        </h1>
+                      )}
+                    </GlobalStatesContext.Consumer>
+                  )}
+                />
+              </QueryCategories> */}
             </Switch>
           </Main>
         </GlobalStates>

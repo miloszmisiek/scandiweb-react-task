@@ -16,13 +16,12 @@ import { ApolloConsumer } from "@apollo/client";
 import { GlobalStatesContext } from "../../contexts/GlobalStates";
 
 export class Navbar extends Component {
-
   render() {
     return (
       <NavbarContainer>
         <NavbarInnerContainer>
           <NavbarLeftContainer>
-            <Category to={"/clothes"}>Clothes</Category>
+            <Category to={"/clothes/"}>Clothes</Category>
             <Category to={"/tech"}>Tech</Category>
             <Category to={"/all"}>All</Category>
           </NavbarLeftContainer>
@@ -35,7 +34,7 @@ export class Navbar extends Component {
             <ApolloConsumer>
               {(client) => (
                 <GlobalStatesContext.Consumer>
-                  {({ currency, setCurrency }) => (
+                  {({ setCurrency }) => (
                     <CurrencyConverterWithRouter
                       setCurrency={setCurrency}
                       accessClient={client}

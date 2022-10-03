@@ -58,29 +58,27 @@ export class CurrencyConverter extends Component {
 
   render() {
     return (
-      <>
-        <Currency id="toggle" onClick={() => this.handleClick()}>
-          {this.props.children}
-          {this.state.currencyDisplay}
-          <img
-            src={this.state.isExpanded ? chevronUp : chevronDown}
-            alt="Chevron down icon"
-          />
-          {this.state.isExpanded && (
-            <Dropdown stateHandler={this.stateHandler}>
-              {this.state.currencies.map((curr) => (
-                <CurrencyChoice
-                  key={curr.label}
-                  onClick={this.handleCurrencyClick}
-                  data-symbol={curr.symbol}
-                >
-                  {curr.symbol} {curr.label}
-                </CurrencyChoice>
-              ))}
-            </Dropdown>
-          )}
-        </Currency>
-      </>
+      <Currency id="toggle" onClick={() => this.handleClick()}>
+        {this.props.children}
+        {this.state.currencyDisplay}
+        <img
+          src={this.state.isExpanded ? chevronUp : chevronDown}
+          alt="Chevron down icon"
+        />
+        {this.state.isExpanded && (
+          <Dropdown stateHandler={this.stateHandler}>
+            {this.state.currencies.map((curr) => (
+              <CurrencyChoice
+                key={curr.label}
+                onClick={this.handleCurrencyClick}
+                data-symbol={curr.symbol}
+              >
+                {curr.symbol} {curr.label}
+              </CurrencyChoice>
+            ))}
+          </Dropdown>
+        )}
+      </Currency>
     );
   }
 }

@@ -22,4 +22,12 @@ const getCurrencies = gql`
   }
 `;
 
-export { getProducts, getCurrencies };
+const getCategories = gql`
+  query {
+    categories {
+      name
+    }
+  }
+`;
+
+export { getProducts, getCurrencies, getCategories };
