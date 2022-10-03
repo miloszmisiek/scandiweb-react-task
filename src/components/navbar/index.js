@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import {
   Basket,
-  Categories,
   Category,
-  Currency,
-  CurrencyBasket,
   Logo,
-  NavBar,
   NavbarContainer,
   NavbarInnerContainer,
   NavbarLeftContainer,
@@ -14,8 +10,8 @@ import {
 } from "./styles";
 import logo from "../../assets/logo/logo.svg";
 import cart from "../../assets/logo/cart-logo.svg";
-import vector from "../../assets/logo/vector.svg";
 import { NavLink } from "react-router-dom";
+import CurrencyConverter from "../currencyConverter";
 
 export class Navbar extends Component {
   //   constructor() {
@@ -37,14 +33,13 @@ export class Navbar extends Component {
             </NavLink>
           </Logo>
           <NavbarRightContainer>
-            <Currency>
+            {/* <Currency>
               $
               <img src={vector} alt="Chevron down icon" />
-            </Currency>
+            </Currency> */}
+            <CurrencyConverter/>
             <Basket>
-              <NavLink to="/cart">
-                <img src={cart} alt="Cart icon" />
-              </NavLink>
+              <img src={cart} alt="Cart icon" />
             </Basket>
           </NavbarRightContainer>
         </NavbarInnerContainer>

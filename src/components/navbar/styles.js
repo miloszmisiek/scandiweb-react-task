@@ -9,7 +9,7 @@ export const NavbarContainer = styled.nav`
   flex-direction: column;
 
   @media (max-width: 1102px) {
-    
+
   }
 `;
 
@@ -70,15 +70,11 @@ export const Logo = styled.div`
   /* background-color: beige; */
 `;
 
-export const Currency = styled.div`
-  display: flex;
-  margin-right: 1rem;
-  font-size: 1.5rem;
-  align-items: baseline;
-  gap: 0.5rem;
-`;
-
-export const Basket = styled.div`
+export const Basket = styled.button`
   display: flex;
   font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
 `;
