@@ -9,7 +9,6 @@ export const NavbarContainer = styled.nav`
   flex-direction: column;
 
   @media (max-width: 1102px) {
-
   }
 `;
 
@@ -30,6 +29,7 @@ export const NavbarRightContainer = styled.div`
   width: 100%;
   justify-content: flex-end;
   flex: 1;
+  position: relative;
   /* max-width: 25%; */
   /* background-color: salmon; */
 `;
@@ -70,3 +70,11 @@ export const Logo = styled.div`
   /* background-color: beige; */
 `;
 
+export const Overlay = styled.div`
+  z-index: 1040;
+  background: rgba(57, 55, 72, 0.22);
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 80px);
+`;

@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Basket } from "./style";
+import {
+  Basket,
+  CartPrevButton,
+  CartPrevButtons,
+  CartPrevTitle,
+  MyBag,
+} from "./style";
 import cart from "../../../assets/logo/cart-logo.svg";
 import Dropdown from "../../currencyConverter/dropdownMenu";
 
@@ -9,14 +15,15 @@ export class CartPreview extends Component {
     this.state = {
       isExpanded: false,
     };
-    this.stateHandler = this.stateHandler.bind(this);
+    this.handleExpanded = this.handleExpanded.bind(this);
   }
 
-  stateHandler(event) {
+  handleExpanded(event) {
     if (event.target.id !== "basketToggle") {
-      this.setState({
+      this.setState((prevState) => ({
+        ...prevState,
         isExpanded: false,
-      });
+      }));
     }
   }
 
@@ -28,11 +35,45 @@ export class CartPreview extends Component {
 
   render() {
     return (
-      <Basket onClick={() => this.handleClick()}>
-        <img id="basketToggle" src={cart} alt="Cart icon" />
+      <Basket>
+        <img
+          id="basketToggle"
+          src={cart}
+          alt="Cart icon"
+          onClick={() => {
+            this.handleClick();
+            this.props.stateHandler();
+          }}
+        />
         {this.state.isExpanded && (
-          <Dropdown stateHandler={this.stateHandler}>
-            text
+          <Dropdown
+            stateHandler={this.handleExpanded}
+            overlayHandler={this.props.stateHandler}
+            cart
+          >
+            <CartPrevTitle>
+              <MyBag bag>My Bag</MyBag>
+              <MyBag>3 items</MyBag>
+            </CartPrevTitle>
+            <CartPrevButtons>
+              <CartPrevButton
+                onClick={() => {
+                  this.handleClick();
+                  this.props.stateHandler();
+                }}
+              >
+                VIEW BAG
+              </CartPrevButton>
+              <CartPrevButton
+                checkout
+                onClick={() => {
+                  this.handleClick();
+                  this.props.stateHandler();
+                }}
+              >
+                CHECKOUT
+              </CartPrevButton>
+            </CartPrevButtons>
           </Dropdown>
         )}
       </Basket>

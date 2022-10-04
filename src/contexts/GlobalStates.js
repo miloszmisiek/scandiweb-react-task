@@ -6,14 +6,19 @@ export const GlobalStatesContext = createContext({
   setCurrency: () => {},
 });
 class GlobalStates extends Component {
-
   setCurrency = (currency) => {
-    this.setState({ currency });
+    this.setState((prevState) => ({ ...prevState, currency: currency }));
+  };
+
+  setOverlayVisibile = (visible) => {
+    this.setState((prevState) => ({ ...prevState, overlayVisibile: visible }));
   };
 
   state = {
     currency: "$",
+    overlayVisibile: false,
     setCurrency: this.setCurrency,
+    setOverlayVisibile: this.setOverlayVisibile,
   };
 
   render() {
