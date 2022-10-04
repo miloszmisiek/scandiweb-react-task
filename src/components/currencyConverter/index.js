@@ -34,10 +34,12 @@ export class CurrencyConverter extends Component {
       );
   }
 
-  stateHandler() {
-    this.setState({
-      isExpanded: false,
-    });
+  stateHandler(event) {
+    if (event.target.id !== "toggle") {
+      this.setState({
+        isExpanded: false,
+      });
+    }
   }
 
   handleClick() {
@@ -58,7 +60,7 @@ export class CurrencyConverter extends Component {
 
   render() {
     return (
-      <Currency id="toggle" onClick={() => this.handleClick()}>
+      <Currency id="toggle" onClick={(e) => this.handleClick(e)}>
         {this.props.children}
         {this.state.currencyDisplay}
         <img
@@ -66,7 +68,7 @@ export class CurrencyConverter extends Component {
           alt="Chevron down icon"
         />
         {this.state.isExpanded && (
-          <Dropdown stateHandler={this.stateHandler}>
+          <Dropdown id="currency-dropdown" stateHandler={this.stateHandler}>
             {this.state.currencies.map((curr) => (
               <CurrencyChoice
                 key={curr.label}

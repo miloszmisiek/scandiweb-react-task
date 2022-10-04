@@ -70,11 +70,3 @@ export const Logo = styled.div`
   /* background-color: beige; */
 `;
 
-export const Basket = styled.button`
-  display: flex;
-  font-size: 1.5rem;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-`;

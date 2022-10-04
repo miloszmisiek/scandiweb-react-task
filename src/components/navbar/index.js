@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Basket,
   Category,
   Logo,
   NavbarContainer,
@@ -9,11 +8,12 @@ import {
   NavbarRightContainer,
 } from "./styles";
 import logo from "../../assets/logo/logo.svg";
-import cart from "../../assets/logo/cart-logo.svg";
+
 import { NavLink } from "react-router-dom";
 import { CurrencyConverterWithRouter } from "../currencyConverter";
 import { ApolloConsumer } from "@apollo/client";
 import { GlobalStatesContext } from "../../contexts/GlobalStates";
+import CartPreview from "../cart/cartPreview";
 
 export class Navbar extends Component {
   render() {
@@ -43,9 +43,7 @@ export class Navbar extends Component {
                 </GlobalStatesContext.Consumer>
               )}
             </ApolloConsumer>
-            <Basket>
-              <img src={cart} alt="Cart icon" />
-            </Basket>
+            <CartPreview />
           </NavbarRightContainer>
         </NavbarInnerContainer>
       </NavbarContainer>

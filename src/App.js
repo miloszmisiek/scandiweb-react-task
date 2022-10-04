@@ -5,7 +5,6 @@ import { Main } from "./StyledApp";
 import GlobalStates, { GlobalStatesContext } from "./contexts/GlobalStates";
 import { getCategories } from "./queries/queries";
 import { Query } from "@apollo/client/react/components";
-// import QueryCategories from "./components/QueryCategories";
 
 function App() {
   return (
@@ -40,23 +39,6 @@ function App() {
                   ));
                 }}
               </Query>
-              {/* <QueryCategories>
-                <Route
-                  key={this.props?.category.name}
-                  exact
-                  path={`/${this.props?.category.name}/`}
-                  render={() => (
-                    <GlobalStatesContext.Consumer>
-                      {({ currency }) => (
-                        <h1>
-                          {currency}
-                          {this.props?.category.name}
-                        </h1>
-                      )}
-                    </GlobalStatesContext.Consumer>
-                  )}
-                />
-              </QueryCategories> */}
             </Switch>
           </Main>
         </GlobalStates>

@@ -17,12 +17,8 @@ export class Dropdown extends Component {
   }
 
   handleClickOutside(event) {
-    if (
-      this.myRef &&
-      !this.myRef.current.contains(event.target) &&
-      event.target.id !== "toggle"
-    ) {
-      this.props.stateHandler();
+    if (this.myRef && !this.myRef.current.contains(event.target)) {
+      this.props.stateHandler(event);
     }
   }
   render() {
