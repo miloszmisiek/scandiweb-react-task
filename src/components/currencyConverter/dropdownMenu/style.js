@@ -10,10 +10,12 @@ export const DropdownMenu = styled.div`
   width: 100%;
   min-width: ${(props) => (props.cart ? "325px" : "114px")};
   height: fit-content;
+  max-height: ${(props) => (props.cart ? "677px" : undefined)};
+  overflow-y: auto;
   padding: ${(props) => (props.cart ? "1rem" : "1rem 0")};
   box-shadow: ${(props) =>
     props.cart ? undefined : "0px 4px 35px 0px rgba(168, 172, 176, 0.19)"};
   cursor: default;
-  z-index: ${(props) => (props.cart ? "1041" : undefined)}; ;
+  z-index: ${(props) => (props.cart ? "1041" : undefined)};
   background-color: #ffffff;
 `;

@@ -5,9 +5,11 @@ import {
   CartPrevButtons,
   CartPrevTitle,
   MyBag,
+  ProductsContainer,
 } from "./style";
 import cart from "../../../assets/logo/cart-logo.svg";
 import Dropdown from "../../currencyConverter/dropdownMenu";
+import ProductInfo from "../../product/productInfo";
 
 export class CartPreview extends Component {
   constructor(props) {
@@ -55,6 +57,11 @@ export class CartPreview extends Component {
               <MyBag bag>My Bag</MyBag>
               <MyBag>3 items</MyBag>
             </CartPrevTitle>
+            <ProductsContainer>
+              <ProductInfo />
+              <ProductInfo />
+              <ProductInfo />
+            </ProductsContainer>
             <CartPrevButtons>
               <CartPrevButton
                 onClick={() => {

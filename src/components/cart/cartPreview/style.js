@@ -1,12 +1,4 @@
 import styled from "styled-components";
-import { DropdownMenu } from "../../currencyConverter/dropdownMenu/style";
-
-export const CartDropdown = styled(DropdownMenu)`
-  left: auto;
-  transform: none;
-  right: -1rem;
-  top: 3rem;
-`;
 
 export const Basket = styled.div`
   display: flex;
@@ -36,6 +28,7 @@ export const CartPrevButtons = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
 `;
 
 export const CartPrevButton = styled.button`
@@ -55,4 +48,14 @@ export const CartPrevButton = styled.button`
   width: 100%;
   max-width: 48%;
   cursor: pointer;
+`;
+
+export const ProductsContainer = styled.div`
+  height: 100%;
+  max-height: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+  overflow-y: auto;
 `;
