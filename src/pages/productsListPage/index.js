@@ -6,9 +6,6 @@ import { getProducts } from "../../queries/queries";
 import { CategoryName, ProductsContainer } from "./style";
 
 export class ProductsListPage extends Component {
-  componentDidMount(){
-    console.log(this.props.currency, this.props.category.name)
-  }
   render() {
     return (
       <div>

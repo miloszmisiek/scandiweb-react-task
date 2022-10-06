@@ -23,21 +23,20 @@ export class CurrencyConverter extends Component {
       .query({
         query: getCurrencies,
       })
-      .then((result) =>
+      .then((result) => {
         this.setState(
-          (prev) => ({
-            ...prev,
+          (prevState) => ({
+            ...prevState,
             currencies: result.data.currencies,
-            currencyDisplay: result.data.currencies[0].symbol,
-            currencyCode: result.data.currencies[0].label,
           }),
           () =>
-            this.props.setCurrency(
-              this.state.currencyDisplay,
-              this.state.currencyCode
-            )
-        )
-      );
+            this.setState((prevState) => ({
+              ...prevState,
+              currencyDisplay: this.props.currency.symbol,
+              currencyCode: this.props.currency.code,
+            }))
+        );
+      });
   }
 
   stateHandler(event) {
@@ -66,12 +65,13 @@ export class CurrencyConverter extends Component {
           this.state.currencyDisplay,
           this.state.currencyCode
         );
-        this.props.history.push(
-          `/${this.props.location.pathname.split("/")[1]}/${
-            this.state.currencyCode
-          }`
-        )
-        }
+        !!this.props.location.pathname.split("/")[1] &&
+          this.props.history.push(
+            `/${this.props.location.pathname.split("/")[1]}/${
+              this.state.currencyCode
+            }`
+          );
+      }
     );
   };
 

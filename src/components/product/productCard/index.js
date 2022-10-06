@@ -22,10 +22,6 @@ export class ProductCard extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('mount');
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({

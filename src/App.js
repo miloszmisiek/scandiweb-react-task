@@ -18,7 +18,7 @@ function App() {
           <GlobalStatesContext.Consumer>
             {({ currency }) => (
               <>
-                <Navbar currency={currency} />
+                <Navbar currency={currency}/>
                 <Main>
                   <Switch>
                     <Route exact path="/" render={() => <h1>Home page</h1>} />

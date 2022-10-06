@@ -65,8 +65,9 @@ export class Navbar extends Component {
               <ApolloConsumer>
                 {(client) => (
                   <GlobalStatesContext.Consumer>
-                    {({ setCurrency }) => (
+                    {({ currency, setCurrency }) => (
                       <CurrencyConverterWithRouter
+                        currency={currency}
                         setCurrency={setCurrency}
                         accessClient={client}
                       />
