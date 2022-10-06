@@ -12,6 +12,7 @@ export class CurrencyConverter extends Component {
     this.state = {
       isExpanded: false,
       currencyDisplay: "",
+      currencyCode: "",
       currencies: {},
     };
     this.stateHandler = this.stateHandler.bind(this);
@@ -28,8 +29,13 @@ export class CurrencyConverter extends Component {
             ...prev,
             currencies: result.data.currencies,
             currencyDisplay: result.data.currencies[0].symbol,
+            currencyCode: result.data.currencies[0].label,
           }),
-          () => this.props.setCurrency(this.state.currencyDisplay)
+          () =>
+            this.props.setCurrency(
+              this.state.currencyDisplay,
+              this.state.currencyCode
+            )
         )
       );
   }
@@ -53,8 +59,19 @@ export class CurrencyConverter extends Component {
       (prev) => ({
         ...prev,
         currencyDisplay: e.target.dataset.symbol,
+        currencyCode: e.target.dataset.label,
       }),
-      () => this.props.setCurrency(this.state.currencyDisplay)
+      () => {
+        this.props.setCurrency(
+          this.state.currencyDisplay,
+          this.state.currencyCode
+        );
+        this.props.history.push(
+          `/${this.props.location.pathname.split("/")[1]}/${
+            this.state.currencyCode
+          }`
+        )
+        }
     );
   };
 
@@ -74,6 +91,7 @@ export class CurrencyConverter extends Component {
                 key={curr.label}
                 onClick={this.handleCurrencyClick}
                 data-symbol={curr.symbol}
+                data-label={curr.label}
               >
                 {curr.symbol} {curr.label}
               </CurrencyChoice>

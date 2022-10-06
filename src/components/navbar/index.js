@@ -46,7 +46,10 @@ export class Navbar extends Component {
                   if (loading) return <p>Loading…</p>;
                   if (error) return <p>Something went wrong</p>;
                   return data.categories?.map((category) => (
-                    <Category to={`/${category.name}`}>
+                    <Category
+                      key={category.name}
+                      to={`/${category.name}/${this.props.currency.code}`}
+                    >
                       {category.name}
                     </Category>
                   ));

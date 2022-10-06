@@ -9,6 +9,7 @@ import {
   ProductTitleBrand,
 } from "./style";
 import cart from "../../../assets/logo/add-cart-button.svg";
+import { withRouter } from "react-router-dom";
 
 export class ProductCard extends Component {
   constructor(props) {
@@ -16,18 +17,21 @@ export class ProductCard extends Component {
     this.state = {
       addCartVisibile: false,
       displayCurrency: this.props.product.prices.filter(
-        (price) => price.currency.symbol === this.props.currency
+        (price) => price.currency.symbol === this.props.currency.symbol
       )[0],
     };
-    console.log(this.state.displayCurrency);
+  }
+
+  componentDidMount() {
+    console.log('mount');
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currency !== prevProps.currency) {
+    if (this.props.currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
         displayCurrency: this.props.product.prices.filter(
-          (price) => price.currency.symbol === this.props.currency
+          (price) => price.currency.symbol === this.props.currency.symbol
         )[0],
       }));
     }
@@ -42,6 +46,11 @@ export class ProductCard extends Component {
         onMouseLeave={() =>
           this.setState((prev) => ({ ...prev, addCartVisibile: false }))
         }
+        onClick={() =>
+          this.props.history.push(
+            `/${this.props.category.name}/${this.props.currency.code}/${this.props.product.id}`
+          )
+        }
       >
         <ImagePreview src={this.props.product.gallery[0]}></ImagePreview>
         <ProductCardData>
@@ -50,7 +59,7 @@ export class ProductCard extends Component {
             {this.props.product.name}
           </ProductTitleBrand>
           <ProductCardPrice>
-            <span>{this.state.displayCurrency.currency.symbol}</span>
+            <span>{this.state.displayCurrency.currency?.symbol}</span>
             {this.state.displayCurrency.amount}
           </ProductCardPrice>
         </ProductCardData>
@@ -64,4 +73,4 @@ export class ProductCard extends Component {
   }
 }
 
-export default ProductCard;
+export default withRouter(ProductCard);

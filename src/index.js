@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache(),
 });

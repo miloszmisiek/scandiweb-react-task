@@ -8,7 +8,7 @@ export const CategoryName = styled.h2`
   letter-spacing: 0px;
   text-align: left;
   text-transform: capitalize;
-  margin: 5rem 0;
+  margin: 0 0 5rem;
 `;
 
 export const ProductsContainer = styled.div`

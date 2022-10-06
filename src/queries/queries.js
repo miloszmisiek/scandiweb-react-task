@@ -9,6 +9,7 @@ const getProducts = gql`
         inStock
         brand
         gallery
+        category
         prices {
           currency {
             label

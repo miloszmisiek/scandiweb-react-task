@@ -6,6 +6,9 @@ import { getProducts } from "../../queries/queries";
 import { CategoryName, ProductsContainer } from "./style";
 
 export class ProductsListPage extends Component {
+  componentDidMount(){
+    console.log(this.props.currency, this.props.category.name)
+  }
   render() {
     return (
       <div>
@@ -19,7 +22,11 @@ export class ProductsListPage extends Component {
               if (loading) return <p>Loading…</p>;
               if (error) return <p>Something went wrong</p>;
               return data.category.products.map((product) => (
-                <ProductCard {...this.props} product={product} />
+                <ProductCard
+                  key={product.id}
+                  {...this.props}
+                  product={product}
+                />
               ));
             }}
           </Query>
