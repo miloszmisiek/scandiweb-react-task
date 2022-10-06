@@ -5,7 +5,8 @@ export const ProductCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   /* border: 1px solid black; */
-  width: fit-content;
+  /* width: fit-content; */
+  width: calc(386px - 2rem);
   padding: 1rem;
   gap: 2rem;
   position: relative;
@@ -16,7 +17,8 @@ export const ProductCardContainer = styled.div`
 
 export const ImagePreview = styled.img`
   object-fit: contain;
-  height: 340px;
+  height: 330px;
+  max-width: 354px;
 `;
 
 export const ProductCardData = styled.div`

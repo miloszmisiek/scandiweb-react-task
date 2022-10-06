@@ -8,4 +8,11 @@ export const CategoryName = styled.h2`
   letter-spacing: 0px;
   text-align: left;
   text-transform: capitalize;
+  margin: 5rem 0;
+`;
+
+export const ProductsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
 `;

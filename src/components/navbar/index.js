@@ -15,6 +15,8 @@ import { CurrencyConverterWithRouter } from "../currencyConverter";
 import { ApolloConsumer } from "@apollo/client";
 import { GlobalStatesContext } from "../../contexts/GlobalStates";
 import CartPreview from "../cart/cartPreview";
+import { Query } from "@apollo/react-components";
+import { getCategories } from "../../queries/queries";
 
 export class Navbar extends Component {
   constructor(props) {
@@ -39,9 +41,17 @@ export class Navbar extends Component {
         <NavbarContainer>
           <NavbarInnerContainer>
             <NavbarLeftContainer>
-              <Category to={"/clothes/"}>Clothes</Category>
-              <Category to={"/tech"}>Tech</Category>
-              <Category to={"/all"}>All</Category>
+              <Query query={getCategories}>
+                {({ data, loading, error }) => {
+                  if (loading) return <p>Loading…</p>;
+                  if (error) return <p>Something went wrong</p>;
+                  return data.categories?.map((category) => (
+                    <Category to={`/${category.name}`}>
+                      {category.name}
+                    </Category>
+                  ));
+                }}
+              </Query>
             </NavbarLeftContainer>
             <Logo>
               <NavLink to="/">

@@ -8,7 +8,6 @@ import {
   ProductCardPrice,
   ProductTitleBrand,
 } from "./style";
-import preview from "../../../assets/product-preview-test.png";
 import cart from "../../../assets/logo/add-cart-button.svg";
 
 export class ProductCard extends Component {
@@ -16,7 +15,22 @@ export class ProductCard extends Component {
     super(props);
     this.state = {
       addCartVisibile: false,
+      displayCurrency: this.props.product.prices.filter(
+        (price) => price.currency.symbol === this.props.currency
+      )[0],
     };
+    console.log(this.state.displayCurrency);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currency !== prevProps.currency) {
+      this.setState((prevState) => ({
+        ...prevState,
+        displayCurrency: this.props.product.prices.filter(
+          (price) => price.currency.symbol === this.props.currency
+        )[0],
+      }));
+    }
   }
 
   render() {
@@ -29,11 +43,15 @@ export class ProductCard extends Component {
           this.setState((prev) => ({ ...prev, addCartVisibile: false }))
         }
       >
-        <ImagePreview src={preview}></ImagePreview>
+        <ImagePreview src={this.props.product.gallery[0]}></ImagePreview>
         <ProductCardData>
-          <ProductTitleBrand>Apollo Running Short</ProductTitleBrand>
+          <ProductTitleBrand>
+            {this.props.product.brand}
+            {this.props.product.name}
+          </ProductTitleBrand>
           <ProductCardPrice>
-            <span>{this.props.currency}</span>50.00
+            <span>{this.state.displayCurrency.currency.symbol}</span>
+            {this.state.displayCurrency.amount}
           </ProductCardPrice>
         </ProductCardData>
         {this.state.addCartVisibile && (

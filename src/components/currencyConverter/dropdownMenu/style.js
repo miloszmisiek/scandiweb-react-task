@@ -16,6 +16,6 @@ export const DropdownMenu = styled.div`
   box-shadow: ${(props) =>
     props.cart ? undefined : "0px 4px 35px 0px rgba(168, 172, 176, 0.19)"};
   cursor: default;
-  z-index: ${(props) => (props.cart ? "1041" : undefined)};
+  z-index: ${(props) => (props.cart ? "1041" : "1")};
   background-color: #ffffff;
 `;

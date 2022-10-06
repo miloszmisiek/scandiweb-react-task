@@ -1,13 +1,21 @@
 import { gql } from "@apollo/client";
 
 const getProducts = gql`
-  query {
-    category(input: { title: "all" }) {
+  query ($pathname: String!) {
+    category(input: { title: $pathname }) {
       products {
         id
         name
         inStock
-        category
+        brand
+        gallery
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
       }
     }
   }
