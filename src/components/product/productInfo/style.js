@@ -18,11 +18,10 @@ export const ProductInfoLeftContainer = styled.div`
 `;
 
 export const ProductInfoRightContainer = styled(ProductInfoLeftContainer)`
-height: 100%;
-flex-direction: row;
-align-items: flex-start;
-gap: 0.5rem;
-
+  height: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.5rem;
 `;
 
 export const ProductTitle = styled.h5`
@@ -58,10 +57,11 @@ export const SizeOptionsContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-direction: row;
-  padding-bottom: 0.5rem;
+  padding: 0 0 0.5rem;
+  margin: 0;
 `;
 
-export const SizeOption = styled.div`
+export const SizeOption = styled.label`
   border: 1px solid black;
   width: fit-content;
   /* padding: 0.2rem 0.3rem; */
@@ -72,6 +72,15 @@ export const SizeOption = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+`;
+
+export const SizeOptionInput = styled.input`
+  display: none;
+
+  /* &:checked + label {
+    background-color: red;
+  } */
 `;
 
 export const ColorTitle = styled(SizeTitle)``;
@@ -97,13 +106,13 @@ export const QuantityButton = styled.button`
 `;
 
 export const QuantityNumber = styled.div`
-    margin: auto 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: auto 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ProductImagePreview = styled.img`
-height: 100%;
+  height: 100%;
 `;

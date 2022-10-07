@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {
   SizeChartContainer,
   SizeOption,
+  SizeOptionInput,
   SizeOptionsContainer,
   SizeTitle,
 } from "../productInfo/style";
@@ -59,4 +60,13 @@ export const PPISizeOption = styled(SizeOption)`
     props.swatch && props.swatch.displayValue === "White"
       ? "1px solid black"
       : props.swatch?.value};
+`;
+
+export const PPISizeInput = styled(SizeOptionInput)`
+  &:checked + label {
+    background-color: ${(props) => !props.swatch && "black"};
+    color: ${(props) => !props.swatch && "white"};
+    border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
+    padding: ${(props) => props.swatch && "-3rem"};
+  }
 `;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   PPIAttribiutesSet,
   PPIContainer,
+  PPISizeInput,
   PPISizeOption,
   PPISizeOptionsContainer,
   PPISizeTitle,
@@ -56,32 +57,69 @@ export class ProductPageInfo extends Component {
           ],
         },
       ],
+      selectedItems: [],
     };
+  }
+
+  handleClick(e) {
+    console.log(e.target);
+    console.log(
+      Array.prototype.slice.call(
+        document.querySelectorAll("input[type='radio']:checked")
+      )
+    );
+    //   const [attribiuteName, itemIdx] = e.target.id.split("-");
+    //   this.setState(
+    //     (prevState) => ({
+    //       ...prevState,
+    //       selectedItems: attribiutes.map(attr => )
+    //   //     {
+    //   //       ...prevState.selectedItems,
+    //   //       [attribiuteName]: itemIdx,
+    //   //     },
+    //     }),
+    //     () => console.log(this.state.selectedItems)
+    //   );
   }
 
   render() {
     return (
-      <PPIContainer>
-        <ProductTitleContainer>
-          <ProductBrand>Apollo</ProductBrand>
-          <ProductName>Running Short</ProductName>
-        </ProductTitleContainer>
+      <form>
+        <PPIContainer>
+          <ProductTitleContainer>
+            <ProductBrand>Apollo</ProductBrand>
+            <ProductName>Running Short</ProductName>
+          </ProductTitleContainer>
 
-        {this.state.attribiutes.map((attr) => (
-          <PPIAttribiutesSet>
-            <PPISizeTitle>{attr.name}:</PPISizeTitle>
-            <PPISizeOptionsContainer>
-              {attr.type === "swatch"
-                ? attr.items.map((item) => (
-                    <PPISizeOption swatch={item} />
-                  ))
-                : attr.items.map((item) => (
-                    <PPISizeOption>{item.displayValue}</PPISizeOption>
-                  ))}
-            </PPISizeOptionsContainer>
-          </PPIAttribiutesSet>
-        ))}
-      </PPIContainer>
+          {this.state.attribiutes.map((attr) => (
+            <PPIAttribiutesSet>
+              <PPISizeTitle>{attr.name}:</PPISizeTitle>
+              <PPISizeOptionsContainer>
+                {attr.items.map((item, idx) => (
+                  <>
+                    <PPISizeInput
+                      type="radio"
+                      id={attr.name.toLowerCase() + "-" + idx}
+                      name={attr.name}
+                      value={item.value}
+                      swatch={attr.type === "swatch" ? item : undefined}
+                    />
+                    <PPISizeOption
+                      htmlFor={attr.name.toLowerCase() + "-" + idx}
+                      key={item.displayValue}
+                      swatch={attr.type === "swatch" ? item : undefined}
+                      onClick={(e) => this.handleClick(e)}
+                      value={attr.type !== "swatch" && item.displayValue}
+                    >
+                      {attr.type !== "swatch" && item.displayValue}
+                    </PPISizeOption>
+                  </>
+                ))}
+              </PPISizeOptionsContainer>
+            </PPIAttribiutesSet>
+          ))}
+        </PPIContainer>
+      </form>
     );
   }
 }
