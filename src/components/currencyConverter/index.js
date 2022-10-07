@@ -66,13 +66,13 @@ export class CurrencyConverter extends Component {
         !!this.props.location.pathname.split("/")[1] &&
           this.props.history.push(
             `/${this.props.location.pathname.split("/")[1]}/${
-              this.state.currencyCode
+              this.state.currencyCode.toLowerCase()
             }`
           );
         !!this.props.location.pathname.split("/")[3] &&
           this.props.history.push(
             `/${this.props.location.pathname.split("/")[1]}/${
-              this.state.currencyCode
+              this.state.currencyCode.toLowerCase()
             }/${this.props.location.pathname.split("/")[3]}`
           );
       }

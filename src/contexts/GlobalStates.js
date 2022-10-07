@@ -29,7 +29,9 @@ class GlobalStates extends Component {
   componentDidMount() {
     client.query({ query: getCurrencies }).then((result) => {
       const newCurrency = result.data.currencies.filter(
-        (curr) => curr.label === this.props.location.pathname.split("/")[2]
+        (curr) =>
+          curr.label ===
+          this.props.location.pathname.split("/")[2].toUpperCase()
       );
       this.setState((prevState) => ({
         ...prevState,

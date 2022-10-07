@@ -46,7 +46,9 @@ export class Navbar extends Component {
                   return data.categories?.map((category) => (
                     <Category
                       key={category.name}
-                      to={`/${category.name}/${this.props.currency.code}`}
+                      to={`/${
+                        category.name
+                      }/${this.props.currency.code.toLowerCase()}`}
                     >
                       {category.name}
                     </Category>

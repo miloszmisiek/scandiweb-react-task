@@ -51,7 +51,11 @@ export class ProductCard extends Component {
         }
         onClick={() =>
           this.props.history.push(
-            `/${this.props.category.name}/${this.props.currency.code}/${this.props.product.id}`
+            `/${
+              this.props.category.name
+            }/${this.props.currency.code.toLowerCase()}/${
+              this.props.product.id
+            }`
           )
         }
       >
