@@ -12,13 +12,14 @@ class GlobalStates extends Component {
   setCurrency = (symbol, code) => {
     this.setState((prevState) => ({
       ...prevState,
-      currency: { symbol: symbol, code: code },
+      currency: { ...prevState.currency, symbol: symbol, code: code },
     }));
   };
   state = {
     currency: {
       symbol: "",
       code: "",
+      allCurrencies: [],
     },
     overlayVisibile: false,
     setCurrency: this.setCurrency,
@@ -33,6 +34,7 @@ class GlobalStates extends Component {
       this.setState((prevState) => ({
         ...prevState,
         currency: {
+          allCurrencies: result?.data.currencies,
           symbol: !!newCurrency.length
             ? newCurrency[0].symbol
             : result.data.currencies[0].symbol,

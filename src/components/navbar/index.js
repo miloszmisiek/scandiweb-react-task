@@ -11,9 +11,7 @@ import {
 import logo from "../../assets/logo/logo.svg";
 
 import { NavLink } from "react-router-dom";
-import { CurrencyConverterWithRouter } from "../currencyConverter";
-import { ApolloConsumer } from "@apollo/client";
-import { GlobalStatesContext } from "../../contexts/GlobalStates";
+import CurrencyConverter from "../currencyConverter";
 import CartPreview from "../cart/cartPreview";
 import { Query } from "@apollo/react-components";
 import { getCategories } from "../../queries/queries";
@@ -62,19 +60,10 @@ export class Navbar extends Component {
               </NavLink>
             </Logo>
             <NavbarRightContainer>
-              <ApolloConsumer>
-                {(client) => (
-                  <GlobalStatesContext.Consumer>
-                    {({ currency, setCurrency }) => (
-                      <CurrencyConverterWithRouter
-                        currency={currency}
-                        setCurrency={setCurrency}
-                        accessClient={client}
-                      />
-                    )}
-                  </GlobalStatesContext.Consumer>
-                )}
-              </ApolloConsumer>
+              <CurrencyConverter
+                currency={this.props.currency}
+                setCurrency={this.props.setCurrency}
+              />
               <CartPreview stateHandler={this.stateHandler} />
             </NavbarRightContainer>
           </NavbarInnerContainer>

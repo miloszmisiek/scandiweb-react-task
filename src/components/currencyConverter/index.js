@@ -3,7 +3,6 @@ import Dropdown from "./dropdownMenu";
 import { Currency, CurrencyChoice } from "./style";
 import chevronDown from "../../assets/logo/vector.svg";
 import chevronUp from "../../assets/logo/chevron-up.svg";
-import { getCurrencies } from "../../queries/queries";
 import { withRouter } from "react-router";
 
 export class CurrencyConverter extends Component {
@@ -13,30 +12,29 @@ export class CurrencyConverter extends Component {
       isExpanded: false,
       currencyDisplay: "",
       currencyCode: "",
-      currencies: {},
+      currencies: [],
     };
     this.stateHandler = this.stateHandler.bind(this);
   }
 
   componentDidMount() {
-    this.props.accessClient
-      .query({
-        query: getCurrencies,
-      })
-      .then((result) => {
-        this.setState(
-          (prevState) => ({
-            ...prevState,
-            currencies: result.data.currencies,
-          }),
-          () =>
-            this.setState((prevState) => ({
-              ...prevState,
-              currencyDisplay: this.props.currency.symbol,
-              currencyCode: this.props.currency.code,
-            }))
-        );
-      });
+    this.setState((prevState) => ({
+      ...prevState,
+      currencies: this.props.currency.allCurrencies,
+      currencyDisplay: this.props.currency.symbol,
+      currencyCode: this.props.currency.code,
+    }));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+      this.setState((prevState) => ({
+        ...prevState,
+        currencies: this.props.currency.allCurrencies,
+        currencyDisplay: this.props.currency.symbol,
+        currencyCode: this.props.currency.code,
+      }));
+    }
   }
 
   stateHandler(event) {
@@ -55,8 +53,8 @@ export class CurrencyConverter extends Component {
 
   handleCurrencyClick = (e) => {
     this.setState(
-      (prev) => ({
-        ...prev,
+      (prevState) => ({
+        ...prevState,
         currencyDisplay: e.target.dataset.symbol,
         currencyCode: e.target.dataset.label,
       }),
@@ -70,6 +68,12 @@ export class CurrencyConverter extends Component {
             `/${this.props.location.pathname.split("/")[1]}/${
               this.state.currencyCode
             }`
+          );
+        !!this.props.location.pathname.split("/")[3] &&
+          this.props.history.push(
+            `/${this.props.location.pathname.split("/")[1]}/${
+              this.state.currencyCode
+            }/${this.props.location.pathname.split("/")[3]}`
           );
       }
     );
@@ -103,4 +107,4 @@ export class CurrencyConverter extends Component {
   }
 }
 
-export const CurrencyConverterWithRouter = withRouter(CurrencyConverter);
+export default withRouter(CurrencyConverter);

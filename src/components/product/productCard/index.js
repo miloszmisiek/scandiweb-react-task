@@ -16,10 +16,17 @@ export class ProductCard extends Component {
     super(props);
     this.state = {
       addCartVisibile: false,
+      displayCurrency: "",
+    };
+  }
+
+  componentDidMount() {
+    this.setState((prevState) => ({
+      ...prevState,
       displayCurrency: this.props.product.prices.filter(
         (price) => price.currency.symbol === this.props.currency.symbol
       )[0],
-    };
+    }));
   }
 
   componentDidUpdate(prevProps) {
