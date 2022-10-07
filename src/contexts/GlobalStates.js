@@ -31,7 +31,7 @@ class GlobalStates extends Component {
       const newCurrency = result.data.currencies.filter(
         (curr) =>
           curr.label ===
-          this.props.location.pathname.split("/")[2].toUpperCase()
+          this.props.location.pathname.split("/")[2]?.toUpperCase()
       );
       this.setState((prevState) => ({
         ...prevState,

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductGallery from "../../components/product/productGallery";
+import ProductPageInfo from "../../components/product/productPageInfo";
 import { PDPContainer } from "./style";
 
 export class ProductDescriptionPage extends Component {
@@ -7,6 +8,7 @@ export class ProductDescriptionPage extends Component {
     return (
       <PDPContainer>
         <ProductGallery gallery={this.props.gallery} />
+        <ProductPageInfo />
       </PDPContainer>
     );
   }

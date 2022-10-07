@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { CartPrevButton } from "../../cart/cartPreview/style";
 import {
+  Price,
   SizeChartContainer,
   SizeOption,
   SizeOptionInput,
@@ -12,6 +14,7 @@ export const PPIContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 292px;
 `;
 
 export const ProductBrand = styled.h5`
@@ -32,10 +35,13 @@ export const ProductTitleContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 2.7rem;
+  max-width: 292px;
 `;
 
 export const PPIAttribiutesSet = styled(SizeChartContainer)`
   width: 100%;
+  margin-top: ${(props) => props.mt && "2rem"};
+  max-width: 292px;
 `;
 
 export const PPISizeTitle = styled(SizeTitle)`
@@ -53,13 +59,15 @@ export const PPISizeOptionsContainer = styled(SizeOptionsContainer)`
 `;
 
 export const PPISizeOption = styled(SizeOption)`
-  min-width: 3.94rem;
-  min-height: 2.81rem;
-  background-color: ${(props) => props.swatch && props.swatch.value};
+  box-sizing: border-box;
+  min-width: ${(props) => (props.swatch ? "2.25rem" : "3.94rem")};
+  min-height: ${(props) => (props.swatch ? "2.25rem" : "2.81rem")};
+  background-color: #ffffff;
   border: ${(props) =>
     props.swatch && props.swatch.displayValue === "White"
       ? "1px solid black"
       : props.swatch?.value};
+  text-align: center;
 `;
 
 export const PPISizeInput = styled(SizeOptionInput)`
@@ -67,6 +75,52 @@ export const PPISizeInput = styled(SizeOptionInput)`
     background-color: ${(props) => !props.swatch && "black"};
     color: ${(props) => !props.swatch && "white"};
     border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
-    padding: ${(props) => props.swatch && "-3rem"};
+    padding: ${(props) => props.swatch && "0.125rem"};
   }
+`;
+
+export const ColorBox = styled.div`
+  background-color: ${(props) => props.swatch && props.swatch.value};
+  width: 100%;
+  height: 100%;
+`;
+
+export const PPIPriceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.625rem;
+  margin-top: 2.375rem;
+`;
+
+export const PPIPriceTitle = styled(PPISizeTitle)`
+  text-align: left;
+`;
+
+export const PPIPrice = styled(Price)`
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.125rem;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0;
+`;
+
+export const PPIAddToCart = styled(CartPrevButton)`
+  text-transform: uppercase;
+  margin-top: 1.25rem;
+  max-width: 292px;
+`;
+
+export const PPIDescription = styled.p`
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.625rem;
+  letter-spacing: 0em;
+  text-align: left;
+  max-width: 292px;
+  margin: 2.5rem 0 0;
+  color: #1d1f22;
 `;

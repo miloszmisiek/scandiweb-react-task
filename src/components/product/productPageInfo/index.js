@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import {
+  ColorBox,
+  PPIAddToCart,
   PPIAttribiutesSet,
   PPIContainer,
+  PPIDescription,
+  PPIPrice,
+  PPIPriceContainer,
+  PPIPriceTitle,
   PPISizeInput,
   PPISizeOption,
   PPISizeOptionsContainer,
@@ -91,16 +97,17 @@ export class ProductPageInfo extends Component {
             <ProductName>Running Short</ProductName>
           </ProductTitleContainer>
 
-          {this.state.attribiutes.map((attr) => (
-            <PPIAttribiutesSet>
+          {this.state.attribiutes.map((attr, idx) => (
+            <PPIAttribiutesSet key={idx} mt={idx !== 0}>
               <PPISizeTitle>{attr.name}:</PPISizeTitle>
               <PPISizeOptionsContainer>
                 {attr.items.map((item, idx) => (
-                  <>
+                  <React.Fragment key={item.displayValue}>
                     <PPISizeInput
                       type="radio"
+                      defaultChecked={idx === 0}
                       id={attr.name.toLowerCase() + "-" + idx}
-                      name={attr.name}
+                      name={attr.name.toLowerCase()}
                       value={item.value}
                       swatch={attr.type === "swatch" ? item : undefined}
                     />
@@ -111,13 +118,27 @@ export class ProductPageInfo extends Component {
                       onClick={(e) => this.handleClick(e)}
                       value={attr.type !== "swatch" && item.displayValue}
                     >
-                      {attr.type !== "swatch" && item.displayValue}
+                      {attr.type !== "swatch" ? (
+                        item.displayValue
+                      ) : (
+                        <ColorBox swatch={item}></ColorBox>
+                      )}
                     </PPISizeOption>
-                  </>
+                  </React.Fragment>
                 ))}
               </PPISizeOptionsContainer>
             </PPIAttribiutesSet>
           ))}
+          <PPIPriceContainer>
+            <PPIPriceTitle>PRICE:</PPIPriceTitle>
+            <PPIPrice>$50.00</PPIPrice>
+          </PPIPriceContainer>
+          <PPIAddToCart checkout>add to cart</PPIAddToCart>
+          <PPIDescription>
+            Find stunning women's cocktail dresses and party dresses. Stand out
+            in lace and metallic cocktail dresses and party dresses from all
+            your favorite brands.
+          </PPIDescription>
         </PPIContainer>
       </form>
     );

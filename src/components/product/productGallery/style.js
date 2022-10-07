@@ -15,7 +15,8 @@ export const GalleryThumbnails = styled.div`
 export const GalleryPreview = styled.img`
   object-fit: contain;
   height: 511px;
-  max-width: 610px;
+  width: 610px;
+  margin: 0 auto;
   margin-left: ${(props) => (props.gap ? "calc(80px + 2.5rem)" : undefined)};
 `;
 
