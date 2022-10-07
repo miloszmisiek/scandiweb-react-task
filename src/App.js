@@ -13,7 +13,6 @@ function App() {
   return (
     <div className="App">
       {/* <DisplayProducts /> */}
-      <div>
         <GlobalStates>
           <GlobalStatesContext.Consumer>
             {({ currency, setCurrency }) => (
@@ -70,7 +69,6 @@ function App() {
             )}
           </GlobalStatesContext.Consumer>
         </GlobalStates>
-      </div>
     </div>
   );
 }

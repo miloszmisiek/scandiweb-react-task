@@ -13,7 +13,7 @@ export const PPIContainer = styled.div`
   font-family: "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
   min-width: 292px;
 `;
 
@@ -30,7 +30,7 @@ export const ProductName = styled(ProductBrand)`
   font-weight: 400;
 `;
 
-export const ProductTitleContainer = styled.div`
+export const ProductTitleContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -95,6 +95,7 @@ export const PPIPriceContainer = styled.div`
 
 export const PPIPriceTitle = styled(PPISizeTitle)`
   text-align: left;
+  padding: 0;
 `;
 
 export const PPIPrice = styled(Price)`
@@ -105,6 +106,9 @@ export const PPIPrice = styled(Price)`
   letter-spacing: 0em;
   text-align: left;
   padding: 0;
+  min-height: 2.875rem;
+  display: flex;
+  align-items: center;
 `;
 
 export const PPIAddToCart = styled(CartPrevButton)`

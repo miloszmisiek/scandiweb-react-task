@@ -8,7 +8,7 @@ export class ProductDescriptionPage extends Component {
     return (
       <PDPContainer>
         <ProductGallery gallery={this.props.gallery} />
-        <ProductPageInfo />
+        <ProductPageInfo {...this.props} />
       </PDPContainer>
     );
   }

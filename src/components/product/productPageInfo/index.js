@@ -69,6 +69,7 @@ export class ProductPageInfo extends Component {
 
   handleClick(e) {
     console.log(e.target);
+    console.log(this.props);
     console.log(
       Array.prototype.slice.call(
         document.querySelectorAll("input[type='radio']:checked")
@@ -90,7 +91,6 @@ export class ProductPageInfo extends Component {
 
   render() {
     return (
-      <form>
         <PPIContainer>
           <ProductTitleContainer>
             <ProductBrand>Apollo</ProductBrand>
@@ -140,7 +140,6 @@ export class ProductPageInfo extends Component {
             your favorite brands.
           </PPIDescription>
         </PPIContainer>
-      </form>
     );
   }
 }
