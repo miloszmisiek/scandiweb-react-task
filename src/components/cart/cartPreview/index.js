@@ -16,6 +16,7 @@ export class CartPreview extends Component {
     super(props);
     this.state = {
       isExpanded: false,
+      quantity: 0,
     };
     this.handleExpanded = this.handleExpanded.bind(this);
   }
@@ -58,9 +59,9 @@ export class CartPreview extends Component {
               <MyBag>3 items</MyBag>
             </CartPrevTitle>
             <ProductsContainer>
+              {/* <ProductInfo />
               <ProductInfo />
-              <ProductInfo />
-              <ProductInfo />
+              <ProductInfo /> */}
             </ProductsContainer>
             <CartPrevButtons>
               <CartPrevButton

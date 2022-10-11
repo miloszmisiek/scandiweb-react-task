@@ -23,6 +23,12 @@ import {
 import glasses from "../../../assets/product-test.png";
 
 export class ProductInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: 0,
+    };
+  }
   render() {
     return (
       <ProductInfoContainer>
@@ -53,7 +59,7 @@ export class ProductInfo extends Component {
         <ProductInfoRightContainer>
           <QuantityContainer>
             <QuantityButton>+</QuantityButton>
-            <QuantityNumber>2</QuantityNumber>
+            <QuantityNumber>{this.state.quantity}</QuantityNumber>
             <QuantityButton>-</QuantityButton>
           </QuantityContainer>
           <ProductImagePreview src={glasses} />
