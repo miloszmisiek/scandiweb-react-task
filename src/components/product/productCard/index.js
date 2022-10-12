@@ -17,6 +17,7 @@ export class ProductCard extends Component {
     this.state = {
       addCartVisibile: false,
       displayCurrency: "",
+      // quantity: this.props.getItemQuantity(this.props.product.id),
     };
   }
 
@@ -38,6 +39,7 @@ export class ProductCard extends Component {
         )[0],
       }));
     }
+    // console.log(this.props.cartItems);
   }
 
   render() {
@@ -71,7 +73,17 @@ export class ProductCard extends Component {
           </ProductCardPrice>
         </ProductCardData>
         {this.state.addCartVisibile && (
-          <AddToCartButton>
+          <AddToCartButton
+            onClick={() =>
+              this.props.increaseCartQuantity(
+                this.props.product.id,
+                this.props.product.attributes.map((attr) => ({
+                  ...attr,
+                  items: attr.items[0],
+                }))
+              )
+            }
+          >
             <CartIcon src={cart} />
           </AddToCartButton>
         )}

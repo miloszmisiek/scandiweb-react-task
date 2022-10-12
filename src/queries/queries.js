@@ -10,6 +10,13 @@ const getProducts = gql`
         brand
         gallery
         category
+        attributes {
+          name
+          items {
+            displayValue
+            value
+          }
+        }
         prices {
           currency {
             label

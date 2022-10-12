@@ -20,7 +20,7 @@ function App() {
             <ShoppingCartContext.Consumer>
               {({
                 cartItems,
-                setCartTiems,
+                setCartItems,
                 getItemQuantity,
                 increaseCartQuantity,
                 decreaseCartQuantity,
@@ -44,6 +44,12 @@ function App() {
                                   <ProductsListPage
                                     category={category}
                                     currency={currency}
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                    getItemQuantity={getItemQuantity}
+                                    increaseCartQuantity={increaseCartQuantity}
+                                    decreaseCartQuantity={decreaseCartQuantity}
+                                    removeFromCart={removeFromCart}
                                   />
                                 )}
                               />

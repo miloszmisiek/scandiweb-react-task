@@ -1,27 +1,32 @@
 import { Component, createContext } from "react";
 
-export const ShoppingCartContext = createContext({});
+export const ShoppingCartContext = createContext({
+  cartItems: [],
+  setCartItems: () => {},
+  getItemQuantity: () => {},
+  increaseCartQuantity: () => {},
+  decreaseCartQuantity: () => {},
+  removeFromCart: () => {},
+});
 
 class ShoppingCartProvider extends Component {
-  state = {
-    cartItems: [],
-    setCartTiems: this.setCartTiems,
-    getItemQuantity: this.getItemQuantity,
-    increaseCartQuantity: this.increaseCartQuantity,
-    decreaseCartQuantity: this.decreaseCartQuantity,
-    removeFromCart: this.removeFromCart,
+  setCartItems = (product) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      cartItems: [...prevState.cartItems, product],
+    }));
   };
 
   getItemQuantity = (id) => {
     return this.state.cartItems.find((item) => item.id === id)?.quantity || 0;
   };
 
-  increaseCartQuantity = (id) => {
+  increaseCartQuantity = (id, attributes) => {
     this.setState((prevState) => ({
       ...prevState,
       cartItems:
         prevState.cartItems.find((item) => item.id === id) == null
-          ? [...prevState.cartItems, { id, quantity: 1 }]
+          ? [...prevState.cartItems, { id, quantity: 1, attributes }]
           : prevState.cartItems.map((item) =>
               item.id === id ? { ...item, quantity: item.quantity + 1 } : item
             ),
@@ -45,6 +50,15 @@ class ShoppingCartProvider extends Component {
       ...prevState,
       cartItems: prevState.cartItems.filter((item) => item.id !== id),
     }));
+  };
+
+  state = {
+    cartItems: [],
+    setCartItems: this.setCartItems,
+    getItemQuantity: this.getItemQuantity,
+    increaseCartQuantity: this.increaseCartQuantity,
+    decreaseCartQuantity: this.decreaseCartQuantity,
+    removeFromCart: this.removeFromCart,
   };
 
   render() {

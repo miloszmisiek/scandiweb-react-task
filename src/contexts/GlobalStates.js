@@ -21,9 +21,7 @@ class GlobalStates extends Component {
       code: "",
       allCurrencies: [],
     },
-    overlayVisibile: false,
     setCurrency: this.setCurrency,
-    setOverlayVisibile: this.setOverlayVisibile,
   };
 
   componentDidMount() {
