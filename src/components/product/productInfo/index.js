@@ -23,17 +23,11 @@ import {
 import glasses from "../../../assets/product-test.png";
 
 export class ProductInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      quantity: 0,
-    };
-  }
   render() {
     return (
       <ProductInfoContainer>
         <ProductInfoLeftContainer>
-          <ProductTitle>Apollo</ProductTitle>
+          <ProductTitle>{this.props.id}</ProductTitle>
           <ProductType>Running Short</ProductType>
           <Price>
             <span>$</span> 50.00
@@ -59,10 +53,10 @@ export class ProductInfo extends Component {
         <ProductInfoRightContainer>
           <QuantityContainer>
             <QuantityButton>+</QuantityButton>
-            <QuantityNumber>{this.state.quantity}</QuantityNumber>
+            <QuantityNumber>{this.props.quantity}</QuantityNumber>
             <QuantityButton>-</QuantityButton>
           </QuantityContainer>
-          <ProductImagePreview src={glasses} />
+          <ProductImagePreview src={this.props.gallery[0]} />
         </ProductInfoRightContainer>
       </ProductInfoContainer>
     );

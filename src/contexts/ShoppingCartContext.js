@@ -21,12 +21,15 @@ class ShoppingCartProvider extends Component {
     return this.state.cartItems.find((item) => item.id === id)?.quantity || 0;
   };
 
-  increaseCartQuantity = (id, attributes) => {
+  increaseCartQuantity = (id, attributes, gallery, price, curr) => {
     this.setState((prevState) => ({
       ...prevState,
       cartItems:
         prevState.cartItems.find((item) => item.id === id) == null
-          ? [...prevState.cartItems, { id, quantity: 1, attributes }]
+          ? [
+              ...prevState.cartItems,
+              { id, quantity: 1, attributes, gallery, price, curr },
+            ]
           : prevState.cartItems.map((item) =>
               item.id === id ? { ...item, quantity: item.quantity + 1 } : item
             ),
@@ -61,7 +64,25 @@ class ShoppingCartProvider extends Component {
     removeFromCart: this.removeFromCart,
   };
 
+  componentDidMount() {
+    const data = sessionStorage.getItem("cart");
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        cartItems: JSON.parse(data) !== null ? JSON.parse(data) : [],
+      }),
+      () => console.log(this.state.cartItems)
+    );
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.cartItems !== prevState.cartItems) {
+      sessionStorage.setItem("cart", JSON.stringify(this.state.cartItems));
+    }
+  }
+
   render() {
+    console.log(this.state.cartItems);
     return (
       <ShoppingCartContext.Provider value={this.state}>
         {this.props.children}

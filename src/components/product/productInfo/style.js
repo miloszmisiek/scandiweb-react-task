@@ -114,5 +114,7 @@ export const QuantityNumber = styled.div`
 `;
 
 export const ProductImagePreview = styled.img`
-  height: 100%;
+  height: 191px;
+  object-fit: contain;
+  width: 121px;
 `;

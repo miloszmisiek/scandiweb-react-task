@@ -35,7 +35,6 @@ export class Navbar extends Component {
   render() {
     return (
       <>
-        {this.state.overlayVisibile && <Overlay />}
         <NavbarContainer>
           <NavbarInnerContainer>
             <NavbarLeftContainer>
@@ -66,10 +65,14 @@ export class Navbar extends Component {
                 currency={this.props.currency}
                 setCurrency={this.props.setCurrency}
               />
-              <CartPreview stateHandler={this.stateHandler} />
+              <CartPreview
+                stateHandler={this.stateHandler}
+                cartItems={this.props.cartItems}
+              />
             </NavbarRightContainer>
           </NavbarInnerContainer>
         </NavbarContainer>
+        {this.state.overlayVisibile && <Overlay />}
       </>
     );
   }

@@ -27,7 +27,12 @@ function App() {
                 removeFromCart,
               }) => (
                 <>
-                  <Navbar currency={currency} setCurrency={setCurrency} />
+                  <Navbar
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    cartItems={cartItems}
+                    getItemQuantity={getItemQuantity}
+                  />
                   <Main>
                     <Switch>
                       <Route exact path="/" render={() => <h1>Home page</h1>} />

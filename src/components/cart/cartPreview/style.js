@@ -9,6 +9,32 @@ export const Basket = styled.div`
   padding: 0;
 `;
 
+export const CartItemsCounter = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 0.5px;
+  background: #1d1f22;
+  position: absolute;
+  right: -12px;
+  top: -6px;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 1);
+  align-content: center;
+  pointer-events: none;
+`;
+
+export const CartIcon = styled.img`
+  /* position: relative; */
+`;
+
 export const CartPrevTitle = styled.div`
   width: 100%;
   display: flex;

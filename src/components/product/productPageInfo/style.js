@@ -76,7 +76,7 @@ export const PPISizeInput = styled(SizeOptionInput)`
     background-color: ${(props) => !props.swatch && "black"};
     color: ${(props) => !props.swatch && "white"};
     border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
-    padding: ${(props) => props.swatch && "0.125rem"};
+    padding: ${(props) => props.swatch && "1px"};
   }
 `;
 

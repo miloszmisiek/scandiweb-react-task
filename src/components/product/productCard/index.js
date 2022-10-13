@@ -17,7 +17,6 @@ export class ProductCard extends Component {
     this.state = {
       addCartVisibile: false,
       displayCurrency: "",
-      // quantity: this.props.getItemQuantity(this.props.product.id),
     };
   }
 
@@ -39,7 +38,6 @@ export class ProductCard extends Component {
         )[0],
       }));
     }
-    // console.log(this.props.cartItems);
   }
 
   render() {
@@ -80,7 +78,10 @@ export class ProductCard extends Component {
                 this.props.product.attributes.map((attr) => ({
                   ...attr,
                   items: attr.items[0],
-                }))
+                })),
+                this.props.product.gallery,
+                this.state.displayCurrency.amount,
+                this.state.displayCurrency.currency?.symbol
               )
             }
           >

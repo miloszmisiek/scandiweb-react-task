@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {
   Basket,
+  CartIcon,
+  CartItemsCounter,
   CartPrevButton,
   CartPrevButtons,
   CartPrevTitle,
@@ -16,9 +18,29 @@ export class CartPreview extends Component {
     super(props);
     this.state = {
       isExpanded: false,
-      quantity: 0,
+      cartItemsCount: 0,
     };
     this.handleExpanded = this.handleExpanded.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState((prevState) => ({
+      ...prevState,
+      cartItemsCount: this.props.cartItems
+        ?.map((item) => item.quantity)
+        .reduce((prev, curr) => prev + curr, 0),
+    }));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.cartItems !== prevProps.cartItems) {
+      this.setState((prevState) => ({
+        ...prevState,
+        cartItemsCount: this.props.cartItems
+          ?.map((item) => item.quantity)
+          .reduce((prev, curr) => prev + curr, 0),
+      }));
+    }
   }
 
   handleExpanded(event) {
@@ -39,14 +61,17 @@ export class CartPreview extends Component {
   render() {
     return (
       <Basket>
-        <img
+        {!!this.props.cartItems?.length && (
+          <CartItemsCounter>{this.state.cartItemsCount}</CartItemsCounter>
+        )}
+        <CartIcon
           id="basketToggle"
-          src={cart}
-          alt="Cart icon"
-          onClick={() => {
-            this.handleClick();
+          onClick={(event) => {
+            this.handleClick(event);
             this.props.stateHandler();
           }}
+          src={cart}
+          alt="Cart icon"
         />
         {this.state.isExpanded && (
           <Dropdown
@@ -56,11 +81,13 @@ export class CartPreview extends Component {
           >
             <CartPrevTitle>
               <MyBag bag>My Bag</MyBag>
-              <MyBag>3 items</MyBag>
+              <MyBag>{this.state.cartItemsCount} items</MyBag>
             </CartPrevTitle>
             <ProductsContainer>
+              {this.props.cartItems.map((item) => (
+                <ProductInfo key={item.id} {...item} />
+              ))}
               {/* <ProductInfo />
-              <ProductInfo />
               <ProductInfo /> */}
             </ProductsContainer>
             <CartPrevButtons>
