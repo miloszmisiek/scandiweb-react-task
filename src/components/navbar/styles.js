@@ -36,7 +36,7 @@ export const NavbarRightContainer = styled.div`
 
 export const NavbarInnerContainer = styled.div`
   display: flex;
-  padding: 0 101px;
+  padding: 0 6.3rem;
   align-items: center;
   height: 80px;
 `;

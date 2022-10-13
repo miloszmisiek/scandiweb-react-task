@@ -6,5 +6,6 @@ export const PDPContainer = styled.div`
   align-items: center;
   gap: 6.25rem;
   /* min-width: 1121px; */
-  flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-between;
 `;

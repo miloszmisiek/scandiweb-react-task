@@ -15,6 +15,7 @@ export const PPIContainer = styled.div`
   flex-direction: column;
   /* width: 100%; */
   min-width: 292px;
+  height: 100%;
 `;
 
 export const ProductBrand = styled.h5`
@@ -30,7 +31,7 @@ export const ProductName = styled(ProductBrand)`
   font-weight: 400;
 `;
 
-export const ProductTitleContainer = styled.form`
+export const ProductTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
