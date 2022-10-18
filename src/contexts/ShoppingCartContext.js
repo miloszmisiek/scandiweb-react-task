@@ -21,14 +21,29 @@ class ShoppingCartProvider extends Component {
     return this.state.cartItems.find((item) => item.id === id)?.quantity || 0;
   };
 
-  increaseCartQuantity = (id, attributes, gallery, price, curr) => {
+  increaseCartQuantity = (
+    id,
+    attributes,
+    gallery,
+    prices,
+    brand,
+    name
+  ) => {
     this.setState((prevState) => ({
       ...prevState,
       cartItems:
         prevState.cartItems.find((item) => item.id === id) == null
           ? [
               ...prevState.cartItems,
-              { id, quantity: 1, attributes, gallery, price, curr },
+              {
+                id,
+                quantity: 1,
+                attributes,
+                gallery,
+                prices,
+                brand,
+                name,
+              },
             ]
           : prevState.cartItems.map((item) =>
               item.id === id ? { ...item, quantity: item.quantity + 1 } : item

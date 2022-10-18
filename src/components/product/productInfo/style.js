@@ -62,21 +62,37 @@ export const SizeOptionsContainer = styled.div`
 `;
 
 export const SizeOption = styled.label`
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  line-height: 22px;
+  box-sizing: border-box;
   border: 1px solid black;
   width: fit-content;
-  /* padding: 0.2rem 0.3rem; */
-  min-width: 1.5rem;
-  min-height: 1.5rem;
+  padding: 0.1rem;
+  min-width: 2rem;
+  min-height: 2rem;
   font-size: 0.88rem;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  background-color: #ffffff;
+  border: ${(props) =>
+    props.swatch && props.swatch.displayValue === "White"
+      ? "1px solid black"
+      : props.swatch?.value};
+  text-align: center;
 `;
 
 export const SizeOptionInput = styled.input`
   display: none;
+  &:checked + label {
+    background-color: ${(props) => !props.swatch && "black"};
+    color: ${(props) => !props.swatch && "white"};
+    border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
+    padding: ${(props) => props.swatch && "1px"};
+  }
 
   /* &:checked + label {
     background-color: red;

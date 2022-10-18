@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Basket = styled.div`
+export const Basket = styled.form`
   display: flex;
   font-size: 1.5rem;
   border: none;
@@ -55,6 +55,7 @@ export const CartPrevButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
+  margin-bottom: 1rem;
 `;
 
 export const CartPrevButton = styled.button`
@@ -84,4 +85,22 @@ export const ProductsContainer = styled.div`
   width: 100%;
   gap: 2rem;
   overflow-y: auto;
+`;
+
+export const TotalContainer = styled.div`
+  margin-top: 2.7rem;
+  display: flex;
+  justify-content: space-between;
+`;
+export const TotalText = styled.span`
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+`;
+export const TotalValue = styled.span`
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.625rem;
 `;

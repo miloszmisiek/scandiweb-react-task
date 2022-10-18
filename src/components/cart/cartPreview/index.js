@@ -8,6 +8,9 @@ import {
   CartPrevTitle,
   MyBag,
   ProductsContainer,
+  TotalContainer,
+  TotalText,
+  TotalValue,
 } from "./style";
 import cart from "../../../assets/logo/cart-logo.svg";
 import Dropdown from "../../currencyConverter/dropdownMenu";
@@ -81,15 +84,38 @@ export class CartPreview extends Component {
           >
             <CartPrevTitle>
               <MyBag bag>My Bag</MyBag>
-              <MyBag>{this.state.cartItemsCount} items</MyBag>
+              <MyBag>
+                {this.state.cartItemsCount}{" "}
+                {this.state.cartItemsCount === 1 ? "item" : "items"}
+              </MyBag>
             </CartPrevTitle>
             <ProductsContainer>
               {this.props.cartItems.map((item) => (
-                <ProductInfo key={item.id} {...item} />
+                <ProductInfo
+                  key={item.id}
+                  {...item}
+                  currency={this.props.currency}
+                  totalHandler={this.totalHandler}
+                />
               ))}
-              {/* <ProductInfo />
-              <ProductInfo /> */}
             </ProductsContainer>
+            <TotalContainer>
+              <TotalText>Total</TotalText>
+              <span>
+                <TotalValue>{this.props.currency.symbol}</TotalValue>
+                <TotalValue>
+                  {this.props.cartItems
+                    .map(
+                      (item) =>
+                        item.prices.filter(
+                          (price) =>
+                            price.currency.symbol === this.props.currency.symbol
+                        )[0]
+                    )
+                    .reduce((total, amount) => total + amount.amount, 0)}
+                </TotalValue>
+              </span>
+            </TotalContainer>
             <CartPrevButtons>
               <CartPrevButton
                 onClick={() => {

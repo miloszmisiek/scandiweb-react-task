@@ -12,6 +12,7 @@ const getProducts = gql`
         category
         attributes {
           name
+          type
           items {
             displayValue
             value

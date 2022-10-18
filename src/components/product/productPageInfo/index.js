@@ -91,7 +91,8 @@ export class ProductPageInfo extends Component {
 
   render() {
     return (
-        <PPIContainer>
+      <PPIContainer>
+        <form>
           <ProductTitleContainer>
             <ProductBrand>Apollo</ProductBrand>
             <ProductName>Running Short</ProductName>
@@ -139,7 +140,8 @@ export class ProductPageInfo extends Component {
             in lace and metallic cocktail dresses and party dresses from all
             your favorite brands.
           </PPIDescription>
-        </PPIContainer>
+        </form>
+      </PPIContainer>
     );
   }
 }

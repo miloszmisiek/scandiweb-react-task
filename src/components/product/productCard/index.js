@@ -49,7 +49,9 @@ export class ProductCard extends Component {
         onMouseLeave={() =>
           this.setState((prev) => ({ ...prev, addCartVisibile: false }))
         }
-        onClick={() =>
+        onClick={(e) =>
+          e.target.id !== "add-cart-button" &&
+          e.target.id !== "cart-icon" &&
           this.props.history.push(
             `/${
               this.props.category.name
@@ -72,6 +74,7 @@ export class ProductCard extends Component {
         </ProductCardData>
         {this.state.addCartVisibile && (
           <AddToCartButton
+            id="add-cart-button"
             onClick={() =>
               this.props.increaseCartQuantity(
                 this.props.product.id,
@@ -80,12 +83,13 @@ export class ProductCard extends Component {
                   items: attr.items[0],
                 })),
                 this.props.product.gallery,
-                this.state.displayCurrency.amount,
-                this.state.displayCurrency.currency?.symbol
+                this.props.product.prices,
+                this.props.product.brand,
+                this.props.product.name
               )
             }
           >
-            <CartIcon src={cart} />
+            <CartIcon id="cart-icon" src={cart} />
           </AddToCartButton>
         )}
       </ProductCardContainer>

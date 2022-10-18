@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { Main } from "./StyledApp";
 import GlobalStates, { GlobalStatesContext } from "./contexts/GlobalStates";
@@ -35,12 +35,11 @@ function App() {
                   />
                   <Main>
                     <Switch>
-                      <Route exact path="/" render={() => <h1>Home page</h1>} />
                       <Query query={getCategories}>
                         {({ data, loading, error }) => {
                           if (loading) return <p>Loading…</p>;
                           if (error) return <p>Something went wrong</p>;
-                          return data.categories?.map((category) => (
+                          return data.categories?.map((category, idx) => (
                             <React.Fragment key={category.name}>
                               <Route
                                 exact
@@ -58,6 +57,18 @@ function App() {
                                   />
                                 )}
                               />
+                              {idx === 0 && (
+                                <Route
+                                  exact
+                                  path="/"
+                                  render={() => (
+                                    <Redirect
+                                      to={`/${category.name}/${currency?.code}`}
+                                    />
+                                  )}
+                                />
+                              )}
+
                               <Query
                                 query={getProducts}
                                 variables={{ pathname: category.name }}

@@ -55,8 +55,11 @@ export const AddToCartButton = styled.button`
   align-items: center;
   justify-content: center;
   box-shadow: 0px 4px 11px 0px rgba(29, 31, 34, 0.1);
+  z-index: 1000;
+  cursor: pointer;
 `;
 
 export const CartIcon = styled.img`
   margin: 0;
+  z-index: 1000;
 `;

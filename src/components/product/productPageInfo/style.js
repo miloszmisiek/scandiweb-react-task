@@ -60,24 +60,13 @@ export const PPISizeOptionsContainer = styled(SizeOptionsContainer)`
 `;
 
 export const PPISizeOption = styled(SizeOption)`
-  box-sizing: border-box;
   min-width: ${(props) => (props.swatch ? "2.25rem" : "3.94rem")};
   min-height: ${(props) => (props.swatch ? "2.25rem" : "2.81rem")};
-  background-color: #ffffff;
-  border: ${(props) =>
-    props.swatch && props.swatch.displayValue === "White"
-      ? "1px solid black"
-      : props.swatch?.value};
-  text-align: center;
+
 `;
 
 export const PPISizeInput = styled(SizeOptionInput)`
-  &:checked + label {
-    background-color: ${(props) => !props.swatch && "black"};
-    color: ${(props) => !props.swatch && "white"};
-    border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
-    padding: ${(props) => props.swatch && "1px"};
-  }
+
 `;
 
 export const ColorBox = styled.div`

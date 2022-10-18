@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import {
-  ColorOption,
-  ColorOptionsContainer,
-  ColorsContainer,
-  ColorTitle,
   Price,
   ProductImagePreview,
   ProductInfoContainer,
@@ -16,39 +12,84 @@ import {
   QuantityNumber,
   SizeChartContainer,
   SizeOption,
+  SizeOptionInput,
   SizeOptionsContainer,
   SizeTitle,
 } from "./style";
-
-import glasses from "../../../assets/product-test.png";
+import { ColorBox } from "../productPageInfo/style";
 
 export class ProductInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayCurrency: [],
+    };
+  }
+
+  componentDidMount() {
+    this.setState((prevState) => ({
+      ...prevState,
+      displayCurrency: this.props.prices.filter(
+        (price) => price.currency.symbol === this.props.currency.symbol
+      )[0],
+    }));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+      this.setState((prevState) => ({
+        ...prevState,
+        displayCurrency: this.props.prices.filter(
+          (price) => price.currency.symbol === this.props.currency.symbol
+        )[0],
+      }));
+    }
+  }
+
   render() {
+    const priceAmount = (
+      this.state.displayCurrency.amount * this.props.quantity
+    ).toFixed(2);
     return (
       <ProductInfoContainer>
         <ProductInfoLeftContainer>
-          <ProductTitle>{this.props.id}</ProductTitle>
-          <ProductType>Running Short</ProductType>
+          <ProductTitle>{this.props.brand}</ProductTitle>
+          <ProductType>{this.props.name}</ProductType>
           <Price>
-            <span>$</span> 50.00
+            <span>{this.state.displayCurrency.currency?.symbol}</span>{" "}
+            {priceAmount}
           </Price>
-          <SizeChartContainer>
-            <SizeTitle>Size:</SizeTitle>
-            <SizeOptionsContainer>
-              <SizeOption>XS</SizeOption>
-              <SizeOption>S</SizeOption>
-              <SizeOption>M</SizeOption>
-              <SizeOption>L</SizeOption>
-            </SizeOptionsContainer>
-          </SizeChartContainer>
-          <ColorsContainer>
-            <ColorTitle>Color:</ColorTitle>
-            <ColorOptionsContainer>
-              <ColorOption></ColorOption>
-              <ColorOption></ColorOption>
-              <ColorOption></ColorOption>
-            </ColorOptionsContainer>
-          </ColorsContainer>
+          {this.props.attributes.map((item, idx) => (
+            <React.Fragment key={item.id}>
+              <SizeChartContainer>
+                <SizeTitle>{item.name}:</SizeTitle>
+                <SizeOptionsContainer>
+                  <SizeOptionInput
+                    type="radio"
+                    checked
+                    readOnly
+                    id={"cart-" + item.name.toLowerCase() + "-" + idx}
+                    name={item.name.toLowerCase()}
+                    value={item.items.value}
+                    swatch={item.type === "swatch" ? item : undefined}
+                  />
+                  <SizeOption
+                    htmlFor={"cart-" + item.name.toLowerCase() + "-" + idx}
+                    key={item.items.displayValue}
+                    swatch={item.type === "swatch" ? item : undefined}
+                    // onClick={(e) => this.handleClick(e)}
+                    value={item.type !== "swatch" && item.displayValue}
+                  >
+                    {item.type !== "swatch" ? (
+                      item.items.displayValue
+                    ) : (
+                      <ColorBox swatch={item.items}></ColorBox>
+                    )}
+                  </SizeOption>
+                </SizeOptionsContainer>
+              </SizeChartContainer>
+            </React.Fragment>
+          ))}
         </ProductInfoLeftContainer>
         <ProductInfoRightContainer>
           <QuantityContainer>

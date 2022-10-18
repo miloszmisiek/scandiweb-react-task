@@ -9,8 +9,6 @@ import {
   Overlay,
 } from "./styles";
 import logo from "../../assets/logo/logo.svg";
-
-import { NavLink } from "react-router-dom";
 import CurrencyConverter from "../currencyConverter";
 import CartPreview from "../cart/cartPreview";
 import { Query } from "@apollo/react-components";
@@ -56,9 +54,7 @@ export class Navbar extends Component {
               </Query>
             </NavbarLeftContainer>
             <Logo>
-              <NavLink to="/">
-                <img src={logo} alt="Logo" />
-              </NavLink>
+              <img src={logo} alt="Logo" />
             </Logo>
             <NavbarRightContainer>
               <CurrencyConverter
@@ -68,6 +64,7 @@ export class Navbar extends Component {
               <CartPreview
                 stateHandler={this.stateHandler}
                 cartItems={this.props.cartItems}
+                currency={this.props.currency}
               />
             </NavbarRightContainer>
           </NavbarInnerContainer>

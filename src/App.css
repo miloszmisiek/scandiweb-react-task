@@ -18,7 +18,8 @@ a {
 
 .App {
   text-align: center;
-  height: 100vh;
+  /* height: 100%; */
+  position: relative;
 }
 
 .App-logo {
