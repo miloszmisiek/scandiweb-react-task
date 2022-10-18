@@ -83,8 +83,9 @@ export const ProductsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 2rem;
+  gap: 1.5rem;
   overflow-y: auto;
+  margin-bottom: 0.5rem;
 `;
 
 export const TotalContainer = styled.div`

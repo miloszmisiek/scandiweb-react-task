@@ -66,15 +66,36 @@ export class ProductInfo extends Component {
                 <SizeOptionsContainer>
                   <SizeOptionInput
                     type="radio"
-                    checked
+                    defaultChecked
                     readOnly
-                    id={"cart-" + item.name.toLowerCase() + "-" + idx}
-                    name={item.name.toLowerCase()}
+                    id={
+                      "cart-" +
+                      item.name.toLowerCase() +
+                      "-" +
+                      this.props.id +
+                      "-" +
+                      idx
+                    }
+                    name={
+                      "cart-" +
+                      item.name.toLowerCase() +
+                      "-" +
+                      this.props.id +
+                      "-" +
+                      idx
+                    }
                     value={item.items.value}
                     swatch={item.type === "swatch" ? item : undefined}
                   />
                   <SizeOption
-                    htmlFor={"cart-" + item.name.toLowerCase() + "-" + idx}
+                    htmlFor={
+                      "cart-" +
+                      item.name.toLowerCase() +
+                      "-" +
+                      this.props.id +
+                      "-" +
+                      idx
+                    }
                     key={item.items.displayValue}
                     swatch={item.type === "swatch" ? item : undefined}
                     // onClick={(e) => this.handleClick(e)}

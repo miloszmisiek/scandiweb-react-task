@@ -112,7 +112,8 @@ export class CartPreview extends Component {
                             price.currency.symbol === this.props.currency.symbol
                         )[0]
                     )
-                    .reduce((total, amount) => total + amount.amount, 0)}
+                    .reduce((total, amount) => total + amount.amount, 0)
+                    .toFixed(2)}
                 </TotalValue>
               </span>
             </TotalContainer>

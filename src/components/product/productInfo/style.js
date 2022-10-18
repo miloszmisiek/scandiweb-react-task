@@ -28,6 +28,7 @@ export const ProductTitle = styled.h5`
   margin: 0;
   font-size: 1rem;
   font-weight: 300;
+  text-align: left;
 `;
 export const ProductType = styled(ProductTitle)`
   font-weight: 300;
