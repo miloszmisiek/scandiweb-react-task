@@ -10,6 +10,7 @@ const getProducts = gql`
         brand
         gallery
         category
+        description
         attributes {
           name
           type

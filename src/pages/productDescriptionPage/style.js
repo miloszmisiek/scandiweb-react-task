@@ -8,4 +8,6 @@ export const PDPContainer = styled.div`
   /* min-width: 1121px; */
   height: 100%;
   justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
 `;

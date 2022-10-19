@@ -63,3 +63,29 @@ export const CartIcon = styled.img`
   margin: 0;
   z-index: 1000;
 `;
+
+export const ImageContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  position: relative;
+`;
+
+export const OutOfStock = styled.div`
+  background: #ffffff;
+  opacity: 0.5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2.375 rem;
+  color: rgba(141, 143, 154, 1);
+  text-transform: uppercase;
+`;

@@ -62,12 +62,9 @@ export const PPISizeOptionsContainer = styled(SizeOptionsContainer)`
 export const PPISizeOption = styled(SizeOption)`
   min-width: ${(props) => (props.swatch ? "2.25rem" : "3.94rem")};
   min-height: ${(props) => (props.swatch ? "2.25rem" : "2.81rem")};
-
 `;
 
-export const PPISizeInput = styled(SizeOptionInput)`
-
-`;
+export const PPISizeInput = styled(SizeOptionInput)``;
 
 export const ColorBox = styled.div`
   background-color: ${(props) => props.swatch && props.swatch.value};
@@ -105,16 +102,41 @@ export const PPIAddToCart = styled(CartPrevButton)`
   text-transform: uppercase;
   margin-top: 1.25rem;
   max-width: 292px;
+  /* background-color: ${(props) => (props.inStock ? "inherit" : "#ffffff")}; */
 `;
 
-export const PPIDescription = styled.p`
+export const PPIDescription = styled.div`
   font-family: "Roboto", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
   line-height: 1.625rem;
   letter-spacing: 0em;
   text-align: left;
   max-width: 292px;
   margin: 2.5rem 0 0;
   color: #1d1f22;
+  max-height: 15rem;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  padding: 0.5rem;
+  text-align: left;
+
+  & * {
+    font-size: inherit;
+    margin-bottom: 0.5rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #5ece7b;
+    border-radius: 100px;
+  }
 `;

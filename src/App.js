@@ -85,7 +85,7 @@ function App() {
                                         render={() => (
                                           <ProductDescriptionPage
                                             {...product}
-                                            currency={currency.symbol}
+                                            currency={currency}
                                           />
                                         )}
                                       />

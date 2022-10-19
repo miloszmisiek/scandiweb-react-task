@@ -86,6 +86,21 @@ export const ProductsContainer = styled.div`
   gap: 1.5rem;
   overflow-y: auto;
   margin-bottom: 0.5rem;
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #5ece7b;
+    border-radius: 100px;
+  }
 `;
 
 export const TotalContainer = styled.div`

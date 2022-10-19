@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ImageContainer, OutOfStock } from "../productCard/style";
 import {
   GalleryPreview,
   GalleryThumbnail,
@@ -36,12 +37,15 @@ export class ProductGallery extends Component {
             ))}
           </GalleryThumbnails>
         )}
-        <GalleryPreview
-          gap={this.props.gallery.length <= 1}
-          src={this.props.gallery.filter(
-            (image, idx) => idx === this.state.activeImage
-          )}
-        />
+        <ImageContainer>
+          <GalleryPreview
+            gap={this.props.gallery.length <= 1}
+            src={this.props.gallery.filter(
+              (image, idx) => idx === this.state.activeImage
+            )}
+          />
+          {!this.props.inStock && <OutOfStock>out of stock</OutOfStock>}
+        </ImageContainer>
       </ProductGalleryContainer>
     );
   }

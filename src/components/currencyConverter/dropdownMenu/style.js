@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DropdownMenu = styled.div`
   position: absolute;
-  top: ${(props) => (props.cart ? "3rem" : "2rem")};
+  top: ${(props) => (props.cart ? "3rem" : "2.5rem")};
   left: ${(props) => (props.cart ? "auto" : "50%")};
   transform: ${(props) => (props.cart ? undefined : "translateX(-50%)")};
   right: ${(props) => (props.cart ? "-1rem" : "auto")};

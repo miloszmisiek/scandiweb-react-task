@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import {
   AddToCartButton,
   CartIcon,
+  ImageContainer,
   ImagePreview,
+  OutOfStock,
   ProductCardContainer,
   ProductCardData,
   ProductCardPrice,
@@ -61,7 +63,8 @@ export class ProductCard extends Component {
           )
         }
       >
-        <ImagePreview src={this.props.product.gallery[0]}></ImagePreview>
+        {!this.props.product.inStock && <OutOfStock>out of stock</OutOfStock>}
+        <ImagePreview src={this.props.product.gallery[0]} />
         <ProductCardData>
           <ProductTitleBrand>
             {this.props.product.brand}
@@ -72,7 +75,7 @@ export class ProductCard extends Component {
             {this.state.displayCurrency.amount}
           </ProductCardPrice>
         </ProductCardData>
-        {this.state.addCartVisibile && (
+        {this.state.addCartVisibile && this.props.product.inStock && (
           <AddToCartButton
             id="add-cart-button"
             onClick={() =>
