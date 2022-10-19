@@ -67,6 +67,10 @@ export const PPISizeOption = styled(SizeOption)`
 export const PPISizeInput = styled(SizeOptionInput)``;
 
 export const ColorBox = styled.div`
+  outline: ${(props) =>
+    props.swatch && props.swatch.displayValue === "White"
+      ? "1px solid black"
+      : props.swatch?.value};
   background-color: ${(props) => props.swatch && props.swatch.value};
   width: 100%;
   height: 100%;

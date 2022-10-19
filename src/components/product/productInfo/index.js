@@ -47,9 +47,8 @@ export class ProductInfo extends Component {
   }
 
   render() {
-    const priceAmount = (
-      this.state.displayCurrency.amount * this.props.quantity
-    ).toFixed(2);
+    console.log(this.props.attributes);
+    const priceAmount = this.state.displayCurrency.amount;
     return (
       <ProductInfoContainer>
         <ProductInfoLeftContainer>
@@ -59,54 +58,40 @@ export class ProductInfo extends Component {
             <span>{this.state.displayCurrency.currency?.symbol}</span>{" "}
             {priceAmount}
           </Price>
-          {this.props.attributes.map((item, idx) => (
-            <React.Fragment key={item.id}>
+          {this.props.attributes.map((attr) => (
+            <React.Fragment key={attr.name}>
               <SizeChartContainer>
-                <SizeTitle>{item.name}:</SizeTitle>
+                <SizeTitle>{attr.name}:</SizeTitle>
                 <SizeOptionsContainer>
-                  <SizeOptionInput
-                    type="radio"
-                    defaultChecked
-                    readOnly
-                    id={
-                      "cart-" +
-                      item.name.toLowerCase() +
-                      "-" +
-                      this.props.id +
-                      "-" +
-                      idx
-                    }
-                    name={
-                      "cart-" +
-                      item.name.toLowerCase() +
-                      "-" +
-                      this.props.id +
-                      "-" +
-                      idx
-                    }
-                    value={item.items.value}
-                    swatch={item.type === "swatch" ? item : undefined}
-                  />
-                  <SizeOption
-                    htmlFor={
-                      "cart-" +
-                      item.name.toLowerCase() +
-                      "-" +
-                      this.props.id +
-                      "-" +
-                      idx
-                    }
-                    key={item.items.displayValue}
-                    swatch={item.type === "swatch" ? item : undefined}
-                    // onClick={(e) => this.handleClick(e)}
-                    value={item.type !== "swatch" && item.displayValue}
-                  >
-                    {item.type !== "swatch" ? (
-                      item.items.displayValue
-                    ) : (
-                      <ColorBox swatch={item.items}></ColorBox>
-                    )}
-                  </SizeOption>
+                  {attr.items.map((item, idx) => (
+                    <React.Fragment key={idx}>
+                      <SizeOptionInput
+                        type="radio"
+                        defaultChecked={idx === 0}
+                        id={
+                          "cart-" + this.props.id + "-" + attr.name + "-" + idx
+                        }
+                        name={"cart-" + this.props.id + "-" + attr.name}
+                        value={item.value}
+                        swatch={attr.type === "swatch" ? item : undefined}
+                      />
+                      <SizeOption
+                        cartPreview
+                        htmlFor={
+                          "cart-" + this.props.id + "-" + attr.name + "-" + idx
+                        }
+                        key={item.displayValue}
+                        swatch={attr.type === "swatch" ? item : undefined}
+                        value={attr.type !== "swatch" && item.displayValue}
+                      >
+                        {attr.type !== "swatch" ? (
+                          item.value
+                        ) : (
+                          <ColorBox swatch={item}></ColorBox>
+                        )}
+                      </SizeOption>
+                    </React.Fragment>
+                  ))}
                 </SizeOptionsContainer>
               </SizeChartContainer>
             </React.Fragment>

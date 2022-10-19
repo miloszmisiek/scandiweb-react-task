@@ -85,6 +85,7 @@ export const ProductsContainer = styled.div`
   width: 100%;
   gap: 1.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
   margin-bottom: 0.5rem;
   scrollbar-gutter: stable;
 

@@ -105,14 +105,18 @@ export class CartPreview extends Component {
                 <TotalValue>{this.props.currency.symbol}</TotalValue>
                 <TotalValue>
                   {this.props.cartItems
-                    .map(
-                      (item) =>
-                        item.prices.filter(
-                          (price) =>
-                            price.currency.symbol === this.props.currency.symbol
-                        )[0]
+                    .map((item) => ({
+                      prices: item.prices.filter(
+                        (price) =>
+                          price.currency.symbol === this.props.currency.symbol
+                      )[0],
+                      quantity: item.quantity,
+                    }))
+                    .reduce(
+                      (total, item) =>
+                        total + (item.prices.amount || 0) * item.quantity,
+                      0
                     )
-                    .reduce((total, amount) => total + amount.amount, 0)
                     .toFixed(2)}
                 </TotalValue>
               </span>

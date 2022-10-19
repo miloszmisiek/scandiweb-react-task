@@ -6,7 +6,8 @@ export const ProductInfoContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   font-family: "Raleway", sans-serif;
-  gap: 1rem;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
   /* height: 100%; */
 `;
 
@@ -68,10 +69,14 @@ export const SizeOption = styled.label`
   line-height: 22px;
   box-sizing: border-box;
   border: 1px solid black;
-  width: fit-content;
-  padding: 0.1rem;
-  min-width: 2rem;
-  min-height: 2rem;
+  padding: ${(props) => (props.swatch ? "0.1rem" : "0 0.2rem")};
+  width: ${(props) =>
+    props.cartPreview && !!props.swatch ? "1.25rem" : "fit-content"};
+  height: ${(props) =>
+    props.cartPreview ? (!!props.swatch ? "1.25rem" : "1.5rem") : undefined};
+  min-width: ${(props) =>
+    props.cartPreview ? (!!props.swatch ? undefined : "1.5rem") : "2rem"};
+  min-height: ${(props) => (props.cartPreview ? undefined : "2rem")};
   font-size: 0.88rem;
   text-align: center;
   display: flex;
@@ -79,11 +84,9 @@ export const SizeOption = styled.label`
   justify-content: center;
   cursor: pointer;
   background-color: #ffffff;
-  border: ${(props) =>
-    props.swatch && props.swatch.displayValue === "White"
-      ? "1px solid black"
-      : props.swatch?.value};
+  border: ${(props) => props.swatch && props.swatch?.value};
   text-align: center;
+  flex-wrap: wrap;
 `;
 
 export const SizeOptionInput = styled.input`

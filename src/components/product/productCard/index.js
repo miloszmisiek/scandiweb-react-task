@@ -43,6 +43,7 @@ export class ProductCard extends Component {
   }
 
   render() {
+    // console.log(this.props.product.attributes);
     return (
       <ProductCardContainer
         onMouseEnter={() =>
@@ -81,9 +82,9 @@ export class ProductCard extends Component {
             onClick={() =>
               this.props.increaseCartQuantity(
                 this.props.product.id,
-                this.props.product.attributes.map((attr) => ({
-                  ...attr,
-                  items: attr.items[0],
+                this.props.product.attributes.map((item) => ({
+                  ...item,
+                  selected: item.items[0],
                 })),
                 this.props.product.gallery,
                 this.props.product.prices,
