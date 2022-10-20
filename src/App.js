@@ -25,6 +25,7 @@ function App() {
                 increaseCartQuantity,
                 decreaseCartQuantity,
                 removeFromCart,
+                setSelectedAttribiute,
               }) => (
                 <>
                   <Navbar
@@ -32,6 +33,11 @@ function App() {
                     setCurrency={setCurrency}
                     cartItems={cartItems}
                     getItemQuantity={getItemQuantity}
+                    setCartItems={setCartItems}
+                    increaseCartQuantity={increaseCartQuantity}
+                    decreaseCartQuantity={decreaseCartQuantity}
+                    removeFromCart={removeFromCart}
+                    setSelectedAttribiute={setSelectedAttribiute}
                   />
                   <Main>
                     <Switch>

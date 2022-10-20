@@ -96,6 +96,7 @@ export class CartPreview extends Component {
                   {...item}
                   currency={this.props.currency}
                   totalHandler={this.totalHandler}
+                  {...this.props}
                 />
               ))}
             </ProductsContainer>

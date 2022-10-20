@@ -7,6 +7,7 @@ export const ShoppingCartContext = createContext({
   increaseCartQuantity: () => {},
   decreaseCartQuantity: () => {},
   removeFromCart: () => {},
+  setSelectedAttribiute: () => {},
 });
 
 class ShoppingCartProvider extends Component {
@@ -21,14 +22,28 @@ class ShoppingCartProvider extends Component {
     return this.state.cartItems.find((item) => item.id === id)?.quantity || 0;
   };
 
-  increaseCartQuantity = (
-    id,
-    attributes,
-    gallery,
-    prices,
-    brand,
-    name
-  ) => {
+  setSelectedAttribiute = (id, name, selected) => {
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        cartItems: prevState.cartItems.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                attributes: item.attributes.map((attr) =>
+                  attr.name === name
+                    ? ({ ...attr, selected: selected })
+                    : attr
+                ),
+              }
+            : item
+        ),
+      }),
+      () => console.log(this.state.cartItems)
+    );
+  };
+
+  increaseCartQuantity = (id, attributes, gallery, prices, brand, name) => {
     this.setState((prevState) => ({
       ...prevState,
       cartItems:
@@ -77,6 +92,7 @@ class ShoppingCartProvider extends Component {
     increaseCartQuantity: this.increaseCartQuantity,
     decreaseCartQuantity: this.decreaseCartQuantity,
     removeFromCart: this.removeFromCart,
+    setSelectedAttribiute: this.setSelectedAttribiute,
   };
 
   componentDidMount() {
