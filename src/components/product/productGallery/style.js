@@ -13,6 +13,24 @@ export const GalleryThumbnails = styled.div`
   gap: 2.5rem;
   width: 100%;
   max-width: 20%;
+  max-height: 60vh;
+  overflow-y: ${(props) => (props.overflow ? "auto" : undefined)};
+  direction: rtl;
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #5ece7b;
+    border-radius: 100px;
+  }
 `;
 
 export const GalleryPreview = styled.img`
@@ -32,5 +50,5 @@ export const GalleryThumbnail = styled(GalleryPreview)`
   height: 80px;
   cursor: pointer;
   width: max-content;
-  margin: 0;
+  margin: 0 auto 0 3rem;
 `;

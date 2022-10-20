@@ -75,7 +75,7 @@ export class ProductInfo extends Component {
                         name={"cart-" + this.props.id + "-" + attr.name}
                         value={item.value}
                         swatch={attr.type === "swatch" ? item : undefined}
-                        onChange={(e) =>
+                        onChange={() =>
                           this.props.setSelectedAttribiute(
                             this.props.id,
                             attr.name,
