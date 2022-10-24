@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  AmountContainer,
   Basket,
   CartIcon,
   CartItemsCounter,
@@ -22,6 +23,7 @@ export class CartPreview extends Component {
     this.state = {
       isExpanded: false,
       cartItemsCount: 0,
+      total: 0,
     };
     this.handleExpanded = this.handleExpanded.bind(this);
   }
@@ -32,6 +34,18 @@ export class CartPreview extends Component {
       cartItemsCount: this.props.cartItems
         ?.map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0),
+      total: this.props.cartItems
+        .map((item) => ({
+          prices: item.prices?.filter(
+            (price) => price.currency.symbol === this.props.currency.symbol
+          )[0],
+          quantity: item.quantity,
+        }))
+        .reduce(
+          (total, item) => total + (item.prices?.amount || 0) * item.quantity,
+          0
+        )
+        .toFixed(2),
     }));
   }
 
@@ -42,6 +56,35 @@ export class CartPreview extends Component {
         cartItemsCount: this.props.cartItems
           ?.map((item) => item.quantity)
           .reduce((prev, curr) => prev + curr, 0),
+        total: this.props.cartItems
+          .map((item) => ({
+            prices: item.prices?.filter(
+              (price) => price.currency.symbol === this.props.currency.symbol
+            )[0],
+            quantity: item.quantity,
+          }))
+          .reduce(
+            (total, item) => total + (item.prices?.amount || 0) * item.quantity,
+            0
+          )
+          .toFixed(2),
+      }));
+    }
+    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+      this.setState((prevState) => ({
+        ...prevState,
+        total: this.props.cartItems
+          .map((item) => ({
+            prices: item.prices?.filter(
+              (price) => price.currency.symbol === this.props.currency.symbol
+            )[0],
+            quantity: item.quantity,
+          }))
+          .reduce(
+            (total, item) => total + (item.prices?.amount || 0) * item.quantity,
+            0
+          )
+          .toFixed(2),
       }));
     }
   }
@@ -61,9 +104,36 @@ export class CartPreview extends Component {
     }));
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const cartItems = new FormData();
+    this.props.cartItems.forEach((item) => {
+      cartItems.append(
+        `${item.id}`,
+        JSON.stringify({
+          brand: item.brand,
+          name: item.name,
+          quantity: item.quantity,
+          attributes: item.attributes.map((attr) => ({
+            [attr.name.toLowerCase().replaceAll(" ", "_")]: attr.selected.value,
+          })),
+          price: item.prices.find(
+            (price) => price.currency.symbol === this.props.currency.symbol
+          ).amount,
+        })
+      );
+    });
+    cartItems.append("total_amount", this.state.total);
+    cartItems.append("currency", this.props.currency.code);
+
+    for (const pair of cartItems.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
+  }
+
   render() {
     return (
-      <Basket>
+      <Basket onSubmit={(e) => this.handleSubmit(e)}>
         {!!this.props.cartItems?.length && (
           <CartItemsCounter>{this.state.cartItemsCount}</CartItemsCounter>
         )}
@@ -102,25 +172,12 @@ export class CartPreview extends Component {
             </ProductsContainer>
             <TotalContainer>
               <TotalText>Total</TotalText>
-              <span>
-                <TotalValue>{this.props.currency.symbol}</TotalValue>
-                <TotalValue>
-                  {this.props.cartItems
-                    .map((item) => ({
-                      prices: item.prices.filter(
-                        (price) =>
-                          price.currency.symbol === this.props.currency.symbol
-                      )[0],
-                      quantity: item.quantity,
-                    }))
-                    .reduce(
-                      (total, item) =>
-                        total + (item.prices.amount || 0) * item.quantity,
-                      0
-                    )
-                    .toFixed(2)}
+              <AmountContainer>
+                <TotalValue role="input">
+                  {this.props.currency.symbol}{" "}
                 </TotalValue>
-              </span>
+                <TotalValue role="input">{this.state.total}</TotalValue>
+              </AmountContainer>
             </TotalContainer>
             <CartPrevButtons>
               <CartPrevButton
@@ -132,11 +189,12 @@ export class CartPreview extends Component {
                 VIEW BAG
               </CartPrevButton>
               <CartPrevButton
+                type="submit"
                 checkout
-                onClick={() => {
-                  this.handleClick();
-                  this.props.stateHandler();
-                }}
+                // onClick={() => {
+                //   this.handleClick();
+                //   this.props.stateHandler();
+                // }}
               >
                 CHECKOUT
               </CartPrevButton>

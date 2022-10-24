@@ -60,6 +60,7 @@ function App() {
                                     increaseCartQuantity={increaseCartQuantity}
                                     decreaseCartQuantity={decreaseCartQuantity}
                                     removeFromCart={removeFromCart}
+                                    setSelectedAttribiute={setSelectedAttribiute}
                                   />
                                 )}
                               />
@@ -92,6 +93,7 @@ function App() {
                                           <ProductDescriptionPage
                                             {...product}
                                             currency={currency}
+                                            setSelectedAttribiute={setSelectedAttribiute}
                                           />
                                         )}
                                       />

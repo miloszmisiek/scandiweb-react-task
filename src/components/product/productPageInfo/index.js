@@ -24,6 +24,7 @@ export class ProductPageInfo extends Component {
     super(props);
     this.state = {
       displayCurrency: "",
+      selected: [],
     };
   }
 
@@ -75,14 +76,48 @@ export class ProductPageInfo extends Component {
                   <React.Fragment key={item.displayValue}>
                     <PPISizeInput
                       type="radio"
-                      defaultChecked={idx === 0}
+                      checked={
+                        !!Object.entries(this.state.selected).length
+                          ? attr.name ===
+                              this.state.selected.find(
+                                (select) => select.name === attr.name
+                              )?.name &&
+                            item.value ===
+                              this.state.selected.find(
+                                (select) => select.value === item.value
+                              )?.value
+                          : idx === 0
+                      }
                       id={attr.name.toLowerCase() + "-" + idx}
                       name={attr.name.toLowerCase()}
                       value={item.value}
                       swatch={attr.type === "swatch" ? item : undefined}
+                      onChange={() =>
+                        this.setState(
+                          (prev) => ({
+                            ...prev,
+                            selected:
+                              prev.selected.find(
+                                (item) => item.name === attr.name
+                              ) == null
+                                ? [
+                                    ...prev.selected,
+                                    { name: attr.name, value: item.value },
+                                  ]
+                                : prev.selected.map((i) =>
+                                    i.name === attr.name
+                                      ? { ...i, value: item.value }
+                                      : i
+                                  ),
+                          }),
+                          () => console.log(this.state.selected)
+                        )
+                      }
                     />
                     <PPISizeOption
-                      htmlFor={attr.name.toLowerCase() + "-" + idx}
+                      htmlFor={
+                        attr.name.toLowerCase().replaceAll(" ", "-") + "-" + idx
+                      }
                       key={item.displayValue}
                       swatch={attr.type === "swatch" ? item : undefined}
                       onClick={(e) => this.handleClick(e)}

@@ -40,19 +40,22 @@ export const Price = styled.div`
   font-weight: 500;
   padding: 1rem 0;
 `;
-export const SizeChartContainer = styled.div`
+export const SizeChartContainer = styled.fieldset`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: baseline;
+  border: none;
+  margin: 0;
 `;
 export const ColorsContainer = styled(SizeChartContainer)``;
 
-export const SizeTitle = styled.h5`
+export const SizeTitle = styled.legend`
   margin: 0;
   font-size: 0.88rem;
   font-weight: 400;
   padding-bottom: 0.5rem;
+  text-align: left;
 `;
 
 export const SizeOptionsContainer = styled.div`

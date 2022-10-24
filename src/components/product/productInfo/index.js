@@ -67,12 +67,21 @@ export class ProductInfo extends Component {
                     <React.Fragment key={idx}>
                       <SizeOptionInput
                         type="radio"
-                        // defaultChecked={idx === 0}
-                        checked={attr.selected.value === item.value}
+                        checked={attr.selected?.value === item.value}
                         id={
-                          "cart-" + this.props.id + "-" + attr.name + "-" + idx
+                          "cart-" +
+                          this.props.id +
+                          "-" +
+                          attr.name.toLowerCase().replaceAll(" ", "-") +
+                          "-" +
+                          idx
                         }
-                        name={"cart-" + this.props.id + "-" + attr.name}
+                        name={
+                          "cart-" +
+                          this.props.id +
+                          "-" +
+                          attr.name.toLowerCase().replaceAll(" ", "-")
+                        }
                         value={item.value}
                         swatch={attr.type === "swatch" ? item : undefined}
                         onChange={() =>
@@ -86,7 +95,12 @@ export class ProductInfo extends Component {
                       <SizeOption
                         cartPreview
                         htmlFor={
-                          "cart-" + this.props.id + "-" + attr.name + "-" + idx
+                          "cart-" +
+                          this.props.id +
+                          "-" +
+                          attr.name.toLowerCase().replaceAll(" ", "-") +
+                          "-" +
+                          idx
                         }
                         key={item.displayValue}
                         swatch={attr.type === "swatch" ? item : undefined}

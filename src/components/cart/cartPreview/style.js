@@ -104,20 +104,39 @@ export const ProductsContainer = styled.div`
   }
 `;
 
-export const TotalContainer = styled.div`
+export const TotalContainer = styled.fieldset`
   margin-top: 2.7rem;
   display: flex;
   justify-content: space-between;
+  border: none;
 `;
-export const TotalText = styled.span`
+export const TotalText = styled.label`
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.125rem;
+  width: 50%;
+  text-align: left;
 `;
+
+export const AmountContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
 export const TotalValue = styled.span`
   font-family: "Raleway", sans-serif;
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.625rem;
+  display: inline;
+  border: none;
+  width: 100%;
+  cursor: default;
+
+  &:focus {
+    outline: none;
+  }
 `;
