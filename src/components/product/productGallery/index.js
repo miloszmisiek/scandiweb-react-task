@@ -25,18 +25,17 @@ export class ProductGallery extends Component {
   render() {
     return (
       <ProductGalleryContainer>
-        {this.props.gallery.length > 1 && (
-          <GalleryThumbnails $overflow={this.props.gallery.length > 4}>
-            {this.props.gallery.map((image, idx) => (
-              <GalleryThumbnail
-                key={idx}
-                id={idx}
-                src={image}
-                onClick={(e) => this.handleClick(e)}
-              />
-            ))}
-          </GalleryThumbnails>
-        )}
+        <GalleryThumbnails $overflow={this.props.gallery.length > 4}>
+          {this.props.gallery.map((image, idx) => (
+            <GalleryThumbnail
+              key={idx}
+              id={idx}
+              src={image}
+              onClick={(e) => this.handleClick(e)}
+            />
+          ))}
+        </GalleryThumbnails>
+
         <ImageContainer>
           <GalleryPreview
             gap={this.props.gallery.length <= 1}

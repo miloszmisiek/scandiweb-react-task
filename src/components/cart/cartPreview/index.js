@@ -181,10 +181,10 @@ export class CartPreview extends Component {
             <TotalContainer>
               <TotalText>Total</TotalText>
               <AmountContainer>
-                <TotalValue role="input" currency>
-                  {this.props.currency.symbol}
-                </TotalValue>
-                <TotalValue role="input">{this.state.total}</TotalValue>
+                <span>
+                  <TotalValue currency>{this.props.currency.symbol}</TotalValue>
+                  <TotalValue>{this.state.total}</TotalValue>
+                </span>
               </AmountContainer>
             </TotalContainer>
             <CartPrevButtons>
@@ -200,7 +200,7 @@ export class CartPreview extends Component {
                 VIEW BAG
               </CartPrevButton>
               <CartPrevButton type="submit" checkout>
-                CHECKOUT
+                CHECK OUT
               </CartPrevButton>
             </CartPrevButtons>
           </Dropdown>

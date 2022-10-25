@@ -118,7 +118,7 @@ export const PPIDescription = styled.div`
   max-width: 292px;
   margin: 2.5rem 0 0;
   color: #1d1f22;
-  max-height: 15rem;
+  max-height: 103px;
   overflow: auto;
   scrollbar-gutter: stable;
   padding: 0.5rem;

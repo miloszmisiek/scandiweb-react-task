@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ProductGalleryContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: auto;
   gap: 2.5rem;
   height: 100%;
 `;
@@ -38,7 +38,6 @@ export const GalleryPreview = styled.img`
   object-fit: contain;
   height: 511px;
   width: 100%;
-  max-width: 70%;
   margin: 0 auto;
 
   @media (min-width: 1325px) {

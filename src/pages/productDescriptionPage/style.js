@@ -7,7 +7,7 @@ export const PDPContainer = styled.div`
   gap: 6.25rem;
   /* min-width: 1121px; */
   height: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: flex-start;
   position: relative;
 `;

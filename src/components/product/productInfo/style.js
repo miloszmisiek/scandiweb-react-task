@@ -169,7 +169,7 @@ export const QuantityButton = styled.button`
   min-width: ${(props) => (props.cartPage ? "45px" : "1.5rem")};
   min-height: ${(props) => (props.cartPage ? "45px" : "1.5rem")};
   font-family: "Roboto", sans-serif;
-  font-size: 1.8rem;
+  font-size: ${(props) => (props.cartPage ? "1.8rem" : "1rem")};
   font-weight: 100;
   display: flex;
   align-items: center;
