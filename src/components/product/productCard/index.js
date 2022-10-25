@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   AddToCartButton,
   CartIcon,
-  ImageContainer,
   ImagePreview,
   OutOfStock,
   ProductCardContainer,
@@ -43,7 +42,6 @@ export class ProductCard extends Component {
   }
 
   render() {
-    // console.log(this.props.product.attributes);
     return (
       <ProductCardContainer
         onMouseEnter={() =>

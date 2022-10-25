@@ -16,6 +16,8 @@ import {
 import cart from "../../../assets/logo/cart-logo.svg";
 import Dropdown from "../../currencyConverter/dropdownMenu";
 import ProductInfo from "../../product/productInfo";
+import { roundNumber } from "../../../utils/utils";
+import { withRouter } from "react-router-dom";
 
 export class CartPreview extends Component {
   constructor(props) {
@@ -34,18 +36,19 @@ export class CartPreview extends Component {
       cartItemsCount: this.props.cartItems
         ?.map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0),
-      total: this.props.cartItems
-        .map((item) => ({
-          prices: item.prices?.filter(
-            (price) => price.currency.symbol === this.props.currency.symbol
-          )[0],
-          quantity: item.quantity,
-        }))
-        .reduce(
-          (total, item) => total + (item.prices?.amount || 0) * item.quantity,
-          0
-        )
-        .toFixed(2),
+      total: roundNumber(
+        this.props.cartItems
+          .map((item) => ({
+            prices: item.prices?.filter(
+              (price) => price.currency.symbol === this.props.currency.symbol
+            )[0],
+            quantity: item.quantity,
+          }))
+          .reduce(
+            (total, item) => total + (item.prices?.amount || 0) * item.quantity,
+            0
+          )
+      ),
     }));
   }
 
@@ -56,35 +59,39 @@ export class CartPreview extends Component {
         cartItemsCount: this.props.cartItems
           ?.map((item) => item.quantity)
           .reduce((prev, curr) => prev + curr, 0),
-        total: this.props.cartItems
-          .map((item) => ({
-            prices: item.prices?.filter(
-              (price) => price.currency.symbol === this.props.currency.symbol
-            )[0],
-            quantity: item.quantity,
-          }))
-          .reduce(
-            (total, item) => total + (item.prices?.amount || 0) * item.quantity,
-            0
-          )
-          .toFixed(2),
+        total: roundNumber(
+          this.props.cartItems
+            .map((item) => ({
+              prices: item.prices?.filter(
+                (price) => price.currency.symbol === this.props.currency.symbol
+              )[0],
+              quantity: item.quantity,
+            }))
+            .reduce(
+              (total, item) =>
+                total + (item.prices?.amount || 0) * item.quantity,
+              0
+            )
+        ),
       }));
     }
     if (this.props.currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
-        total: this.props.cartItems
-          .map((item) => ({
-            prices: item.prices?.filter(
-              (price) => price.currency.symbol === this.props.currency.symbol
-            )[0],
-            quantity: item.quantity,
-          }))
-          .reduce(
-            (total, item) => total + (item.prices?.amount || 0) * item.quantity,
-            0
-          )
-          .toFixed(2),
+        total: roundNumber(
+          this.props.cartItems
+            .map((item) => ({
+              prices: item.prices?.filter(
+                (price) => price.currency.symbol === this.props.currency.symbol
+              )[0],
+              quantity: item.quantity,
+            }))
+            .reduce(
+              (total, item) =>
+                total + (item.prices?.amount || 0) * item.quantity,
+              0
+            )
+        ),
       }));
     }
   }
@@ -174,8 +181,8 @@ export class CartPreview extends Component {
             <TotalContainer>
               <TotalText>Total</TotalText>
               <AmountContainer>
-                <TotalValue role="input">
-                  {this.props.currency.symbol}{" "}
+                <TotalValue role="input" currency>
+                  {this.props.currency.symbol}
                 </TotalValue>
                 <TotalValue role="input">{this.state.total}</TotalValue>
               </AmountContainer>
@@ -185,6 +192,9 @@ export class CartPreview extends Component {
                 onClick={() => {
                   this.handleClick();
                   this.props.stateHandler();
+                  this.props.history.push(
+                    `/cart/${this.props.currency.code.toLowerCase()}`
+                  );
                 }}
               >
                 VIEW BAG
@@ -200,4 +210,4 @@ export class CartPreview extends Component {
   }
 }
 
-export default CartPreview;
+export default withRouter(CartPreview);

@@ -15,6 +15,7 @@ export const GalleryThumbnails = styled.div`
   max-width: 20%;
   max-height: 60vh;
   overflow-y: ${(props) => (props.overflow ? "auto" : undefined)};
+  overflow-x: hidden;
   direction: rtl;
   scrollbar-gutter: stable;
 

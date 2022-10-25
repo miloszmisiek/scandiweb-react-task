@@ -26,7 +26,7 @@ export class ProductGallery extends Component {
     return (
       <ProductGalleryContainer>
         {this.props.gallery.length > 1 && (
-          <GalleryThumbnails overflow={this.props.gallery.length > 4}>
+          <GalleryThumbnails $overflow={this.props.gallery.length > 4}>
             {this.props.gallery.map((image, idx) => (
               <GalleryThumbnail
                 key={idx}

@@ -135,6 +135,7 @@ export const TotalValue = styled.span`
   border: none;
   width: 100%;
   cursor: default;
+  text-align: ${[(props) => (props.currency ? "right" : undefined)]};
 
   &:focus {
     outline: none;

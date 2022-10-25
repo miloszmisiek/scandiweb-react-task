@@ -51,7 +51,6 @@ export const PPISizeTitle = styled(SizeTitle)`
   font-weight: 700;
   line-height: 1.125rem;
   letter-spacing: 0em;
-  text-align: center;
   text-transform: uppercase;
 `;
 

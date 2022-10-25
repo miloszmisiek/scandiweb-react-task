@@ -47,7 +47,6 @@ export class ProductInfo extends Component {
   }
 
   render() {
-    console.log(this.props.attributes);
     const priceAmount = this.state.displayCurrency?.amount;
     return (
       <ProductInfoContainer>

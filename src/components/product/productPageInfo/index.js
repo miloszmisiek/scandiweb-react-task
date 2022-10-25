@@ -29,7 +29,6 @@ export class ProductPageInfo extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.currency.symbol);
     this.setState((prevState) => ({
       ...prevState,
       displayCurrency: this.props.prices.filter(
@@ -47,16 +46,6 @@ export class ProductPageInfo extends Component {
         )[0],
       }));
     }
-  }
-
-  handleClick(e) {
-    console.log(e.target);
-    console.log(this.props);
-    console.log(
-      Array.prototype.slice.call(
-        document.querySelectorAll("input[type='radio']:checked")
-      )
-    );
   }
 
   render() {
@@ -93,25 +82,22 @@ export class ProductPageInfo extends Component {
                       value={item.value}
                       swatch={attr.type === "swatch" ? item : undefined}
                       onChange={() =>
-                        this.setState(
-                          (prev) => ({
-                            ...prev,
-                            selected:
-                              prev.selected.find(
-                                (item) => item.name === attr.name
-                              ) == null
-                                ? [
-                                    ...prev.selected,
-                                    { name: attr.name, value: item.value },
-                                  ]
-                                : prev.selected.map((i) =>
-                                    i.name === attr.name
-                                      ? { ...i, value: item.value }
-                                      : i
-                                  ),
-                          }),
-                          () => console.log(this.state.selected)
-                        )
+                        this.setState((prev) => ({
+                          ...prev,
+                          selected:
+                            prev.selected.find(
+                              (item) => item.name === attr.name
+                            ) == null
+                              ? [
+                                  ...prev.selected,
+                                  { name: attr.name, value: item.value },
+                                ]
+                              : prev.selected.map((i) =>
+                                  i.name === attr.name
+                                    ? { ...i, value: item.value }
+                                    : i
+                                ),
+                        }))
                       }
                     />
                     <PPISizeOption
@@ -120,7 +106,6 @@ export class ProductPageInfo extends Component {
                       }
                       key={item.displayValue}
                       swatch={attr.type === "swatch" ? item : undefined}
-                      onClick={(e) => this.handleClick(e)}
                       value={attr.type !== "swatch" && item.displayValue}
                     >
                       {attr.type !== "swatch" ? (

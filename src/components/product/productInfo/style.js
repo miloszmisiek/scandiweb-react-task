@@ -85,9 +85,21 @@ export const SizeOption = styled.label`
   border: 1px solid black;
   padding: ${(props) => (props.swatch ? "0.1rem" : "0 0.2rem")};
   width: ${(props) =>
-    props.cartPreview && !!props.swatch ? "1.25rem" : "fit-content"};
+    !!props.swatch
+      ? props.cartPreview
+        ? "1.25rem"
+        : props.cartPage
+        ? "2rem"
+        : undefined
+      : "fit-content"};
   height: ${(props) =>
-    props.cartPreview ? (!!props.swatch ? "1.25rem" : "1.5rem") : undefined};
+    !!props.swatch
+      ? props.cartPreview
+        ? "1.25rem"
+        : props.cartPage
+        ? "2rem"
+        : "1.5rem"
+      : undefined};
   min-width: ${(props) =>
     props.cartPreview
       ? !!props.swatch
