@@ -48,21 +48,30 @@ export class ProductInfo extends Component {
 
   render() {
     console.log(this.props.attributes);
-    const priceAmount = this.state.displayCurrency.amount;
+    const priceAmount = this.state.displayCurrency?.amount;
     return (
       <ProductInfoContainer>
         <ProductInfoLeftContainer>
-          <ProductTitle>{this.props.brand}</ProductTitle>
-          <ProductType>{this.props.name}</ProductType>
-          <Price>
-            <span>{this.state.displayCurrency.currency?.symbol}</span>{" "}
+          <ProductTitle cartPage={!!this.props.cartPage}>
+            {this.props.brand}
+          </ProductTitle>
+          <ProductType cartPage={!!this.props.cartPage}>
+            {this.props.name}
+          </ProductType>
+          <Price cartPage={!!this.props.cartPage}>
+            <span>{this.state.displayCurrency?.currency?.symbol}</span>
             {priceAmount}
           </Price>
-          {this.props.attributes.map((attr) => (
+          {this.props.attributes.map((attr, idx) => (
             <React.Fragment key={attr.name}>
               <SizeChartContainer>
-                <SizeTitle>{attr.name}:</SizeTitle>
-                <SizeOptionsContainer>
+                <SizeTitle cartPage={!!this.props.cartPage}>
+                  {attr.name}:
+                </SizeTitle>
+                <SizeOptionsContainer
+                  cartPage={!!this.props.cartPage}
+                  lastElement={idx === this.props.attributes.length - 1}
+                >
                   {attr.items.map((item, idx) => (
                     <React.Fragment key={idx}>
                       <SizeOptionInput
@@ -93,7 +102,8 @@ export class ProductInfo extends Component {
                         }
                       />
                       <SizeOption
-                        cartPreview
+                        cartPreview={!!this.props.cartPreview}
+                        cartPage={!!this.props.cartPage}
                         htmlFor={
                           "cart-" +
                           this.props.id +
@@ -119,9 +129,10 @@ export class ProductInfo extends Component {
             </React.Fragment>
           ))}
         </ProductInfoLeftContainer>
-        <ProductInfoRightContainer>
-          <QuantityContainer>
+        <ProductInfoRightContainer cartPage={!!this.props.cartPage}>
+          <QuantityContainer cartPage={!!this.props.cartPage}>
             <QuantityButton
+              cartPage={!!this.props.cartPage}
               onClick={(e) => {
                 e.preventDefault();
                 this.props.increaseCartQuantity(this.props.id);
@@ -129,17 +140,23 @@ export class ProductInfo extends Component {
             >
               +
             </QuantityButton>
-            <QuantityNumber>{this.props.quantity}</QuantityNumber>
+            <QuantityNumber cartPage={!!this.props.cartPage}>
+              {this.props.quantity}
+            </QuantityNumber>
             <QuantityButton
+              cartPage={!!this.props.cartPage}
               onClick={(e) => {
                 e.preventDefault();
                 this.props.decreaseCartQuantity(this.props.id);
               }}
             >
-              -
+              &#8212;
             </QuantityButton>
           </QuantityContainer>
-          <ProductImagePreview src={this.props.gallery[0]} />
+          <ProductImagePreview
+            cartPage={!!this.props.cartPage}
+            src={this.props.gallery[0]}
+          />
         </ProductInfoRightContainer>
       </ProductInfoContainer>
     );

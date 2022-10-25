@@ -129,6 +129,8 @@ export class CartPreview extends Component {
     for (const pair of cartItems.entries()) {
       console.log(pair[0] + ": " + pair[1]);
     }
+    this.handleClick();
+    this.props.stateHandler();
   }
 
   render() {
@@ -164,9 +166,8 @@ export class CartPreview extends Component {
                 <ProductInfo
                   key={item.id}
                   {...item}
-                  currency={this.props.currency}
-                  totalHandler={this.totalHandler}
                   {...this.props}
+                  cartPreview
                 />
               ))}
             </ProductsContainer>
@@ -188,14 +189,7 @@ export class CartPreview extends Component {
               >
                 VIEW BAG
               </CartPrevButton>
-              <CartPrevButton
-                type="submit"
-                checkout
-                // onClick={() => {
-                //   this.handleClick();
-                //   this.props.stateHandler();
-                // }}
-              >
+              <CartPrevButton type="submit" checkout>
                 CHECKOUT
               </CartPrevButton>
             </CartPrevButtons>

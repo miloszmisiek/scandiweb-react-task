@@ -9,6 +9,7 @@ import ProductsListPage from "./pages/productsListPage";
 import ProductDescriptionPage from "./pages/productDescriptionPage";
 import React from "react";
 import { ShoppingCartContext } from "./contexts/ShoppingCartContext";
+import CartPage from "./pages/cartPage";
 
 function App() {
   return (
@@ -41,6 +42,19 @@ function App() {
                   />
                   <Main>
                     <Switch>
+                      <Route
+                        exact
+                        path={`/cart/${currency?.code}`}
+                        render={() => (
+                          <CartPage
+                            currency={currency}
+                            cartItems={cartItems}
+                            increaseCartQuantity={increaseCartQuantity}
+                            decreaseCartQuantity={decreaseCartQuantity}
+                            setSelectedAttribiute={setSelectedAttribiute}
+                          />
+                        )}
+                      />
                       <Query query={getCategories}>
                         {({ data, loading, error }) => {
                           if (loading) return <p>Loading…</p>;
@@ -60,7 +74,9 @@ function App() {
                                     increaseCartQuantity={increaseCartQuantity}
                                     decreaseCartQuantity={decreaseCartQuantity}
                                     removeFromCart={removeFromCart}
-                                    setSelectedAttribiute={setSelectedAttribiute}
+                                    setSelectedAttribiute={
+                                      setSelectedAttribiute
+                                    }
                                   />
                                 )}
                               />
@@ -93,7 +109,9 @@ function App() {
                                           <ProductDescriptionPage
                                             {...product}
                                             currency={currency}
-                                            setSelectedAttribiute={setSelectedAttribiute}
+                                            setSelectedAttribiute={
+                                              setSelectedAttribiute
+                                            }
                                           />
                                         )}
                                       />
