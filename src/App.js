@@ -112,6 +112,10 @@ function App() {
                                             setSelectedAttribiute={
                                               setSelectedAttribiute
                                             }
+                                            increaseCartQuantity={
+                                              increaseCartQuantity
+                                            }
+                                            cartItems={cartItems}
                                           />
                                         )}
                                       />

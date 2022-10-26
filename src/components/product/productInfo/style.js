@@ -123,7 +123,7 @@ export const SizeOption = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: #ffffff;
   border: ${(props) => props.swatch && props.swatch?.value};
   text-align: center;

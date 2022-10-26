@@ -38,27 +38,38 @@ class ShoppingCartProvider extends Component {
     }));
   };
 
-  increaseCartQuantity = (id, attributes, gallery, prices, brand, name) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      cartItems:
-        prevState.cartItems.find((item) => item.id === id) == null
-          ? [
-              ...prevState.cartItems,
-              {
-                id,
-                quantity: 1,
-                attributes,
-                gallery,
-                prices,
-                brand,
-                name,
-              },
-            ]
-          : prevState.cartItems.map((item) =>
-              item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-            ),
-    }));
+  increaseCartQuantity = (id, att, gallery, prices, brand, name) => {
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        cartItems:
+          prevState.cartItems.find((item) => item.id === id) == null ||
+          !prevState.cartItems
+            .find((item) => item.id === id)
+            ?.attributes.map(
+              (attr) =>
+                attr.selected.value ===
+                att.find((sub) => sub.name === attr.name).selected.value
+            )
+            .reduce((curr, acc) => curr && acc)
+            ? [
+                ...prevState.cartItems,
+                {
+                  id: id,
+                  quantity: 1,
+                  attributes: att,
+                  gallery: gallery,
+                  prices: prices,
+                  brand: brand,
+                  name: name,
+                },
+              ]
+            : prevState.cartItems.map((item) =>
+                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+              ),
+      }),
+      () => console.log(this.state.cartItems)
+    );
   };
 
   decreaseCartQuantity = (id) => {

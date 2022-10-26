@@ -48,10 +48,34 @@ export class ProductPageInfo extends Component {
     }
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.selected);
+    // const subAttr = this.props.attributes.map((item) => ({
+    //   ...item,
+    //   selected:
+    //     this.state.selected.find((sel) => sel.name === item.name) == null
+    //       ? item.items[0]
+    //       : this.state.selected.find((sel) => sel.name === item.name).value,
+    // }));
+    this.props.increaseCartQuantity(
+      this.props.id,
+      this.props.attributes.map((item) => ({
+        ...item,
+        selected: this.state.selected.find((sel) => sel.name === item.name)
+          .value,
+      })),
+      this.props.gallery,
+      this.props.prices,
+      this.props.brand,
+      this.props.name
+    );
+  }
+
   render() {
     return (
       <PPIContainer>
-        <form>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <ProductTitleContainer>
             <ProductBrand>{this.props.brand}</ProductBrand>
             <ProductName>{this.props.name}</ProductName>
@@ -66,47 +90,50 @@ export class ProductPageInfo extends Component {
                     <PPISizeInput
                       type="radio"
                       checked={
-                        !!Object.entries(this.state.selected).length
-                          ? attr.name ===
-                              this.state.selected.find(
-                                (select) => select.name === attr.name
-                              )?.name &&
-                            item.value ===
-                              this.state.selected.find(
-                                (select) => select.value === item.value
-                              )?.value
+                        !!this.state.selected.find(
+                          (obj) => obj.name === attr.name
+                        )
+                          ? item.value ===
+                            this.state.selected.find(
+                              (select) =>
+                                select.value.value === item.value &&
+                                select.name === attr.name
+                            )?.value.value
                           : idx === 0
                       }
-                      id={attr.name.toLowerCase() + "-" + idx}
-                      name={attr.name.toLowerCase()}
+                      id={
+                        attr.name.toLowerCase().replaceAll(" ", "-") + "-" + idx
+                      }
+                      name={attr.name.toLowerCase().replaceAll(" ", "-")}
                       value={item.value}
                       swatch={attr.type === "swatch" ? item : undefined}
                       onChange={() =>
-                        this.setState((prev) => ({
-                          ...prev,
-                          selected:
-                            prev.selected.find(
-                              (item) => item.name === attr.name
-                            ) == null
-                              ? [
-                                  ...prev.selected,
-                                  { name: attr.name, value: item.value },
-                                ]
-                              : prev.selected.map((i) =>
-                                  i.name === attr.name
-                                    ? { ...i, value: item.value }
-                                    : i
-                                ),
-                        }))
+                        this.setState(
+                          (prev) => ({
+                            ...prev,
+                            selected:
+                              prev.selected.find(
+                                (item) => item.name === attr.name
+                              ) == null
+                                ? [
+                                    ...prev.selected,
+                                    { name: attr.name, value: item },
+                                  ]
+                                : prev.selected.map((i) =>
+                                    i.name === attr.name
+                                      ? { ...i, value: item }
+                                      : i
+                                  ),
+                          }),
+                          () => console.log(this.state.selected)
+                        )
                       }
                     />
                     <PPISizeOption
                       htmlFor={
                         attr.name.toLowerCase().replaceAll(" ", "-") + "-" + idx
                       }
-                      key={item.displayValue}
                       swatch={attr.type === "swatch" ? item : undefined}
-                      value={attr.type !== "swatch" && item.displayValue}
                     >
                       {attr.type !== "swatch" ? (
                         item.displayValue
@@ -127,7 +154,7 @@ export class ProductPageInfo extends Component {
             </PPIPrice>
           </PPIPriceContainer>
           <ImageContainer>
-            <PPIAddToCart inStock={this.props.inStock} checkout>
+            <PPIAddToCart type="submit" inStock={this.props.inStock} checkout>
               add to cart
             </PPIAddToCart>
             {!this.props.inStock && <OutOfStock />}

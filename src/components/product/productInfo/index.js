@@ -75,6 +75,7 @@ export class ProductInfo extends Component {
                     <React.Fragment key={idx}>
                       <SizeOptionInput
                         type="radio"
+                        readOnly
                         checked={attr.selected?.value === item.value}
                         id={
                           "cart-" +
@@ -92,13 +93,13 @@ export class ProductInfo extends Component {
                         }
                         value={item.value}
                         swatch={attr.type === "swatch" ? item : undefined}
-                        onChange={() =>
-                          this.props.setSelectedAttribiute(
-                            this.props.id,
-                            attr.name,
-                            item
-                          )
-                        }
+                        // onChange={() =>
+                        //   this.props.setSelectedAttribiute(
+                        //     this.props.id,
+                        //     attr.name,
+                        //     item
+                        //   )
+                        // }
                       />
                       <SizeOption
                         cartPreview={!!this.props.cartPreview}
@@ -134,7 +135,10 @@ export class ProductInfo extends Component {
               cartPage={!!this.props.cartPage}
               onClick={(e) => {
                 e.preventDefault();
-                this.props.increaseCartQuantity(this.props.id);
+                this.props.increaseCartQuantity(
+                  this.props.id,
+                  this.props.attributes
+                );
               }}
             >
               +
