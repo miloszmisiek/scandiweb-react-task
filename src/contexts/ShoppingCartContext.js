@@ -38,37 +38,58 @@ class ShoppingCartProvider extends Component {
     }));
   };
 
-  increaseCartQuantity = (id, att, gallery, prices, brand, name) => {
+  increaseCartQuantity = (id, selected) => {
     this.setState(
       (prevState) => ({
         ...prevState,
         cartItems:
           prevState.cartItems.find((item) => item.id === id) == null ||
-          !prevState.cartItems
-            .find((item) => item.id === id)
-            ?.attributes.map(
-              (attr) =>
-                attr.selected.value ===
-                att.find((sub) => sub.name === attr.name).selected.value
+          prevState.cartItems
+            .map(
+              (item) =>
+                item.id === id &&
+                item.variant.some((attr) =>
+                  selected.find(
+                    (sel) => sel.name === attr.name && sel.value !== attr.value
+                  )
+                )
             )
-            .reduce((curr, acc) => curr && acc)
+            .reduce((acc, curr) => acc && curr)
             ? [
                 ...prevState.cartItems,
                 {
                   id: id,
                   quantity: 1,
-                  attributes: att,
-                  gallery: gallery,
-                  prices: prices,
-                  brand: brand,
-                  name: name,
+                  variant: selected,
                 },
               ]
             : prevState.cartItems.map((item) =>
-                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === id &&
+                item.variant
+                  .map((attr) =>
+                    selected.find(
+                      (sel) =>
+                        sel.name === attr.name && sel.value === attr.value
+                    )
+                  )
+                  .reduce((acc, curr) => acc && curr)
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item
               ),
       }),
-      () => console.log(this.state.cartItems)
+      () =>
+        console.log(
+          this.state.cartItems,
+          this.state.cartItems.map(
+            (item) =>
+              item.id === id &&
+              item.variant.some((attr) =>
+                selected.find(
+                  (sel) => sel.name === attr.name && sel.value !== attr.value
+                )
+              )
+          )
+        )
     );
   };
 
@@ -125,3 +146,14 @@ class ShoppingCartProvider extends Component {
 }
 
 export default ShoppingCartProvider;
+
+// console.log(
+//   "found different variant",
+//   item.variant.filter(
+//     (attr) =>
+//       selected.find(
+//         (sel) =>
+//           sel.name === attr.name && sel.value !== attr.value
+//       ) !== undefined
+//   )
+// )

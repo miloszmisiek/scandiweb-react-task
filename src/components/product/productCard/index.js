@@ -83,13 +83,12 @@ export class ProductCard extends Component {
               this.props.increaseCartQuantity(
                 this.props.product.id,
                 this.props.product.attributes.map((item) => ({
-                  ...item,
-                  selected: item.items[0],
-                })),
-                this.props.product.gallery,
-                this.props.product.prices,
-                this.props.product.brand,
-                this.props.product.name
+                  name: item.name,
+                  value:
+                    item.items[0].type === "swatch"
+                      ? item.items[0].displayValue
+                      : item.items[0].value,
+                }))
               )
             }
           >

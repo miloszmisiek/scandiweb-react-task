@@ -58,18 +58,7 @@ export class ProductPageInfo extends Component {
     //       ? item.items[0]
     //       : this.state.selected.find((sel) => sel.name === item.name).value,
     // }));
-    this.props.increaseCartQuantity(
-      this.props.id,
-      this.props.attributes.map((item) => ({
-        ...item,
-        selected: this.state.selected.find((sel) => sel.name === item.name)
-          .value,
-      })),
-      this.props.gallery,
-      this.props.prices,
-      this.props.brand,
-      this.props.name
-    );
+    this.props.increaseCartQuantity(this.props.id, this.state.selected);
   }
 
   render() {
@@ -96,9 +85,9 @@ export class ProductPageInfo extends Component {
                           ? item.value ===
                             this.state.selected.find(
                               (select) =>
-                                select.value.value === item.value &&
+                                select.value === item.value &&
                                 select.name === attr.name
-                            )?.value.value
+                            )?.value
                           : idx === 0
                       }
                       id={
@@ -117,11 +106,11 @@ export class ProductPageInfo extends Component {
                               ) == null
                                 ? [
                                     ...prev.selected,
-                                    { name: attr.name, value: item },
+                                    { name: attr.name, value: item.value },
                                   ]
                                 : prev.selected.map((i) =>
                                     i.name === attr.name
-                                      ? { ...i, value: item }
+                                      ? { ...i, value: item.value }
                                       : i
                                   ),
                           }),
