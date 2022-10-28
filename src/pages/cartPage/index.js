@@ -119,10 +119,15 @@ export class CartPage extends Component {
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <CartHeading>Cart</CartHeading>
         <CartItemsContainer>
-          {this.props.cartItems.map((item) => (
-            <React.Fragment key={item.id}>
+          {this.props.cartItems.map((item, idx) => (
+            <React.Fragment key={item.id + "-" + idx}>
               <CartPageDivider />
-              <ProductInfo cartPage {...item} {...this.props} />
+              <ProductInfo
+                cartPage
+                {...item}
+                {...this.props}
+                productKey={item.id + "-" + idx}
+              />
             </React.Fragment>
           ))}
           <CartPageDivider />

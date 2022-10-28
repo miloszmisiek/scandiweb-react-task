@@ -88,7 +88,12 @@ export class ProductCard extends Component {
                     item.items[0].type === "swatch"
                       ? item.items[0].displayValue
                       : item.items[0].value,
-                }))
+                })),
+                this.props.product.prices,
+                this.props.product.attributes,
+                this.props.product.gallery,
+                this.props.product.brand,
+                this.props.product.name
               )
             }
           >

@@ -76,10 +76,13 @@ export class ProductInfo extends Component {
                       <SizeOptionInput
                         type="radio"
                         readOnly
-                        checked={attr.selected?.value === item.value}
+                        checked={
+                          this.props.variant?.find((v) => v.name === attr.name)
+                            .value === item.value
+                        }
                         id={
                           "cart-" +
-                          this.props.id +
+                          this.props.productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-") +
                           "-" +
@@ -87,26 +90,19 @@ export class ProductInfo extends Component {
                         }
                         name={
                           "cart-" +
-                          this.props.id +
+                          this.props.productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-")
                         }
                         value={item.value}
                         swatch={attr.type === "swatch" ? item : undefined}
-                        // onChange={() =>
-                        //   this.props.setSelectedAttribiute(
-                        //     this.props.id,
-                        //     attr.name,
-                        //     item
-                        //   )
-                        // }
                       />
                       <SizeOption
                         cartPreview={!!this.props.cartPreview}
                         cartPage={!!this.props.cartPage}
                         htmlFor={
                           "cart-" +
-                          this.props.id +
+                          this.props.productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-") +
                           "-" +
@@ -137,7 +133,7 @@ export class ProductInfo extends Component {
                 e.preventDefault();
                 this.props.increaseCartQuantity(
                   this.props.id,
-                  this.props.attributes
+                  this.props.variant
                 );
               }}
             >
@@ -150,7 +146,10 @@ export class ProductInfo extends Component {
               cartPage={!!this.props.cartPage}
               onClick={(e) => {
                 e.preventDefault();
-                this.props.decreaseCartQuantity(this.props.id);
+                this.props.decreaseCartQuantity(
+                  this.props.id,
+                  this.props.variant
+                );
               }}
             >
               &#8212;

@@ -65,11 +65,8 @@ export class Navbar extends Component {
                 stateHandler={this.stateHandler}
                 cartItems={this.props.cartItems}
                 currency={this.props.currency}
-                setCartItems={this.props.setCartItems}
                 increaseCartQuantity={this.props.increaseCartQuantity}
                 decreaseCartQuantity={this.props.decreaseCartQuantity}
-                removeFromCart={this.props.removeFromCart}
-                setSelectedAttribiute={this.props.setSelectedAttribiute}
               />
             </NavbarRightContainer>
           </NavbarInnerContainer>

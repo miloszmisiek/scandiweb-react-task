@@ -169,9 +169,10 @@ export class CartPreview extends Component {
               </MyBag>
             </CartPrevTitle>
             <ProductsContainer>
-              {this.props.cartItems.map((item) => (
+              {this.props.cartItems.map((item, idx) => (
                 <ProductInfo
-                  key={item.id}
+                  key={item.id + "-" + idx}
+                  productKey={item.id + "-" + idx}
                   {...item}
                   {...this.props}
                   cartPreview

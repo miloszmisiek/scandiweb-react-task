@@ -38,77 +38,126 @@ class ShoppingCartProvider extends Component {
     }));
   };
 
-  increaseCartQuantity = (id, selected) => {
-    this.setState(
-      (prevState) => ({
-        ...prevState,
-        cartItems:
-          prevState.cartItems.find((item) => item.id === id) == null ||
-          prevState.cartItems
-            .map(
-              (item) =>
-                item.id === id &&
-                item.variant.some((attr) =>
-                  selected.find(
-                    (sel) => sel.name === attr.name && sel.value !== attr.value
-                  )
-                )
-            )
-            .reduce((acc, curr) => acc && curr)
-            ? [
-                ...prevState.cartItems,
-                {
-                  id: id,
-                  quantity: 1,
-                  variant: selected,
-                },
-              ]
-            : prevState.cartItems.map((item) =>
-                item.id === id &&
-                item.variant
-                  .map((attr) =>
-                    selected.find(
-                      (sel) =>
-                        sel.name === attr.name && sel.value === attr.value
-                    )
-                  )
-                  .reduce((acc, curr) => acc && curr)
-                  ? { ...item, quantity: item.quantity + 1 }
-                  : item
-              ),
-      }),
-      () =>
-        console.log(
-          this.state.cartItems,
-          this.state.cartItems.map(
-            (item) =>
-              item.id === id &&
-              item.variant.some((attr) =>
-                selected.find(
-                  (sel) => sel.name === attr.name && sel.value !== attr.value
-                )
-              )
-          )
-        )
-    );
-  };
-
-  decreaseCartQuantity = (id) => {
+  increaseCartQuantity = (
+    id,
+    selected,
+    prices,
+    attributes,
+    gallery,
+    brand,
+    name
+  ) => {
     this.setState((prevState) => ({
       ...prevState,
       cartItems:
-        prevState.cartItems.find((item) => item.id === id)?.quantity === 1
-          ? prevState.cartItems.filter((item) => item.id !== id)
+        prevState.cartItems.find((item) => item.id === id) == null ||
+        (!!selected.length &&
+          !this.state.cartItems
+            .filter((item) => item.id === id)
+            .map(
+              (item) =>
+                !!item.variant.length &&
+                item.variant
+                  .map(
+                    (attr) =>
+                      !!selected.find(
+                        (sel) =>
+                          sel.name === attr.name && sel.value === attr.value
+                      )
+                  )
+                  .reduce((acc, curr) => acc && curr)
+            )
+            .some((elem) => !!elem))
+          ? [
+              ...prevState.cartItems,
+              {
+                id: id,
+                quantity: 1,
+                variant: selected,
+                prices: prices,
+                attributes: attributes,
+                gallery: gallery,
+                brand: brand,
+                name: name,
+              },
+            ]
           : prevState.cartItems.map((item) =>
-              item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+              item.id === id &&
+              item.variant
+                .map(
+                  (attr) =>
+                    selected.find(
+                      (sel) =>
+                        sel.name === attr.name && sel.value === attr.value
+                    ) !== undefined
+                )
+                .reduce((acc, curr) => (acc && curr), true)
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
             ),
     }));
+    // console.log(
+    //   this.state.cartItems,
+    //   this.state.cartItems
+    //     .filter((item) => item.id === id)
+    //     .map((item) =>
+    //       item.variant
+    //         .map(
+    //           (attr) =>
+    //             !!selected.find(
+    //               (sel) => sel.name === attr.name && sel.value === attr.value
+    //             )
+    //         )
+    //         .reduce((acc, curr) => acc && curr)
+    //     )
+    //     .some((elem) => !!elem)
+    // );
   };
 
-  removeFromCart = (id) => {
+  decreaseCartQuantity = (id, selected) => {
     this.setState((prevState) => ({
       ...prevState,
-      cartItems: prevState.cartItems.filter((item) => item.id !== id),
+      cartItems:
+        this.state.cartItems
+          .filter((item) => item.id === id)
+          .find((item) =>
+            item.variant
+              .map(
+                (attr) =>
+                  !!selected.find(
+                    (sel) => sel.name === attr.name && sel.value === attr.value
+                  )
+              )
+              .reduce((acc, curr) => (acc && curr), true)
+          )?.quantity === 1
+          ? this.state.cartItems.filter(
+              (item) =>
+                item.id !== id ||
+                (item.id === id &&
+                  !item.variant
+                    .map(
+                      (attr) =>
+                        !!selected.find(
+                          (sel) =>
+                            sel.name === attr.name && sel.value === attr.value
+                        )
+                    )
+                    .reduce((acc, curr) => (acc && curr), true))
+            )
+          : prevState.cartItems.map((item) =>
+              item.id === id &&
+              item.variant
+                .map(
+                  (attr) =>
+                    selected.find(
+                      (sel) =>
+                        sel.name === attr.name && sel.value === attr.value
+                    ) !== undefined
+                )
+                .reduce((acc, curr) => (acc && curr), true)
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
     }));
   };
 

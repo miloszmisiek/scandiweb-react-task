@@ -34,6 +34,13 @@ export class ProductPageInfo extends Component {
       displayCurrency: this.props.prices.filter(
         (price) => price.currency.symbol === this.props.currency.symbol
       )[0],
+      selected: this.props.attributes.map((item) => ({
+        name: item.name,
+        value:
+          item.items[0].type === "swatch"
+            ? item.items[0].displayValue
+            : item.items[0].value,
+      })),
     }));
   }
 
@@ -50,15 +57,15 @@ export class ProductPageInfo extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.selected);
-    // const subAttr = this.props.attributes.map((item) => ({
-    //   ...item,
-    //   selected:
-    //     this.state.selected.find((sel) => sel.name === item.name) == null
-    //       ? item.items[0]
-    //       : this.state.selected.find((sel) => sel.name === item.name).value,
-    // }));
-    this.props.increaseCartQuantity(this.props.id, this.state.selected);
+    this.props.increaseCartQuantity(
+      this.props.id,
+      this.state.selected,
+      this.props.prices,
+      this.props.attributes,
+      this.props.gallery,
+      this.props.brand,
+      this.props.name
+    );
   }
 
   render() {
@@ -97,25 +104,22 @@ export class ProductPageInfo extends Component {
                       value={item.value}
                       swatch={attr.type === "swatch" ? item : undefined}
                       onChange={() =>
-                        this.setState(
-                          (prev) => ({
-                            ...prev,
-                            selected:
-                              prev.selected.find(
-                                (item) => item.name === attr.name
-                              ) == null
-                                ? [
-                                    ...prev.selected,
-                                    { name: attr.name, value: item.value },
-                                  ]
-                                : prev.selected.map((i) =>
-                                    i.name === attr.name
-                                      ? { ...i, value: item.value }
-                                      : i
-                                  ),
-                          }),
-                          () => console.log(this.state.selected)
-                        )
+                        this.setState((prev) => ({
+                          ...prev,
+                          selected:
+                            prev.selected.find(
+                              (item) => item.name === attr.name
+                            ) == null
+                              ? [
+                                  ...prev.selected,
+                                  { name: attr.name, value: item.value },
+                                ]
+                              : prev.selected.map((i) =>
+                                  i.name === attr.name
+                                    ? { ...i, value: item.value }
+                                    : i
+                                ),
+                        }))
                       }
                     />
                     <PPISizeOption
