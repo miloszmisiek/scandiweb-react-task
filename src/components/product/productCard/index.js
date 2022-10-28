@@ -43,7 +43,6 @@ export class ProductCard extends Component {
   }
 
   render() {
-    // console.log(this.props.product.attributes);
     return (
       <ProductCardContainer
         onMouseEnter={() =>
@@ -68,8 +67,7 @@ export class ProductCard extends Component {
         <ImagePreview src={this.props.product.gallery[0]} />
         <ProductCardData>
           <ProductTitleBrand>
-            {this.props.product.brand}
-            {this.props.product.name}
+            {this.props.product.brand} {this.props.product.name}
           </ProductTitleBrand>
           <ProductCardPrice>
             <span>{this.state.displayCurrency.currency?.symbol}</span>

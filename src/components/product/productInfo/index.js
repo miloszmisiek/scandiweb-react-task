@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {
+  ImageArrow,
   Price,
+  ProductImageContainer,
   ProductImagePreview,
   ProductInfoContainer,
   ProductInfoLeftContainer,
@@ -17,12 +19,15 @@ import {
   SizeTitle,
 } from "./style";
 import { ColorBox } from "../productPageInfo/style";
+import ChevronRight from "../../../assets/chevron-right.svg";
+import ChevronLeft from "../../../assets/chevron-left.svg";
 
 export class ProductInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayCurrency: [],
+      displayImage: "",
     };
   }
 
@@ -32,6 +37,7 @@ export class ProductInfo extends Component {
       displayCurrency: this.props.prices.filter(
         (price) => price.currency.symbol === this.props.currency.symbol
       )[0],
+      displayImage: this.props.gallery[0],
     }));
   }
 
@@ -44,6 +50,20 @@ export class ProductInfo extends Component {
         )[0],
       }));
     }
+  }
+
+  handleImage(e, next) {
+    e.preventDefault();
+    let i = this.props.gallery.indexOf(this.state.displayImage);
+
+    if (
+      next
+        ? i >= 0 && i < this.props.gallery.length - 1
+        : i > 0 && i < this.props.gallery.length
+    )
+      this.setState({
+        displayImage: this.props.gallery[next ? i + 1 : i - 1],
+      });
   }
 
   render() {
@@ -108,9 +128,7 @@ export class ProductInfo extends Component {
                           "-" +
                           idx
                         }
-                        key={item.displayValue}
                         swatch={attr.type === "swatch" ? item : undefined}
-                        value={attr.type !== "swatch" && item.displayValue}
                       >
                         {attr.type !== "swatch" ? (
                           item.value
@@ -145,7 +163,6 @@ export class ProductInfo extends Component {
             <QuantityButton
               cartPage={!!this.props.cartPage}
               onClick={(e) => {
-                e.preventDefault();
                 this.props.decreaseCartQuantity(
                   this.props.id,
                   this.props.variant
@@ -155,10 +172,22 @@ export class ProductInfo extends Component {
               &#8212;
             </QuantityButton>
           </QuantityContainer>
-          <ProductImagePreview
-            cartPage={!!this.props.cartPage}
-            src={this.props.gallery[0]}
-          />
+          <ProductImageContainer>
+            <ProductImagePreview
+              cartPage={!!this.props.cartPage}
+              src={this.state.displayImage}
+            />
+            {!!this.props.cartPage && this.props.gallery.length > 1 && (
+              <>
+                <ImageArrow right onClick={(e) => this.handleImage(e, true)}>
+                  <img src={ChevronRight}></img>
+                </ImageArrow>
+                <ImageArrow onClick={(e) => this.handleImage(e, false)}>
+                  <img src={ChevronLeft}></img>
+                </ImageArrow>
+              </>
+            )}
+          </ProductImageContainer>
         </ProductInfoRightContainer>
       </ProductInfoContainer>
     );

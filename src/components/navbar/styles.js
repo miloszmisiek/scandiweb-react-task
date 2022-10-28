@@ -7,9 +7,6 @@ export const NavbarContainer = styled.nav`
   /* background-color: black; */
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 1102px) {
-  }
 `;
 
 export const NavbarLeftContainer = styled.div`
@@ -39,6 +36,10 @@ export const NavbarInnerContainer = styled.div`
   padding: 0 6.3rem;
   align-items: center;
   height: 80px;
+
+  @media (max-width: 850px) {
+    padding: 0 3rem;
+  }
 `;
 
 export const Category = styled(NavLink)`

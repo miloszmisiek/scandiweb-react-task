@@ -5,6 +5,11 @@ export const ProductGalleryContainer = styled.div`
   width: auto;
   gap: 2.5rem;
   height: 100%;
+  @media (max-width: 1100px) {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    margin: auto;
+  }
 `;
 
 export const GalleryThumbnails = styled.div`
@@ -32,6 +37,19 @@ export const GalleryThumbnails = styled.div`
     background-color: #5ece7b;
     border-radius: 100px;
   }
+
+  @media (max-width: 1100px) {
+    flex-direction: row;
+    max-width: 100%;
+    width: 100%;
+    overflow-x: auto;
+    gap: 4rem;
+    padding-bottom: 1rem;
+
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+  }
 `;
 
 export const GalleryPreview = styled.img`
@@ -44,11 +62,23 @@ export const GalleryPreview = styled.img`
     height: 511px;
     width: 610px;
   }
+
+  @media (max-width: 1100px) {
+    height: auto;
+    max-height: 511px;
+    width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 export const GalleryThumbnail = styled(GalleryPreview)`
   height: 80px;
+  width: 80px;
   cursor: pointer;
-  width: max-content;
   margin: 0 auto 0 3rem;
+
+  @media (max-width: 1100px) {
+    width: 100%;
+    margin: auto;
+  }
 `;

@@ -16,19 +16,11 @@ export const PPIContainer = styled.div`
   /* width: 100%; */
   min-width: 292px;
   height: 100%;
-`;
 
-export const ProductBrand = styled.h5`
-  margin: 0;
-  font-size: 1.88rem;
-  font-weight: 600;
-  line-height: 27px;
-  letter-spacing: 0em;
-  text-align: left;
-`;
-
-export const ProductName = styled(ProductBrand)`
-  font-weight: 400;
+  @media (max-width: 860px) {
+    margin: auto;
+    width: 100%;
+  }
 `;
 
 export const ProductTitleContainer = styled.div`
@@ -37,12 +29,40 @@ export const ProductTitleContainer = styled.div`
   gap: 1rem;
   margin-bottom: 2.7rem;
   max-width: 292px;
+
+  @media (max-width: 860px) {
+    margin: inherit auto;
+    width: 100%;
+    max-width: 100%;
+  }
+`;
+
+export const ProductBrand = styled.h3`
+  margin: 0;
+  font-size: 1.88rem;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  @media (max-width: 860px) {
+    text-align: center;
+  }
+`;
+
+export const ProductName = styled(ProductBrand)`
+  font-weight: 400;
 `;
 
 export const PPIAttribiutesSet = styled(SizeChartContainer)`
   width: 100%;
   margin-top: ${(props) => props.mt && "2rem"};
   max-width: 292px;
+
+  @media (max-width: 860px) {
+    max-width: 100%;
+    width: 100%;
+  }
 `;
 
 export const PPISizeTitle = styled(SizeTitle)`
@@ -52,15 +72,25 @@ export const PPISizeTitle = styled(SizeTitle)`
   line-height: 1.125rem;
   letter-spacing: 0em;
   text-transform: uppercase;
+
+  @media (max-width: 860px) {
+    margin: 0 auto;
+  }
 `;
 
 export const PPISizeOptionsContainer = styled(SizeOptionsContainer)`
   width: 100%;
+  @media (max-width: 860px) {
+    justify-content: center;
+    gap: 1rem;
+  }
 `;
 
 export const PPISizeOption = styled(SizeOption)`
   min-width: ${(props) => (props.swatch ? "2.25rem" : "3.94rem")};
   min-height: ${(props) => (props.swatch ? "2.25rem" : "2.81rem")};
+  cursor: pointer;
+  font-size: 1rem;
 `;
 
 export const PPISizeInput = styled(SizeOptionInput)``;
@@ -99,13 +129,21 @@ export const PPIPrice = styled(Price)`
   min-height: 2.875rem;
   display: flex;
   align-items: center;
+  @media (max-width: 860px) {
+    justify-content: center;
+  }
 `;
 
 export const PPIAddToCart = styled(CartPrevButton)`
   text-transform: uppercase;
   margin-top: 1.25rem;
   max-width: 292px;
-  /* background-color: ${(props) => (props.inStock ? "inherit" : "#ffffff")}; */
+
+  @media (max-width: 860px) {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const PPIDescription = styled.div`
@@ -141,5 +179,12 @@ export const PPIDescription = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: #5ece7b;
     border-radius: 100px;
+  }
+
+  @media (max-width: 860px) {
+    margin: inherit auto;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 `;

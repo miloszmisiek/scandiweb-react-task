@@ -113,31 +113,28 @@ export class CartPreview extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const cartItems = new FormData();
-    this.props.cartItems.forEach((item) => {
-      cartItems.append(
-        `${item.id}`,
-        JSON.stringify({
-          brand: item.brand,
-          name: item.name,
-          quantity: item.quantity,
-          attributes: item.attributes.map((attr) => ({
-            [attr.name.toLowerCase().replaceAll(" ", "_")]: attr.selected.value,
-          })),
-          price: item.prices.find(
-            (price) => price.currency.symbol === this.props.currency.symbol
-          ).amount,
-        })
-      );
-    });
-    cartItems.append("total_amount", this.state.total);
-    cartItems.append("currency", this.props.currency.code);
+    const cleanCart = {};
+    cleanCart["products"] = this.props.cartItems
+      .map(({ prices, attributes, gallery, ...r }) => {
+        const { amount, currency } = prices.find(
+          (price) => price.currency.symbol === this.props.currency.symbol
+        );
+        const { symbol } = currency;
 
-    for (const pair of cartItems.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
-    this.handleClick();
-    this.props.stateHandler();
+        return {
+          ...r,
+          price: { amount, symbol },
+        };
+      })
+      .reduce((group, item) => {
+        const { id } = item;
+        group[id] = group[id] ?? [];
+        group[id].push(item);
+        return group;
+      }, {});
+    cleanCart["total_amount"] = this.state.total;
+    cleanCart["total_amount_currency"] = this.props.currency.code;
+    console.log(cleanCart);
   }
 
   render() {
@@ -169,15 +166,24 @@ export class CartPreview extends Component {
               </MyBag>
             </CartPrevTitle>
             <ProductsContainer>
-              {this.props.cartItems.map((item, idx) => (
-                <ProductInfo
-                  key={item.id + "-" + idx}
-                  productKey={item.id + "-" + idx}
-                  {...item}
-                  {...this.props}
-                  cartPreview
-                />
-              ))}
+              {Object.values(
+                this.props.cartItems
+                  .map((item, idx) => (
+                    <ProductInfo
+                      key={item.id + "__" + idx}
+                      productKey={item.id + "__" + idx}
+                      {...item}
+                      {...this.props}
+                      cartPreview
+                    />
+                  ))
+                  .reduce((group, item) => {
+                    const { key } = item;
+                    group[key.split("__")[0]] = group[key.split("__")[0]] ?? [];
+                    group[key.split("__")[0]].push(item);
+                    return group;
+                  }, {})
+              )}
             </ProductsContainer>
             <TotalContainer>
               <TotalText>Total</TotalText>

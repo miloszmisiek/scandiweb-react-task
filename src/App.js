@@ -21,19 +21,14 @@ function App() {
             <ShoppingCartContext.Consumer>
               {({
                 cartItems,
-                setCartItems,
-                getItemQuantity,
                 increaseCartQuantity,
                 decreaseCartQuantity,
-                removeFromCart,
-                setSelectedAttribiute,
               }) => (
                 <>
                   <Navbar
                     currency={currency}
                     setCurrency={setCurrency}
                     cartItems={cartItems}
-                    getItemQuantity={getItemQuantity}
                     increaseCartQuantity={increaseCartQuantity}
                     decreaseCartQuantity={decreaseCartQuantity}
                   />
@@ -48,7 +43,6 @@ function App() {
                             cartItems={cartItems}
                             increaseCartQuantity={increaseCartQuantity}
                             decreaseCartQuantity={decreaseCartQuantity}
-                            setSelectedAttribiute={setSelectedAttribiute}
                           />
                         )}
                       />
@@ -66,14 +60,8 @@ function App() {
                                     category={category}
                                     currency={currency}
                                     cartItems={cartItems}
-                                    setCartItems={setCartItems}
-                                    getItemQuantity={getItemQuantity}
                                     increaseCartQuantity={increaseCartQuantity}
                                     decreaseCartQuantity={decreaseCartQuantity}
-                                    removeFromCart={removeFromCart}
-                                    setSelectedAttribiute={
-                                      setSelectedAttribiute
-                                    }
                                   />
                                 )}
                               />
@@ -106,9 +94,6 @@ function App() {
                                           <ProductDescriptionPage
                                             {...product}
                                             currency={currency}
-                                            setSelectedAttribiute={
-                                              setSelectedAttribiute
-                                            }
                                             increaseCartQuantity={
                                               increaseCartQuantity
                                             }

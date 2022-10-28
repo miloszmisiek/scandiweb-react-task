@@ -71,7 +71,7 @@ export class ProductPageInfo extends Component {
   render() {
     return (
       <PPIContainer>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <PPIContainer as="form" onSubmit={(e) => this.handleSubmit(e)}>
           <ProductTitleContainer>
             <ProductBrand>{this.props.brand}</ProductBrand>
             <ProductName>{this.props.name}</ProductName>
@@ -129,7 +129,7 @@ export class ProductPageInfo extends Component {
                       swatch={attr.type === "swatch" ? item : undefined}
                     >
                       {attr.type !== "swatch" ? (
-                        item.displayValue
+                        item.value
                       ) : (
                         <ColorBox swatch={item}></ColorBox>
                       )}
@@ -153,7 +153,7 @@ export class ProductPageInfo extends Component {
             {!this.props.inStock && <OutOfStock />}
           </ImageContainer>
           <PPIDescription>{parse(this.props.description)}</PPIDescription>
-        </form>
+        </PPIContainer>
       </PPIContainer>
     );
   }

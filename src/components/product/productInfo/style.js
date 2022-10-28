@@ -9,7 +9,6 @@ export const ProductInfoContainer = styled.div`
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   flex-direction: ${(props) => (props.cartPage ? "column" : undefined)};
-  /* height: 100%; */
 `;
 
 export const ProductInfoLeftContainer = styled.div`
@@ -26,7 +25,7 @@ export const ProductInfoRightContainer = styled(ProductInfoLeftContainer)`
   gap: ${(props) => (props.cartPage ? "1.5rem" : "0.5rem")};
 `;
 
-export const ProductTitle = styled.h5`
+export const ProductTitle = styled.h3`
   font-size: ${(props) => (props.cartPage ? "1.875rem" : "1rem")};
   font-weight: ${(props) => (props.cartPage ? "600" : "300")};
   line-height: ${(props) => (props.cartPage ? "1.688rem" : undefined)};
@@ -123,7 +122,6 @@ export const SizeOption = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* cursor: pointer; */
   background-color: #ffffff;
   border: ${(props) => props.swatch && props.swatch?.value};
   text-align: center;
@@ -138,10 +136,6 @@ export const SizeOptionInput = styled.input`
     border: ${(props) => props.swatch && "1px solid rgba(94, 206, 123, 1)"};
     padding: ${(props) => props.swatch && "1px"};
   }
-
-  /* &:checked + label {
-    background-color: red;
-  } */
 `;
 
 export const ColorTitle = styled(SizeTitle)``;
@@ -155,7 +149,6 @@ export const ColorOption = styled(SizeOption)`
 export const QuantityContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
   justify-content: space-between;
   font-size: 1rem;
   margin-left: ${(props) => (props.cartPage ? "auto" : undefined)};
@@ -187,8 +180,21 @@ export const QuantityNumber = styled.div`
   font-weight: ${(props) => (props.cartPage ? "500" : undefined)};
 `;
 
+export const ProductImageContainer = styled.div`
+  position: relative;
+`;
+
 export const ProductImagePreview = styled.img`
   height: ${(props) => (props.cartPage ? "280px" : "191px")};
   object-fit: contain;
   width: ${(props) => (props.cartPage ? "200px" : "121px")};
+`;
+
+export const ImageArrow = styled.button`
+  position: absolute;
+  bottom: 1rem;
+  right: ${(props) => (props.right ? "1rem" : "3rem")};
+  background: none;
+  border: none;
+  cursor: pointer;
 `;

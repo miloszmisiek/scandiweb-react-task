@@ -2,41 +2,14 @@ import { Component, createContext } from "react";
 
 export const ShoppingCartContext = createContext({
   cartItems: [],
-  setCartItems: () => {},
   getItemQuantity: () => {},
   increaseCartQuantity: () => {},
   decreaseCartQuantity: () => {},
-  removeFromCart: () => {},
-  setSelectedAttribiute: () => {},
 });
 
 class ShoppingCartProvider extends Component {
-  setCartItems = (product) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      cartItems: [...prevState.cartItems, product],
-    }));
-  };
 
-  getItemQuantity = (id) => {
-    return this.state.cartItems.find((item) => item.id === id)?.quantity || 0;
-  };
 
-  setSelectedAttribiute = (id, name, selected) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      cartItems: prevState.cartItems.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              attributes: item.attributes.map((attr) =>
-                attr.name === name ? { ...attr, selected: selected } : attr
-              ),
-            }
-          : item
-      ),
-    }));
-  };
 
   increaseCartQuantity = (
     id,
@@ -96,22 +69,6 @@ class ShoppingCartProvider extends Component {
                 : item
             ),
     }));
-    // console.log(
-    //   this.state.cartItems,
-    //   this.state.cartItems
-    //     .filter((item) => item.id === id)
-    //     .map((item) =>
-    //       item.variant
-    //         .map(
-    //           (attr) =>
-    //             !!selected.find(
-    //               (sel) => sel.name === attr.name && sel.value === attr.value
-    //             )
-    //         )
-    //         .reduce((acc, curr) => acc && curr)
-    //     )
-    //     .some((elem) => !!elem)
-    // );
   };
 
   decreaseCartQuantity = (id, selected) => {
@@ -163,12 +120,8 @@ class ShoppingCartProvider extends Component {
 
   state = {
     cartItems: [],
-    setCartItems: this.setCartItems,
-    getItemQuantity: this.getItemQuantity,
     increaseCartQuantity: this.increaseCartQuantity,
     decreaseCartQuantity: this.decreaseCartQuantity,
-    removeFromCart: this.removeFromCart,
-    setSelectedAttribiute: this.setSelectedAttribiute,
   };
 
   componentDidMount() {
@@ -195,14 +148,3 @@ class ShoppingCartProvider extends Component {
 }
 
 export default ShoppingCartProvider;
-
-// console.log(
-//   "found different variant",
-//   item.variant.filter(
-//     (attr) =>
-//       selected.find(
-//         (sel) =>
-//           sel.name === attr.name && sel.value !== attr.value
-//       ) !== undefined
-//   )
-// )

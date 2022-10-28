@@ -12,7 +12,7 @@ export const CategoryName = styled.h2`
 `;
 
 export const ProductsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  display: grid;
+  grid-gap: 103px 40px;
+  grid-template-columns: repeat(auto-fill, minmax(386px, 1fr));
 `;

@@ -5,9 +5,11 @@ export const PDPContainer = styled.div`
   width: 100%;
   align-items: center;
   gap: 6.25rem;
-  /* min-width: 1121px; */
   height: 100%;
-  /* justify-content: space-between; */
   align-items: flex-start;
   position: relative;
+
+  @media (max-width: 860px) {
+    flex-wrap: wrap;
+  }
 `;
