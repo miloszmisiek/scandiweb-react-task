@@ -98,7 +98,6 @@ export class CartPage extends Component {
           (price) => price.currency.symbol === currency.symbol
         );
         const { symbol } = currency;
-
         return {
           ...r,
           price: { amount, symbol },
@@ -143,7 +142,6 @@ export class CartPage extends Component {
                 return group;
               }, {})
           )}
-
           <CartPageDivider />
           <CartSummaryContainer>
             <CartSummaryRow>

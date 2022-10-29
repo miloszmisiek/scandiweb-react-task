@@ -36,7 +36,6 @@ export class ProductGallery extends Component {
             />
           ))}
         </GalleryThumbnails>
-
         <ImageContainer>
           <GalleryPreview
             gap={gallery.length <= 1}

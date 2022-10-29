@@ -122,6 +122,7 @@ Functionality in scale, as in a real-life project:
 
 1. The design is based on the [scandiweb design](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1).
 2. Spinning wheel for the data loading stage comes from [em-design medium](https://em-design.medium.com/figma-design-a-loading-spinner-animation-718b7e3a7f15).
+3. All fonts come from [Google Fonts](https://fonts.google.com/).
 
 [Back to contents](#contents)
 
