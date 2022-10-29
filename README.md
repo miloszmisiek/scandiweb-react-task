@@ -57,7 +57,7 @@ Functionality in scale, as in a real-life project:
   - [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
   - [Grammarly](https://www.grammarly.com/): was used to check grammar and typo errors.
   - [html-react-parser](https://www.npmjs.com/package/html-react-parser): the parser converts an HTML string to one or more React elements. Was used to parse HTML elements as React elements in ProductDescriptionPage for product's description data fetched from API.
-  - [eslint](https://eslint.org/): ESLint statically analyzes your code to quickly find problems. Was used to check any linting errors and warning in the code.
+  - [eslint](https://eslint.org/): ESLint statically analyzes code to quickly find problems. Was used to check any linting errors and warning in the code.
 
 [Back to contents](#contents)
 
@@ -120,8 +120,8 @@ Functionality in scale, as in a real-life project:
 
 ## **Credits**
 
-1. The design is based on the [scandiweb design]((https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1)).
-2. Spinning wheel for the data loading stage comes from: <https://em-design.medium.com/figma-design-a-loading-spinner-animation-718b7e3a7f15>
+1. The design is based on the [scandiweb design](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1).
+2. Spinning wheel for the data loading stage comes from [em-design medium](https://em-design.medium.com/figma-design-a-loading-spinner-animation-718b7e3a7f15).
 
 [Back to contents](#contents)
 
