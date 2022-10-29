@@ -23,10 +23,11 @@ export class ProductGallery extends Component {
   }
 
   render() {
+    const { gallery, inStock } = this.props;
     return (
       <ProductGalleryContainer>
-        <GalleryThumbnails $overflow={this.props.gallery.length > 4}>
-          {this.props.gallery.map((image, idx) => (
+        <GalleryThumbnails $overflow={gallery.length > 4}>
+          {gallery.map((image, idx) => (
             <GalleryThumbnail
               key={idx}
               id={idx}
@@ -38,12 +39,10 @@ export class ProductGallery extends Component {
 
         <ImageContainer>
           <GalleryPreview
-            gap={this.props.gallery.length <= 1}
-            src={this.props.gallery.filter(
-              (image, idx) => idx === this.state.activeImage
-            )}
+            gap={gallery.length <= 1}
+            src={gallery.filter((image, idx) => idx === this.state.activeImage)}
           />
-          {!this.props.inStock && <OutOfStock>out of stock</OutOfStock>}
+          {!inStock && <OutOfStock>out of stock</OutOfStock>}
         </ImageContainer>
       </ProductGalleryContainer>
     );

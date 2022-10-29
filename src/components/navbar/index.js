@@ -8,11 +8,12 @@ import {
   NavbarRightContainer,
   Overlay,
 } from "./styles";
-import logo from "../../assets/logo/logo.svg";
+import logo from "../../assets/icons/logo.svg";
 import CurrencyConverter from "../currencyConverter";
 import CartPreview from "../cart/cartPreview";
 import { Query } from "@apollo/react-components";
 import { getCategories } from "../../queries/queries";
+import spinner from "../../assets/spinner.gif";
 
 export class Navbar extends Component {
   constructor(props) {
@@ -31,6 +32,13 @@ export class Navbar extends Component {
   }
 
   render() {
+    const {
+      currency,
+      setCurrency,
+      cartItems,
+      increaseCartQuantity,
+      decreaseCartQuantity,
+    } = this.props;
     return (
       <>
         <NavbarContainer>
@@ -38,14 +46,13 @@ export class Navbar extends Component {
             <NavbarLeftContainer>
               <Query query={getCategories}>
                 {({ data, loading, error }) => {
-                  if (loading) return <p>Loading…</p>;
-                  if (error) return <p>Something went wrong</p>;
+                  if (loading)
+                    return <img src={spinner} height="45px" alt="Spinner" />;
+                  if (error) return <span> {"\u2715"} </span>;
                   return data.categories?.map((category) => (
                     <Category
                       key={category.name}
-                      to={`/${
-                        category.name
-                      }/${this.props.currency.code.toLowerCase()}`}
+                      to={`/${category.name}/${currency.code.toLowerCase()}`}
                     >
                       {category.name}
                     </Category>
@@ -58,15 +65,15 @@ export class Navbar extends Component {
             </Logo>
             <NavbarRightContainer>
               <CurrencyConverter
-                currency={this.props.currency}
-                setCurrency={this.props.setCurrency}
+                currency={currency}
+                setCurrency={setCurrency}
               />
               <CartPreview
                 stateHandler={this.stateHandler}
-                cartItems={this.props.cartItems}
-                currency={this.props.currency}
-                increaseCartQuantity={this.props.increaseCartQuantity}
-                decreaseCartQuantity={this.props.decreaseCartQuantity}
+                cartItems={cartItems}
+                currency={currency}
+                increaseCartQuantity={increaseCartQuantity}
+                decreaseCartQuantity={decreaseCartQuantity}
               />
             </NavbarRightContainer>
           </NavbarInnerContainer>

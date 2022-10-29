@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const NavbarContainer = styled.nav`
   width: 100%;
   height: 80px;
-  /* background-color: black; */
   display: flex;
   flex-direction: column;
 `;
@@ -13,10 +12,8 @@ export const NavbarLeftContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  /* background-color: red; */
   gap: 1rem;
   flex: 1;
-  /* max-width: 25%; */
   height: 100%;
 `;
 
@@ -27,8 +24,6 @@ export const NavbarRightContainer = styled.div`
   justify-content: flex-end;
   flex: 1;
   position: relative;
-  /* max-width: 25%; */
-  /* background-color: salmon; */
 `;
 
 export const NavbarInnerContainer = styled.div`
@@ -67,8 +62,6 @@ export const Logo = styled.div`
   width: 100%;
   justify-content: center;
   flex: 2;
-  /* max-width: 50%; */
-  /* background-color: beige; */
 `;
 
 export const Overlay = styled.div`

@@ -5,12 +5,10 @@ import { PDPContainer } from "./style";
 
 export class ProductDescriptionPage extends Component {
   render() {
+    const { inStock, gallery } = this.props;
     return (
       <PDPContainer>
-        <ProductGallery
-          inStock={this.props.inStock}
-          gallery={this.props.gallery}
-        />
+        <ProductGallery inStock={inStock} gallery={gallery} />
         <ProductPageInfo {...this.props} />
       </PDPContainer>
     );

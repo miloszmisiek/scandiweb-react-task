@@ -50,7 +50,6 @@ export const SizeChartContainer = styled.fieldset`
   border: none;
   margin: 0;
 `;
-export const ColorsContainer = styled(SizeChartContainer)``;
 
 export const SizeTitle = styled.legend`
   margin: 0;
@@ -138,8 +137,6 @@ export const SizeOptionInput = styled.input`
   }
 `;
 
-export const ColorTitle = styled(SizeTitle)``;
-export const ColorOptionsContainer = styled(SizeOptionsContainer)``;
 export const ColorOption = styled(SizeOption)`
   background-color: red;
   min-width: 1.25rem;

@@ -6,7 +6,6 @@ export const DropdownMenu = styled.div`
   left: ${(props) => (props.cart ? "auto" : "50%")};
   transform: ${(props) => (props.cart ? undefined : "translateX(-50%)")};
   right: ${(props) => (props.cart ? "-1rem" : "auto")};
-  /* border: 1px solid black; */
   width: ${(props) => (props.cart ? "325px" : "114px")};
   height: fit-content;
   max-height: ${(props) => (props.cart ? "677px" : undefined)};

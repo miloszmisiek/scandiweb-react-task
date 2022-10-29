@@ -136,9 +136,10 @@ class ShoppingCartProvider extends Component {
   }
 
   render() {
+    const { children } = this.props;
     return (
       <ShoppingCartContext.Provider value={this.state}>
-        {this.props.children}
+        {children}
       </ShoppingCartContext.Provider>
     );
   }

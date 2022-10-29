@@ -19,8 +19,8 @@ import {
   SizeTitle,
 } from "./style";
 import { ColorBox } from "../productPageInfo/style";
-import ChevronRight from "../../../assets/chevron-right.svg";
-import ChevronLeft from "../../../assets/chevron-left.svg";
+import ChevronRight from "../../../assets/icons/chevron-right.svg";
+import ChevronLeft from "../../../assets/icons/chevron-left.svg";
 
 export class ProductInfo extends Component {
   constructor(props) {
@@ -32,64 +32,70 @@ export class ProductInfo extends Component {
   }
 
   componentDidMount() {
+    const { prices, currency, gallery } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      displayCurrency: this.props.prices.filter(
-        (price) => price.currency.symbol === this.props.currency.symbol
+      displayCurrency: prices.filter(
+        (price) => price.currency.symbol === currency.symbol
       )[0],
-      displayImage: this.props.gallery[0],
+      displayImage: gallery[0],
     }));
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    const { prices, currency } = this.props;
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
-        displayCurrency: this.props.prices.filter(
-          (price) => price.currency.symbol === this.props.currency.symbol
+        displayCurrency: prices.filter(
+          (price) => price.currency.symbol === currency.symbol
         )[0],
       }));
     }
   }
 
   handleImage(e, next) {
+    const { gallery } = this.props;
     e.preventDefault();
-    let i = this.props.gallery.indexOf(this.state.displayImage);
-
-    if (
-      next
-        ? i >= 0 && i < this.props.gallery.length - 1
-        : i > 0 && i < this.props.gallery.length
-    )
+    let i = gallery.indexOf(this.state.displayImage);
+    if (next ? i >= 0 && i < gallery.length - 1 : i > 0 && i < gallery.length)
       this.setState({
-        displayImage: this.props.gallery[next ? i + 1 : i - 1],
+        displayImage: gallery[next ? i + 1 : i - 1],
       });
   }
 
   render() {
     const priceAmount = this.state.displayCurrency?.amount;
+    const {
+      cartPage,
+      id,
+      brand,
+      name,
+      attributes,
+      variant,
+      productKey,
+      cartPreview,
+      increaseCartQuantity,
+      decreaseCartQuantity,
+      quantity,
+      gallery,
+    } = this.props;
     return (
       <ProductInfoContainer>
         <ProductInfoLeftContainer>
-          <ProductTitle cartPage={!!this.props.cartPage}>
-            {this.props.brand}
-          </ProductTitle>
-          <ProductType cartPage={!!this.props.cartPage}>
-            {this.props.name}
-          </ProductType>
-          <Price cartPage={!!this.props.cartPage}>
+          <ProductTitle cartPage={!!cartPage}>{brand}</ProductTitle>
+          <ProductType cartPage={!!cartPage}>{name}</ProductType>
+          <Price cartPage={!!cartPage}>
             <span>{this.state.displayCurrency?.currency?.symbol}</span>
             {priceAmount}
           </Price>
-          {this.props.attributes.map((attr, idx) => (
+          {attributes.map((attr, idx) => (
             <React.Fragment key={attr.name}>
               <SizeChartContainer>
-                <SizeTitle cartPage={!!this.props.cartPage}>
-                  {attr.name}:
-                </SizeTitle>
+                <SizeTitle cartPage={!!cartPage}>{attr.name}:</SizeTitle>
                 <SizeOptionsContainer
-                  cartPage={!!this.props.cartPage}
-                  lastElement={idx === this.props.attributes.length - 1}
+                  cartPage={!!cartPage}
+                  lastElement={idx === attributes.length - 1}
                 >
                   {attr.items.map((item, idx) => (
                     <React.Fragment key={idx}>
@@ -97,12 +103,12 @@ export class ProductInfo extends Component {
                         type="radio"
                         readOnly
                         checked={
-                          this.props.variant?.find((v) => v.name === attr.name)
-                            .value === item.value
+                          variant?.find((v) => v.name === attr.name).value ===
+                          item.value
                         }
                         id={
                           "cart-" +
-                          this.props.productKey +
+                          productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-") +
                           "-" +
@@ -110,7 +116,7 @@ export class ProductInfo extends Component {
                         }
                         name={
                           "cart-" +
-                          this.props.productKey +
+                          productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-")
                         }
@@ -118,11 +124,11 @@ export class ProductInfo extends Component {
                         swatch={attr.type === "swatch" ? item : undefined}
                       />
                       <SizeOption
-                        cartPreview={!!this.props.cartPreview}
-                        cartPage={!!this.props.cartPage}
+                        cartPreview={!!cartPreview}
+                        cartPage={!!cartPage}
                         htmlFor={
                           "cart-" +
-                          this.props.productKey +
+                          productKey +
                           "-" +
                           attr.name.toLowerCase().replaceAll(" ", "-") +
                           "-" +
@@ -143,30 +149,23 @@ export class ProductInfo extends Component {
             </React.Fragment>
           ))}
         </ProductInfoLeftContainer>
-        <ProductInfoRightContainer cartPage={!!this.props.cartPage}>
-          <QuantityContainer cartPage={!!this.props.cartPage}>
+        <ProductInfoRightContainer cartPage={!!cartPage}>
+          <QuantityContainer cartPage={!!cartPage}>
             <QuantityButton
-              cartPage={!!this.props.cartPage}
+              cartPage={!!cartPage}
               onClick={(e) => {
                 e.preventDefault();
-                this.props.increaseCartQuantity(
-                  this.props.id,
-                  this.props.variant
-                );
+                increaseCartQuantity(id, variant);
               }}
             >
               +
             </QuantityButton>
-            <QuantityNumber cartPage={!!this.props.cartPage}>
-              {this.props.quantity}
-            </QuantityNumber>
+            <QuantityNumber cartPage={!!cartPage}>{quantity}</QuantityNumber>
             <QuantityButton
-              cartPage={!!this.props.cartPage}
+              cartPage={!!cartPage}
               onClick={(e) => {
-                this.props.decreaseCartQuantity(
-                  this.props.id,
-                  this.props.variant
-                );
+                e.preventDefault();
+                decreaseCartQuantity(id, variant);
               }}
             >
               &#8212;
@@ -174,15 +173,19 @@ export class ProductInfo extends Component {
           </QuantityContainer>
           <ProductImageContainer>
             <ProductImagePreview
-              cartPage={!!this.props.cartPage}
+              cartPage={!!cartPage}
               src={this.state.displayImage}
             />
-            {!!this.props.cartPage && this.props.gallery.length > 1 && (
+            {!!cartPage && gallery.length > 1 && (
               <>
                 <ImageArrow right onClick={(e) => this.handleImage(e, true)}>
                   <img src={ChevronRight} alt="Right arrow button" />
                 </ImageArrow>
-                <ImageArrow onClick={(e) => this.handleImage(e, false)}>
+                <ImageArrow
+                  onClick={(e) => {
+                    this.handleImage(e, false);
+                  }}
+                >
                   <img src={ChevronLeft} alt="Left arrow button" />
                 </ImageArrow>
               </>

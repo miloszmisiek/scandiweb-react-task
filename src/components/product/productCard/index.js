@@ -9,7 +9,7 @@ import {
   ProductCardPrice,
   ProductTitleBrand,
 } from "./style";
-import cart from "../../../assets/logo/add-cart-button.svg";
+import cart from "../../../assets/icons/add-cart-button.svg";
 import { withRouter } from "react-router-dom";
 
 export class ProductCard extends Component {
@@ -22,26 +22,30 @@ export class ProductCard extends Component {
   }
 
   componentDidMount() {
+    const { product, currency } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      displayCurrency: this.props.product.prices.filter(
-        (price) => price.currency.symbol === this.props.currency.symbol
+      displayCurrency: product.prices.filter(
+        (price) => price.currency.symbol === currency.symbol
       )[0],
     }));
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    const { product, currency } = this.props;
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
-        displayCurrency: this.props.product.prices.filter(
-          (price) => price.currency.symbol === this.props.currency.symbol
+        displayCurrency: product.prices.filter(
+          (price) => price.currency.symbol === currency.symbol
         )[0],
       }));
     }
   }
 
   render() {
+    const { product, currency, history, increaseCartQuantity, category } = this.props;
+    const { id, gallery, name, brand, inStock, attributes, prices } = product;
     return (
       <ProductCardContainer
         onMouseEnter={() =>
@@ -53,44 +57,38 @@ export class ProductCard extends Component {
         onClick={(e) =>
           e.target.id !== "add-cart-button" &&
           e.target.id !== "cart-icon" &&
-          this.props.history.push(
-            `/${
-              this.props.category.name
-            }/${this.props.currency.code.toLowerCase()}/${
-              this.props.product.id
-            }`
-          )
+          history.push(`/${category.name}/${currency.code.toLowerCase()}/${id}`)
         }
       >
-        {!this.props.product.inStock && <OutOfStock>out of stock</OutOfStock>}
-        <ImagePreview src={this.props.product.gallery[0]} />
+        {!inStock && <OutOfStock>out of stock</OutOfStock>}
+        <ImagePreview src={gallery[0]} />
         <ProductCardData>
           <ProductTitleBrand>
-            {this.props.product.brand} {this.props.product.name}
+            {brand} {name}
           </ProductTitleBrand>
           <ProductCardPrice>
             <span>{this.state.displayCurrency.currency?.symbol}</span>
             {this.state.displayCurrency.amount}
           </ProductCardPrice>
         </ProductCardData>
-        {this.state.addCartVisibile && this.props.product.inStock && (
+        {this.state.addCartVisibile && inStock && (
           <AddToCartButton
             id="add-cart-button"
             onClick={() =>
-              this.props.increaseCartQuantity(
-                this.props.product.id,
-                this.props.product.attributes.map((item) => ({
+              increaseCartQuantity(
+                id,
+                attributes.map((item) => ({
                   name: item.name,
                   value:
                     item.items[0].type === "swatch"
                       ? item.items[0].displayValue
                       : item.items[0].value,
                 })),
-                this.props.product.prices,
-                this.props.product.attributes,
-                this.props.product.gallery,
-                this.props.product.brand,
-                this.props.product.name
+                prices,
+                attributes,
+                gallery,
+                brand,
+                name
               )
             }
           >

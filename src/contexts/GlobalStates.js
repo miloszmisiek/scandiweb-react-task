@@ -25,11 +25,10 @@ class GlobalStates extends Component {
   };
 
   componentDidMount() {
+    const { location } = this.props;
     client.query({ query: getCurrencies }).then((result) => {
       const newCurrency = result.data.currencies.filter(
-        (curr) =>
-          curr.label ===
-          this.props.location.pathname.split("/")[2]?.toUpperCase()
+        (curr) => curr.label === location.pathname.split("/")[2]?.toUpperCase()
       );
       this.setState((prevState) => ({
         ...prevState,
@@ -51,9 +50,10 @@ class GlobalStates extends Component {
   };
 
   render() {
+    const { children } = this.props;
     return (
       <GlobalStatesContext.Provider value={this.state}>
-        {this.props.children}
+        {children}
       </GlobalStatesContext.Provider>
     );
   }

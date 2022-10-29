@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Dropdown from "./dropdownMenu";
 import { Currency, CurrencyChoice } from "./style";
-import chevronDown from "../../assets/logo/vector.svg";
-import chevronUp from "../../assets/logo/chevron-up.svg";
+import chevronDown from "../../assets/icons/vector.svg";
+import chevronUp from "../../assets/icons/chevron-up.svg";
 import { withRouter } from "react-router";
 
 export class CurrencyConverter extends Component {
@@ -18,21 +18,23 @@ export class CurrencyConverter extends Component {
   }
 
   componentDidMount() {
+    const { currency } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      currencies: this.props.currency.allCurrencies,
-      currencyDisplay: this.props.currency.symbol,
-      currencyCode: this.props.currency.code,
+      currencies: currency.allCurrencies,
+      currencyDisplay: currency.symbol,
+      currencyCode: currency.code,
     }));
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    const { currency } = this.props;
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
-        currencies: this.props.currency.allCurrencies,
-        currencyDisplay: this.props.currency.symbol,
-        currencyCode: this.props.currency.code,
+        currencies: currency.allCurrencies,
+        currencyDisplay: currency.symbol,
+        currencyCode: currency.code,
       }));
     }
   }
@@ -52,6 +54,7 @@ export class CurrencyConverter extends Component {
   }
 
   handleCurrencyClick = (e) => {
+    const { setCurrency, location, history } = this.props;
     this.setState(
       (prevState) => ({
         ...prevState,
@@ -59,30 +62,30 @@ export class CurrencyConverter extends Component {
         currencyCode: e.target.dataset.label,
       }),
       () => {
-        this.props.setCurrency(
-          this.state.currencyDisplay,
-          this.state.currencyCode
-        );
-        !!this.props.location.pathname.split("/")[1] &&
-          this.props.history.push(
-            `/${this.props.location.pathname.split("/")[1]}/${
-              this.state.currencyCode.toLowerCase()
-            }`
+        setCurrency(this.state.currencyDisplay, this.state.currencyCode);
+        !!location.pathname.split("/")[1] &&
+          history.push(
+            `/${
+              location.pathname.split("/")[1]
+            }/${this.state.currencyCode.toLowerCase()}`
           );
-        !!this.props.location.pathname.split("/")[3] &&
-          this.props.history.push(
-            `/${this.props.location.pathname.split("/")[1]}/${
-              this.state.currencyCode.toLowerCase()
-            }/${this.props.location.pathname.split("/")[3]}`
+        !!location.pathname.split("/")[3] &&
+          history.push(
+            `/${
+              location.pathname.split("/")[1]
+            }/${this.state.currencyCode.toLowerCase()}/${
+              location.pathname.split("/")[3]
+            }`
           );
       }
     );
   };
 
   render() {
+    const { children } = this.props;
     return (
       <Currency id="toggle" onClick={(e) => this.handleClick(e)}>
-        {this.props.children}
+        {children}
         {this.state.currencyDisplay}
         <img
           src={this.state.isExpanded ? chevronUp : chevronDown}

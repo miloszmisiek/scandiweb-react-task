@@ -8,7 +8,6 @@ import {
   PPIPrice,
   PPIPriceContainer,
   PPIPriceTitle,
-  PPISizeInput,
   PPISizeOption,
   PPISizeOptionsContainer,
   PPISizeTitle,
@@ -18,6 +17,7 @@ import {
 } from "./style";
 import parse from "html-react-parser";
 import { ImageContainer, OutOfStock } from "../productCard/style";
+import { SizeOptionInput } from "../productInfo/style";
 
 export class ProductPageInfo extends Component {
   constructor(props) {
@@ -29,12 +29,13 @@ export class ProductPageInfo extends Component {
   }
 
   componentDidMount() {
+    const { prices, currency, attributes } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      displayCurrency: this.props.prices.filter(
-        (price) => price.currency.symbol === this.props.currency.symbol
+      displayCurrency: prices.filter(
+        (price) => price.currency.symbol === currency.symbol
       )[0],
-      selected: this.props.attributes.map((item) => ({
+      selected: attributes.map((item) => ({
         name: item.name,
         value:
           item.items[0].type === "swatch"
@@ -45,45 +46,57 @@ export class ProductPageInfo extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    const { prices, currency } = this.props;
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
-        displayCurrency: this.props.prices.filter(
-          (price) => price.currency.symbol === this.props.currency.symbol
+        displayCurrency: prices.filter(
+          (price) => price.currency.symbol === currency.symbol
         )[0],
       }));
     }
   }
 
   handleSubmit(e) {
+    const {
+      increaseCartQuantity,
+      id,
+      selected,
+      prices,
+      attributes,
+      gallery,
+      brand,
+      name,
+    } = this.props;
     e.preventDefault();
-    this.props.increaseCartQuantity(
-      this.props.id,
-      this.state.selected,
-      this.props.prices,
-      this.props.attributes,
-      this.props.gallery,
-      this.props.brand,
-      this.props.name
+    increaseCartQuantity(
+      id,
+      selected,
+      prices,
+      attributes,
+      gallery,
+      brand,
+      name
     );
   }
 
   render() {
+    const { brand, name, attributes, inStock, description } = this.props;
     return (
       <PPIContainer>
         <PPIContainer as="form" onSubmit={(e) => this.handleSubmit(e)}>
           <ProductTitleContainer>
-            <ProductBrand>{this.props.brand}</ProductBrand>
-            <ProductName>{this.props.name}</ProductName>
+            <ProductBrand>{brand}</ProductBrand>
+            <ProductName>{name}</ProductName>
           </ProductTitleContainer>
 
-          {this.props.attributes.map((attr, idx) => (
+          {attributes.map((attr, idx) => (
             <PPIAttribiutesSet key={idx} mt={idx !== 0}>
               <PPISizeTitle>{attr.name}:</PPISizeTitle>
               <PPISizeOptionsContainer>
                 {attr.items.map((item, idx) => (
                   <React.Fragment key={item.displayValue}>
-                    <PPISizeInput
+                    <SizeOptionInput
                       type="radio"
                       checked={
                         this.state.selected.find(
@@ -147,12 +160,12 @@ export class ProductPageInfo extends Component {
             </PPIPrice>
           </PPIPriceContainer>
           <ImageContainer>
-            <PPIAddToCart type="submit" inStock={this.props.inStock} checkout>
+            <PPIAddToCart type="submit" inStock={inStock} checkout>
               add to cart
             </PPIAddToCart>
-            {!this.props.inStock && <OutOfStock />}
+            {!inStock && <OutOfStock />}
           </ImageContainer>
-          <PPIDescription>{parse(this.props.description)}</PPIDescription>
+          <PPIDescription>{parse(description)}</PPIDescription>
         </PPIContainer>
       </PPIContainer>
     );

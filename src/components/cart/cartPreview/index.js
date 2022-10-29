@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   AmountContainer,
   Basket,
-  CartIcon,
+  CartButton,
   CartItemsCounter,
   CartPrevButton,
   CartPrevButtons,
@@ -13,7 +13,7 @@ import {
   TotalText,
   TotalValue,
 } from "./style";
-import cart from "../../../assets/logo/cart-logo.svg";
+import cart from "../../../assets/icons/cart-logo.svg";
 import Dropdown from "../../currencyConverter/dropdownMenu";
 import ProductInfo from "../../product/productInfo";
 import { roundNumber } from "../../../utils/utils";
@@ -31,16 +31,17 @@ export class CartPreview extends Component {
   }
 
   componentDidMount() {
+    const { cartItems, currency } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      cartItemsCount: this.props.cartItems
+      cartItemsCount: cartItems
         ?.map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0),
       total: roundNumber(
-        this.props.cartItems
+        cartItems
           .map((item) => ({
             prices: item.prices?.filter(
-              (price) => price.currency.symbol === this.props.currency.symbol
+              (price) => price.currency.symbol === currency.symbol
             )[0],
             quantity: item.quantity,
           }))
@@ -53,17 +54,18 @@ export class CartPreview extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.cartItems !== prevProps.cartItems) {
+    const { cartItems, currency } = this.props;
+    if (cartItems !== prevProps.cartItems) {
       this.setState((prevState) => ({
         ...prevState,
-        cartItemsCount: this.props.cartItems
+        cartItemsCount: cartItems
           ?.map((item) => item.quantity)
           .reduce((prev, curr) => prev + curr, 0),
         total: roundNumber(
-          this.props.cartItems
+          cartItems
             .map((item) => ({
               prices: item.prices?.filter(
-                (price) => price.currency.symbol === this.props.currency.symbol
+                (price) => price.currency.symbol === currency.symbol
               )[0],
               quantity: item.quantity,
             }))
@@ -75,14 +77,14 @@ export class CartPreview extends Component {
         ),
       }));
     }
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
         total: roundNumber(
-          this.props.cartItems
+          cartItems
             .map((item) => ({
               prices: item.prices?.filter(
-                (price) => price.currency.symbol === this.props.currency.symbol
+                (price) => price.currency.symbol === currency.symbol
               )[0],
               quantity: item.quantity,
             }))
@@ -112,12 +114,13 @@ export class CartPreview extends Component {
   }
 
   handleSubmit(e) {
+    const { cartItems, currency } = this.props;
     e.preventDefault();
     const cleanCart = {};
-    cleanCart["products"] = this.props.cartItems
+    cleanCart["products"] = cartItems
       .map(({ prices, attributes, gallery, ...r }) => {
         const { amount, currency } = prices.find(
-          (price) => price.currency.symbol === this.props.currency.symbol
+          (price) => price.currency.symbol === currency.symbol
         );
         const { symbol } = currency;
 
@@ -133,29 +136,32 @@ export class CartPreview extends Component {
         return group;
       }, {});
     cleanCart["total_amount"] = this.state.total;
-    cleanCart["total_amount_currency"] = this.props.currency.code;
-    console.log(cleanCart);
+    cleanCart["total_amount_currency"] = currency.code;
+    Object.keys(cleanCart.products).length
+      ? console.log(cleanCart)
+      : console.log("No products = no shopping ;)");
   }
 
   render() {
+    const { cartItems, currency, stateHandler, history } = this.props;
     return (
       <Basket onSubmit={(e) => this.handleSubmit(e)}>
-        {!!this.props.cartItems?.length && (
+        {!!cartItems?.length && (
           <CartItemsCounter>{this.state.cartItemsCount}</CartItemsCounter>
         )}
-        <CartIcon
-          id="basketToggle"
-          onClick={(event) => {
-            this.handleClick(event);
-            this.props.stateHandler();
+        <CartButton
+          onClick={(e) => {
+            e.preventDefault();
+            this.handleClick(e);
+            stateHandler();
           }}
-          src={cart}
-          alt="Cart icon"
-        />
+        >
+          <img id="basketToggle" src={cart} alt="Cart icon" />
+        </CartButton>
         {this.state.isExpanded && (
           <Dropdown
             stateHandler={this.handleExpanded}
-            overlayHandler={this.props.stateHandler}
+            overlayHandler={stateHandler}
             cart
           >
             <CartPrevTitle>
@@ -167,7 +173,7 @@ export class CartPreview extends Component {
             </CartPrevTitle>
             <ProductsContainer>
               {Object.values(
-                this.props.cartItems
+                cartItems
                   .map((item, idx) => (
                     <ProductInfo
                       key={item.id + "__" + idx}
@@ -189,7 +195,7 @@ export class CartPreview extends Component {
               <TotalText>Total</TotalText>
               <AmountContainer>
                 <span>
-                  <TotalValue currency>{this.props.currency.symbol}</TotalValue>
+                  <TotalValue currency>{currency.symbol}</TotalValue>
                   <TotalValue>{this.state.total}</TotalValue>
                 </span>
               </AmountContainer>
@@ -198,10 +204,8 @@ export class CartPreview extends Component {
               <CartPrevButton
                 onClick={() => {
                   this.handleClick();
-                  this.props.stateHandler();
-                  this.props.history.push(
-                    `/cart/${this.props.currency.code.toLowerCase()}`
-                  );
+                  stateHandler();
+                  history.push(`/cart/${currency.code.toLowerCase()}`);
                 }}
               >
                 VIEW BAG

@@ -6,7 +6,6 @@ import {
   CartItemsContainer,
   CartPageDivider,
   CartSummaryContainer,
-  CartSummaryElement,
   CartSummaryElements,
   CartSummaryRow,
   OrderButton,
@@ -22,16 +21,17 @@ export class CartPage extends Component {
   }
 
   componentDidMount() {
+    const { cartItems, currency } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      cartItemsCount: this.props.cartItems
+      cartItemsCount: cartItems
         ?.map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0),
       total: roundNumber(
-        this.props.cartItems
+        cartItems
           .map((item) => ({
             prices: item.prices?.filter(
-              (price) => price.currency.symbol === this.props.currency.symbol
+              (price) => price.currency.symbol === currency.symbol
             )[0],
             quantity: item.quantity,
           }))
@@ -44,17 +44,18 @@ export class CartPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.cartItems !== prevProps.cartItems) {
+    const { cartItems, currency } = this.props;
+    if (cartItems !== prevProps.cartItems) {
       this.setState((prevState) => ({
         ...prevState,
-        cartItemsCount: this.props.cartItems
+        cartItemsCount: cartItems
           ?.map((item) => item.quantity)
           .reduce((prev, curr) => prev + curr, 0),
         total: roundNumber(
-          this.props.cartItems
+          cartItems
             .map((item) => ({
               prices: item.prices?.filter(
-                (price) => price.currency.symbol === this.props.currency.symbol
+                (price) => price.currency.symbol === currency.symbol
               )[0],
               quantity: item.quantity,
             }))
@@ -66,14 +67,14 @@ export class CartPage extends Component {
         ),
       }));
     }
-    if (this.props.currency.symbol !== prevProps.currency.symbol) {
+    if (currency.symbol !== prevProps.currency.symbol) {
       this.setState((prevState) => ({
         ...prevState,
         total: roundNumber(
-          this.props.cartItems
+          cartItems
             .map((item) => ({
               prices: item.prices?.filter(
-                (price) => price.currency.symbol === this.props.currency.symbol
+                (price) => price.currency.symbol === currency.symbol
               )[0],
               quantity: item.quantity,
             }))
@@ -88,12 +89,13 @@ export class CartPage extends Component {
   }
 
   handleSubmit(e) {
+    const { cartItems, currency } = this.props;
     e.preventDefault();
     const cleanCart = {};
-    cleanCart["products"] = this.props.cartItems
+    cleanCart["products"] = cartItems
       .map(({ prices, attributes, gallery, ...r }) => {
         const { amount, currency } = prices.find(
-          (price) => price.currency.symbol === this.props.currency.symbol
+          (price) => price.currency.symbol === currency.symbol
         );
         const { symbol } = currency;
 
@@ -109,17 +111,20 @@ export class CartPage extends Component {
         return group;
       }, {});
     cleanCart["total_amount"] = this.state.total;
-    cleanCart["total_amount_currency"] = this.props.currency.code;
-    console.log(cleanCart);
+    cleanCart["total_amount_currency"] = currency.code;
+    Object.keys(cleanCart.products).length
+      ? console.log(cleanCart)
+      : console.log("No products = no shopping ;)");
   }
 
   render() {
+    const { cartItems, currency } = this.props;
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <CartHeading>Cart</CartHeading>
         <CartItemsContainer>
           {Object.values(
-            this.props.cartItems
+            cartItems
               .map((item, idx) => (
                 <React.Fragment key={item.id + "__" + idx}>
                   <CartPageDivider />
@@ -143,22 +148,20 @@ export class CartPage extends Component {
           <CartSummaryContainer>
             <CartSummaryRow>
               <CartSummaryElements left>
-                <CartSummaryElement>Tax 21%:</CartSummaryElement>
-                <CartSummaryElement>Quantity:</CartSummaryElement>
-                <CartSummaryElement>Total:</CartSummaryElement>
+                <div>Tax 21%:</div>
+                <div>Quantity:</div>
+                <div>Total:</div>
               </CartSummaryElements>
               <CartSummaryElements>
-                <CartSummaryElement>
-                  {this.props.currency.symbol}
+                <div>
+                  {currency.symbol}
                   {roundNumber(this.state.total * 0.21)}
-                </CartSummaryElement>
-                <CartSummaryElement>
-                  {this.state.cartItemsCount}
-                </CartSummaryElement>
-                <CartSummaryElement>
-                  {this.props.currency.symbol}
+                </div>
+                <div>{this.state.cartItemsCount}</div>
+                <div>
+                  {currency.symbol}
                   {this.state.total}
-                </CartSummaryElement>
+                </div>
               </CartSummaryElements>
             </CartSummaryRow>
             <OrderButton checkout>order</OrderButton>

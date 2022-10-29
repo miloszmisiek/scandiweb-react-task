@@ -4,8 +4,6 @@ export const Basket = styled.form`
   display: flex;
   font-size: 1.5rem;
   border: none;
-  background: transparent;
-  cursor: pointer;
   padding: 0;
 `;
 
@@ -21,7 +19,6 @@ export const CartItemsCounter = styled.div`
   font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0em;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -31,8 +28,10 @@ export const CartItemsCounter = styled.div`
   pointer-events: none;
 `;
 
-export const CartIcon = styled.img`
-  /* position: relative; */
+export const CartButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
 
 export const CartPrevTitle = styled.div`

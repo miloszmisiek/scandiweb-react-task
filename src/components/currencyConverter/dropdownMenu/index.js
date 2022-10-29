@@ -17,17 +17,19 @@ export class Dropdown extends Component {
   }
 
   handleClickOutside(event) {
+    const { stateHandler, overlayHandler } = this.props;
     if (this.myRef && !this.myRef.current.contains(event.target)) {
-      this.props.stateHandler(event);
-      !!this.props.overlayHandler &&
+      stateHandler(event);
+      !!overlayHandler &&
         event.target.id !== "basketToggle" &&
-        this.props.overlayHandler(event);
+        overlayHandler(event);
     }
   }
   render() {
+    const { cart, children } = this.props;
     return (
-      <DropdownMenu ref={this.myRef} cart={this.props.cart}>
-        {this.props.children}
+      <DropdownMenu ref={this.myRef} cart={cart}>
+        {children}
       </DropdownMenu>
     );
   }

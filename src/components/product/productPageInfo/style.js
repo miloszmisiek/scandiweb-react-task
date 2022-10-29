@@ -4,7 +4,6 @@ import {
   Price,
   SizeChartContainer,
   SizeOption,
-  SizeOptionInput,
   SizeOptionsContainer,
   SizeTitle,
 } from "../productInfo/style";
@@ -13,7 +12,6 @@ export const PPIContainer = styled.div`
   font-family: "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
-  /* width: 100%; */
   min-width: 292px;
   height: 100%;
 
@@ -42,7 +40,6 @@ export const ProductBrand = styled.h3`
   font-size: 1.88rem;
   font-weight: 600;
   line-height: 27px;
-  letter-spacing: 0em;
   text-align: left;
 
   @media (max-width: 860px) {
@@ -70,7 +67,6 @@ export const PPISizeTitle = styled(SizeTitle)`
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.125rem;
-  letter-spacing: 0em;
   text-transform: uppercase;
 
   @media (max-width: 860px) {
@@ -92,8 +88,6 @@ export const PPISizeOption = styled(SizeOption)`
   cursor: pointer;
   font-size: 1rem;
 `;
-
-export const PPISizeInput = styled(SizeOptionInput)``;
 
 export const ColorBox = styled.div`
   outline: ${(props) =>
@@ -123,7 +117,6 @@ export const PPIPrice = styled(Price)`
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.125rem;
-  letter-spacing: 0em;
   text-align: left;
   padding: 0;
   min-height: 2.875rem;
@@ -151,7 +144,6 @@ export const PPIDescription = styled.div`
   font-size: 1rem !important;
   font-weight: 400 !important;
   line-height: 1.625rem;
-  letter-spacing: 0em;
   text-align: left;
   max-width: 292px;
   margin: 2.5rem 0 0;

@@ -47,8 +47,6 @@ export const CartSummaryElements = styled.div`
   gap: 0.5rem;
 `;
 
-export const CartSummaryElement = styled.div``;
-
 export const OrderButton = styled(CartPrevButton)`
   width: auto;
   min-width: inherit;

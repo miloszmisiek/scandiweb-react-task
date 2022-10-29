@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+
+import GlobalCSS from "./global.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
@@ -17,6 +18,7 @@ root.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <ShoppingCartProvider>
+        <GlobalCSS />
         <App />
       </ShoppingCartProvider>
     </BrowserRouter>
