@@ -20,6 +20,9 @@ The data is fetched from the GraphQL endpoint and provides an interface to view 
 
 The project is built following design and functionality principles from [this link](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1).
 
+To run this project the API endpoint is required. For this project the provided endpoint is [here](https://github.com/scandiweb/junior-react-endpoint). 
+The project uses localhost to fetch data - the backend is not deployed to any PAS.
+
 The outcome is not pixel-perfect to the provided design, but there are no noticeable mismatches both in terms of design and functionality (in the developer's opinion :wink:).
 
 Functionality in scale, as in a real-life project:
