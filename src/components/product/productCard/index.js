@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   AddToCartButton,
   CartIcon,
-  ImageContainer,
   ImagePreview,
   OutOfStock,
   ProductCardContainer,

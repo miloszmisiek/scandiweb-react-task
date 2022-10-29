@@ -86,7 +86,7 @@ export class ProductPageInfo extends Component {
                     <PPISizeInput
                       type="radio"
                       checked={
-                        !!this.state.selected.find(
+                        this.state.selected.find(
                           (obj) => obj.name === attr.name
                         )
                           ? item.value ===
@@ -111,14 +111,14 @@ export class ProductPageInfo extends Component {
                               (item) => item.name === attr.name
                             ) == null
                               ? [
-                                  ...prev.selected,
-                                  { name: attr.name, value: item.value },
-                                ]
+                                ...prev.selected,
+                                { name: attr.name, value: item.value },
+                              ]
                               : prev.selected.map((i) =>
-                                  i.name === attr.name
-                                    ? { ...i, value: item.value }
-                                    : i
-                                ),
+                                i.name === attr.name
+                                  ? { ...i, value: item.value }
+                                  : i
+                              ),
                         }))
                       }
                     />

@@ -84,39 +84,39 @@ export const SizeOption = styled.label`
   border: 1px solid black;
   padding: ${(props) => (props.swatch ? "0.1rem" : "0 0.2rem")};
   width: ${(props) =>
-    !!props.swatch
+    props.swatch
       ? props.cartPreview
         ? "1.25rem"
         : props.cartPage
-        ? "2rem"
-        : undefined
+          ? "2rem"
+          : undefined
       : "fit-content"};
   height: ${(props) =>
-    !!props.swatch
+    props.swatch
       ? props.cartPreview
         ? "1.25rem"
         : props.cartPage
-        ? "2rem"
-        : "1.5rem"
+          ? "2rem"
+          : "1.5rem"
       : undefined};
   min-width: ${(props) =>
     props.cartPreview
-      ? !!props.swatch
+      ? props.swatch
         ? undefined
         : "1.5rem"
       : props.cartPage
-      ? !!props.swatch
-        ? undefined
-        : "63px"
-      : "2rem"};
+        ? props.swatch
+          ? undefined
+          : "63px"
+        : "2rem"};
   min-height: ${(props) =>
     props.cartPreview
       ? undefined
       : props.cartPage
-      ? !!props.swatch
-        ? undefined
-        : "45px"
-      : "2rem"};
+        ? props.swatch
+          ? undefined
+          : "45px"
+        : "2rem"};
   font-size: ${(props) => (props.cartPage ? "1rem" : "0.88rem")};
   text-align: center;
   display: flex;

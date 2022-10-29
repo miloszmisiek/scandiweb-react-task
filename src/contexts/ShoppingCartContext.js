@@ -1,4 +1,4 @@
-import { Component, createContext } from "react";
+import React, { Component, createContext } from "react";
 
 export const ShoppingCartContext = createContext({
   cartItems: [],
@@ -8,9 +8,6 @@ export const ShoppingCartContext = createContext({
 });
 
 class ShoppingCartProvider extends Component {
-
-
-
   increaseCartQuantity = (
     id,
     selected,
@@ -42,20 +39,20 @@ class ShoppingCartProvider extends Component {
             )
             .some((elem) => !!elem))
           ? [
-              ...prevState.cartItems,
-              {
-                id: id,
-                quantity: 1,
-                variant: selected,
-                prices: prices,
-                attributes: attributes,
-                gallery: gallery,
-                brand: brand,
-                name: name,
-              },
-            ]
+            ...prevState.cartItems,
+            {
+              id: id,
+              quantity: 1,
+              variant: selected,
+              prices: prices,
+              attributes: attributes,
+              gallery: gallery,
+              brand: brand,
+              name: name,
+            },
+          ]
           : prevState.cartItems.map((item) =>
-              item.id === id &&
+            item.id === id &&
               item.variant
                 .map(
                   (attr) =>
@@ -64,10 +61,10 @@ class ShoppingCartProvider extends Component {
                         sel.name === attr.name && sel.value === attr.value
                     ) !== undefined
                 )
-                .reduce((acc, curr) => (acc && curr), true)
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            ),
+                .reduce((acc, curr) => acc && curr, true)
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
     }));
   };
 
@@ -85,11 +82,11 @@ class ShoppingCartProvider extends Component {
                     (sel) => sel.name === attr.name && sel.value === attr.value
                   )
               )
-              .reduce((acc, curr) => (acc && curr), true)
+              .reduce((acc, curr) => acc && curr, true)
           )?.quantity === 1
           ? this.state.cartItems.filter(
-              (item) =>
-                item.id !== id ||
+            (item) =>
+              item.id !== id ||
                 (item.id === id &&
                   !item.variant
                     .map(
@@ -99,10 +96,10 @@ class ShoppingCartProvider extends Component {
                             sel.name === attr.name && sel.value === attr.value
                         )
                     )
-                    .reduce((acc, curr) => (acc && curr), true))
-            )
+                    .reduce((acc, curr) => acc && curr, true))
+          )
           : prevState.cartItems.map((item) =>
-              item.id === id &&
+            item.id === id &&
               item.variant
                 .map(
                   (attr) =>
@@ -111,10 +108,10 @@ class ShoppingCartProvider extends Component {
                         sel.name === attr.name && sel.value === attr.value
                     ) !== undefined
                 )
-                .reduce((acc, curr) => (acc && curr), true)
-                ? { ...item, quantity: item.quantity - 1 }
-                : item
-            ),
+                .reduce((acc, curr) => acc && curr, true)
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          ),
     }));
   };
 

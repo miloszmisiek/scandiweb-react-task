@@ -180,10 +180,10 @@ export class ProductInfo extends Component {
             {!!this.props.cartPage && this.props.gallery.length > 1 && (
               <>
                 <ImageArrow right onClick={(e) => this.handleImage(e, true)}>
-                  <img src={ChevronRight}></img>
+                  <img src={ChevronRight} alt="Right arrow button" />
                 </ImageArrow>
                 <ImageArrow onClick={(e) => this.handleImage(e, false)}>
-                  <img src={ChevronLeft}></img>
+                  <img src={ChevronLeft} alt="Left arrow button" />
                 </ImageArrow>
               </>
             )}

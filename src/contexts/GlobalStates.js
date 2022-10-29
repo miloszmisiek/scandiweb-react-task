@@ -35,10 +35,10 @@ class GlobalStates extends Component {
         ...prevState,
         currency: {
           allCurrencies: result?.data.currencies,
-          symbol: !!newCurrency.length
+          symbol: newCurrency.length
             ? newCurrency[0].symbol
             : result.data.currencies[0].symbol,
-          code: !!newCurrency.length
+          code: newCurrency.length
             ? newCurrency[0]?.label
             : result.data.currencies[0].label,
         },
